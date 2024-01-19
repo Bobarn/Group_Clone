@@ -1,8 +1,8 @@
-"""Creating cart, products, reviews, users,  and favorited items tables
+"""Created users, cart, product, reviews, and favorites tables
 
-Revision ID: 3d2d1cf8de29
+Revision ID: 486b15a7b949
 Revises: 
-Create Date: 2024-01-19 11:11:20.728211
+Create Date: 2024-01-19 14:26:02.526502
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '3d2d1cf8de29'
+revision = '486b15a7b949'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -58,6 +58,7 @@ def upgrade():
     )
     op.create_table('product_images',
     sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('url', sa.String(length=255), nullable=False),
     sa.Column('productId', sa.Integer(), nullable=False),
     sa.Column('preview', sa.Boolean(), nullable=True),
     sa.ForeignKeyConstraint(['productId'], ['products.id'], ),
