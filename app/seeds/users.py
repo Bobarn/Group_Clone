@@ -1,7 +1,8 @@
 from app.models import db, User, environment, SCHEMA
 from sqlalchemy.sql import text
+from faker import Faker
 
-
+f = Faker(locale='en_US')
 # Adds a demo user, you can add other users here if you want
 def seed_users():
     demo = User(
@@ -14,6 +15,19 @@ def seed_users():
     db.session.add(demo)
     db.session.add(marnie)
     db.session.add(bobbie)
+    newUsers = []
+
+    for i in range(7):
+        newUser = User(
+            username=f.user_name(),
+            first_name=f.first_name(),
+            last_name=f.last_name(),
+            email=f.email(),
+            password=f.password()
+        )
+        newUsers.append(newUser)
+    db.session.add_all(newUsers)
+
     db.session.commit()
 
 
