@@ -15,5 +15,5 @@ class ShoppingCartItem(db.Model):
     productId = db.Column(db.Integer, db.ForeignKey('products.id'), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.now)
 
-    cart = db.relationship("Cart", back_populates="products")
+    cart = db.relationship("Cart", back_populates="products", )
     product = db.relationship("Product", back_populates="buying")

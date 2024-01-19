@@ -1,8 +1,8 @@
 """Created users, cart, product, reviews, and favorites tables
 
-Revision ID: 486b15a7b949
+Revision ID: cb567421d274
 Revises: 
-Create Date: 2024-01-19 14:26:02.526502
+Create Date: 2024-01-19 15:14:53.517373
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '486b15a7b949'
+revision = 'cb567421d274'
 down_revision = None
 branch_labels = None
 depends_on = None

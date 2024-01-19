@@ -17,10 +17,10 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
 
-    products = db.relationship("Product", back_populates="seller")
+    products = db.relationship("Product", back_populates="seller", cascade='all, delete-orphan')
     favorites = db.relationship("Product", secondary=favorited_items, back_populates="users")
-    cart = db.relationship("Cart", back_populates="buyer")
-    reviews = db.relationship("Review", back_populates="user")
+    cart = db.relationship("Cart", back_populates="buyer", cascade='all, delete-orphan')
+    reviews = db.relationship("Review", back_populates="user", cascade='all, delete-orphan')
 
     @property
     def password(self):

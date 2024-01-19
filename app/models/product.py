@@ -22,6 +22,6 @@ class Product(db.Model):
 
     seller = db.relationship("User", back_populates="products")
     users = db.relationship("User", secondary=favorited_items, back_populates="favorites")
-    images = db.relationship("ProductImage", back_populates="product")
-    reviews = db.relationship("Review", back_populates="product")
+    images = db.relationship("ProductImage", back_populates="product", cascade='all, delete-orphan')
+    reviews = db.relationship("Review", back_populates="product", cascade='all, delete-orphan')
     buying = db.relationship("ShoppingCartItem", back_populates="product")

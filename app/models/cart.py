@@ -10,4 +10,4 @@ class Cart(db.Model):
     buyer_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
     buyer = db.relationship("User", back_populates="cart")
-    products = db.relationship("ShoppingCartItem",back_populates="cart")
+    products = db.relationship("ShoppingCartItem",back_populates="cart", cascade='all, delete-orphan')
