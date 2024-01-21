@@ -2,16 +2,16 @@ from flask import Blueprint, request, jsonify
 from flask_login import current_user, login_required
 from app.models import db, Product
 
-product_routes = Blueprint("products",__name__,url_prefix='/products')
+product_routes = Blueprint("products",__name__)
 
 #get all products
 @product_routes.route('/all')
 def get_all_products():
     # we want all products regardless of category but maybe sort them based on category?
-    products = Product.query.order_by(Product.category).all()
+    products = Product.query.all()
     list_dict_products = [product.to_dict() for product in products]
     print(list_dict_products)
-    return {"products":list_dict_products}
+    return jsonify({"products":list_dict_products})
 
 #get product description
 @product_routes.route('/<int:id>')
