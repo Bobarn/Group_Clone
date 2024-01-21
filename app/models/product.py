@@ -25,3 +25,24 @@ class Product(db.Model):
     images = db.relationship("ProductImage", back_populates="product", cascade='all, delete-orphan')
     reviews = db.relationship("Review", back_populates="product", cascade='all, delete-orphan')
     buying = db.relationship("ShoppingCartItem", back_populates="product")
+
+    def to_dict(self):
+
+        reviews_length = len(self.reviews)
+
+        preview_image = self.images[0]
+
+        product_dict =  {
+            "id": self.id,
+            "seller": self.sellerId,
+            "name": self.name,
+            "description": self.description,
+            "price": self.price,
+            "category": self.category,
+            "free_shipping":self.free_shipping,
+            "reviews":reviews_length,
+            "return_policy":self.return_policy,
+            "shipping_time": self.shipping_time,
+            "preview_image": preview_image.url
+        }
+        return product_dict
