@@ -41,7 +41,7 @@ class Product(db.Model):
 
         product_dict =  {
             "id": self.id,
-            "seller": self.seller,
+            "seller": self.sellerId,
             "name": self.name,
             "description": self.description,
             "price": self.price,
