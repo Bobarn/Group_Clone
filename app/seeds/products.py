@@ -129,6 +129,7 @@ def seed_products():
             description=random.choice(generic_descriptions),
             category="Jewelry",
             created_at=datetime.now(),
+            free_shipping=random.choice([True, False]),
             shipping_time=random.choice([14, 7, 2]),
             return_policy=random.choice(['90 day return', 'Must be unopened and unused', 'No returns']))
         clothes = Product(
@@ -138,6 +139,7 @@ def seed_products():
             description=random.choice(generic_descriptions),
             category="Clothes",
             created_at=datetime.now(),
+            free_shipping=random.choice([True, False]),
             shipping_time=random.choice([14, 7, 2]),
             return_policy=random.choice(['90 day return', 'Must be unopened and unused', 'No returns'])
         )
@@ -149,6 +151,7 @@ def seed_products():
             description=random.choice(generic_descriptions),
             category="Art",
             created_at=datetime.now(),
+            free_shipping=random.choice([True, False]),
             shipping_time=random.choice([14, 7, 2]),
             return_policy=random.choice(['90 day return', 'Must be unopened and unused', 'No returns'])
         )
@@ -160,6 +163,7 @@ def seed_products():
             description=random.choice(generic_descriptions),
             category="Art Supplies",
             created_at=datetime.now(),
+            free_shipping=random.choice([True, False]),
             shipping_time=random.choice([14, 7, 2]),
             return_policy=random.choice(['90 day return', 'Must be unopened and unused', 'No returns'])
         )
@@ -171,6 +175,7 @@ def seed_products():
             description=random.choice(generic_descriptions),
             category="Electronics",
             created_at=datetime.now(),
+            free_shipping=random.choice([True, False]),
             shipping_time=random.choice([14, 7, 2]),
             return_policy=random.choice(['90 day return', 'Must be unopened and unused', 'No returns'])
         )
@@ -182,6 +187,7 @@ def seed_products():
             description=random.choice(generic_descriptions),
             category="Pet Supplies",
             created_at=datetime.now(),
+            free_shipping=random.choice([True, False]),
             shipping_time=random.choice([14, 7, 2]),
             return_policy=random.choice(['90 day return', 'Must be unopened and unused', 'No returns'])
         )
