@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from flask_login import current_user, login_required
-from app.models import db, Product
-from app.forms import ProductForm
+from app.models import db, Product, ProductImage
+from app.forms import ProductForm, ImageForm
 from sqlalchemy import desc
 
 product_routes = Blueprint("products",__name__)
@@ -134,3 +134,42 @@ def delete_specific_product(id):
     db.session.commit()
 
     return {'message': 'Product deleted successfully'}, 200
+
+@app.route("/<int:id>/images",methods=['GET'])
+def product_images(id):
+
+    products = ProductImage.query.filter(productId=id)
+    if not products:
+        return {"message": "No images for that product"}
+    return {"product_images": [product.to_dict() for product in products]}
+
+
+@app.route("/<int:id>/images/new", methods=['POST'] )
+@login_required
+def post_product_images(id):
+    form = ImageForm()
+    form["csrf_token"].data = request.cookies["csrf_token"]
+
+    if form.validate_on_submit():
+
+        url = form.url.data
+
+        new_image = ProductImage(url=url, productId=int(id))
+
+        db.session.add(new_image)
+        db.session.commit()
+
+        return {"product_image": url}
+    return { "post_product_images": form.errors }
+
+@app.route("/images/<int:id>", methods=['DELETE'])
+@login_required
+
+def delete_product_images(id):
+    productImage = ProductImage.query.get(id)
+    if productImage:
+        db.session.delete(productImage)
+        db.session.commit()
+        return {'id' : "Image deleted successfully!"}
+    else:
+        return {'message': "Image does not exist"}, 404

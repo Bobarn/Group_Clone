@@ -12,3 +12,12 @@ class ProductImage(db.Model):
     preview = db.Column(db.Boolean)
 
     product = db.relationship("Product", back_populates="images")
+
+    def to_dict(self):
+
+        return {
+                "id": self.id,
+                "url": self.url,
+                "productId": self.productId,
+                "preview": self.preview
+        }
