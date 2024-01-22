@@ -4,6 +4,6 @@ from .db import environment, SCHEMA
 from .product import Product
 from .product_images import ProductImage
 from .reviews import Review
-from .cart import Cart
-from .shopping_cart_item import ShoppingCartItem
+from .order import Order
+from .order_item import OrderItem
 from .favorited_items import favorited_items
