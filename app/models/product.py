@@ -28,10 +28,10 @@ class Product(db.Model):
 
 
     def to_dict(self):
-
         reviews_length = len(self.reviews)
-
-        preview_image = self.images[0]
+        preview_image = None
+        if self.images:
+            preview_image = self.images[0].url
 
         product_dict =  {
             "id": self.id,
@@ -44,6 +44,6 @@ class Product(db.Model):
             "reviews":reviews_length,
             "return_policy":self.return_policy,
             "shipping_time": self.shipping_time,
-            "preview_image": preview_image.url
+            "preview_image": preview_image
         }
         return product_dict
