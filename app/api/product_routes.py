@@ -135,7 +135,7 @@ def delete_specific_product(id):
 
     return {'message': 'Product deleted successfully'}, 200
 
-@app.route("/<int:id>/images",methods=['GET'])
+@product_routes.route("/<int:id>/images",methods=['GET'])
 def product_images(id):
 
     products = ProductImage.query.filter(productId=id)
@@ -144,7 +144,7 @@ def product_images(id):
     return {"product_images": [product.to_dict() for product in products]}
 
 
-@app.route("/<int:id>/images/new", methods=['POST'] )
+@product_routes.route("/<int:id>/images/new", methods=['POST'] )
 @login_required
 def post_product_images(id):
     form = ImageForm()
@@ -162,7 +162,7 @@ def post_product_images(id):
         return {"product_image": url}
     return { "post_product_images": form.errors }
 
-@app.route("/images/<int:id>", methods=['DELETE'])
+@product_routes.route("/images/<int:id>", methods=['DELETE'])
 @login_required
 
 def delete_product_images(id):

@@ -1,6 +1,6 @@
 from .db import db, SCHEMA, environment
 from datetime import datetime
-from .favorited_items import favorited_items
+from .favorited_items import FavoritedItem
 
 class Product(db.Model):
     __tablename__ = 'products'
@@ -21,7 +21,7 @@ class Product(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
 
     seller = db.relationship("User", back_populates="products")
-    favorited_items = db.relationship("FavoritedItems", back_populates="product", cascade='all, delete-orphan')
+    favorited_items = db.relationship("FavoritedItem", back_populates="product", cascade='all, delete-orphan')
     images = db.relationship("ProductImage", back_populates="product", cascade='all, delete-orphan')
     reviews = db.relationship("Review", back_populates="product", cascade='all, delete-orphan')
     buying = db.relationship("OrderItem", back_populates="product")

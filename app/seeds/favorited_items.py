@@ -17,7 +17,7 @@ def seed_favorites():
 
 def undo_favorites():
     if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.favorited_items RESTART IDENTITY CASCADE;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.favoriteditems RESTART IDENTITY CASCADE;")
     else:
         db.session.execute(text("DELETE FROM favoriteditems"))
 
