@@ -87,7 +87,7 @@ def create_product():
 
 @product_routes.route('/<int:id>', methods=['PUT'])
 @login_required
-def create_product():
+def update_product():
     product = Product.query.get(id)
 
     if product is None:

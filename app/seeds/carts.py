@@ -1,26 +1,26 @@
-from app.models import db, Cart, environment, SCHEMA
+from app.models import db, Order, environment, SCHEMA
 from sqlalchemy.sql import text
 from faker import Faker
 
 f = Faker(locale='en_US')
 
-def seed_carts():
-    allCarts = []
+def seed_orders():
+    allOrders = []
 
     for i in range(1, 11):
-        newCart = Cart(
-            buyer_id=i
+        newOrder = Order(
+            buyer_id=i,
         )
 
-        allCarts.append(newCart)
+        allCarts.append(newOrder)
 
-    db.session.add_all(allCarts)
+    db.session.add_all(allOrders)
     db.session.commit()
 
-def undo_carts():
+def undo_orders():
     if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.carts RESTART IDENTITY CASCADE;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.orders RESTART IDENTITY CASCADE;")
     else:
-        db.session.execute(text("DELETE FROM carts"))
+        db.session.execute(text("DELETE FROM orders"))
 
     db.session.commit()

@@ -24,7 +24,7 @@ class Product(db.Model):
     users = db.relationship("User", secondary=favorited_items, back_populates="favorites")
     images = db.relationship("ProductImage", back_populates="product", cascade='all, delete-orphan')
     reviews = db.relationship("Review", back_populates="product", cascade='all, delete-orphan')
-    buying = db.relationship("ShoppingCartItem", back_populates="product")
+    buying = db.relationship("OrderItem", back_populates="product")
 
 
     def to_dict(self):
