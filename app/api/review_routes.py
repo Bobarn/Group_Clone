@@ -34,11 +34,11 @@ def get_review_product_id(product_id):
 @login_required
 def post_review(product_id):
 
-
     user_id = current_user.id
     # user_id = 3
-
     form = ReviewForm()
+    # form['csrf_token'].data = request.cookies['csrf_token']
+
     if form.validate_on_submit:
         new_review = Review(
             userId = user_id, #login form needs to be updated in order for this to work
@@ -78,7 +78,7 @@ def delete_review(id):
     db.session.delete(review)
     db.session.commit()
 
-    return {"message": "Review deleted successfully"}
+    return {"message": "Review deleted successfully"}, 204
 
 
 
@@ -87,7 +87,7 @@ def delete_review(id):
 
 # UPDATE A REVIEW
 @review_routes.route('/<int:id>', methods=['PUT'])
-# @login_required
+@login_required
 def update_review(id):
     # curr_user = current_user.id
     review = Review.query.get(id)
@@ -95,11 +95,13 @@ def update_review(id):
         return {"message": "Review not found"}, 403
     dict_review = review.to_dict()
     # print("dict review!!!!!", dict_review.id)
-    print('#######', dict_review)
+    # print('#######', dict_review)
     form = ReviewForm()
+    # form['csrf_token'].data = request.cookies['csrf_token']
+
     if form.validate_on_submit:
-        review.reviewText = form.reviewText.data, #or review.reviewText # THIS IS A MAYBE IN CASE WE WANT NO ERRORS
-        review.starRating = form.starRating.data, # or review.starRating # THIS IS A MAYBE IN CASE WE WANT NO ERRORS
+        review.reviewText = form.reviewText.data #or review.reviewText # THIS IS A MAYBE IN CASE WE WANT NO ERRORS
+        review.starRating = form.starRating.data # or review.starRating # THIS IS A MAYBE IN CASE WE WANT NO ERRORS
         review.itemQual = form.itemQual.data or None
         review.shippingQual = form.shippingQual.data or None
         review.serviceQual = form.serviceQual.data or None
@@ -109,6 +111,6 @@ def update_review(id):
 
         updated_review = Review.query.get(id)
         dict_updated_review = updated_review.to_dict()
-        return {"message": "Review successfully updated", "updated_review": dict_updated_review}
+        return {"message": "Review successfully updated", "updated_review": dict_updated_review}, 200
     else:
         return {"message": "Missing Required Data"}, 404
