@@ -12,7 +12,7 @@ def seed_orders():
             buyer_id=i,
         )
 
-        allCarts.append(newOrder)
+        allOrders.append(newOrder)
 
     db.session.add_all(allOrders)
     db.session.commit()

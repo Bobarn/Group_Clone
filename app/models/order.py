@@ -15,7 +15,7 @@ class Order(db.Model):
     order_items = db.relationship("OrderItem",back_populates="order", cascade='all, delete-orphan')
 
     def to_dict(self):
-        prices = [order_item.product.price for order_item in self.order_items]
+        prices = [order_item.product.price * order_item.quantity for order_item in self.order_items]
 
         total = sum(prices)
 
