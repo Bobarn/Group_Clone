@@ -39,7 +39,7 @@ def post_review(product_id):
     form = ReviewForm()
     # form['csrf_token'].data = request.cookies['csrf_token']
 
-    if form.validate_on_submit:
+    if form.validate_on_submit():
         new_review = Review(
             userId = user_id, #login form needs to be updated in order for this to work
             productId = product_id,
@@ -99,7 +99,7 @@ def update_review(id):
     form = ReviewForm()
     # form['csrf_token'].data = request.cookies['csrf_token']
 
-    if form.validate_on_submit:
+    if form.validate_on_submit():
         review.reviewText = form.reviewText.data #or review.reviewText # THIS IS A MAYBE IN CASE WE WANT NO ERRORS
         review.starRating = form.starRating.data # or review.starRating # THIS IS A MAYBE IN CASE WE WANT NO ERRORS
         review.itemQual = form.itemQual.data or None
