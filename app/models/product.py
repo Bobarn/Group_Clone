@@ -21,7 +21,7 @@ class Product(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
 
     seller = db.relationship("User", back_populates="products")
-    users = db.relationship("User", secondary=favorited_items, back_populates="favorites")
+    favorited_items = db.relationship("FavoritedItems", back_populates="product", cascade='all, delete-orphan')
     images = db.relationship("ProductImage", back_populates="product", cascade='all, delete-orphan')
     reviews = db.relationship("Review", back_populates="product", cascade='all, delete-orphan')
     buying = db.relationship("OrderItem", back_populates="product")
