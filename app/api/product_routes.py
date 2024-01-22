@@ -85,6 +85,38 @@ def create_product():
     else:
         return {"errors": form.errors}, 400
 
+@product_routes.route('/<int:id>', methods=['PUT'])
+@login_required
+def create_product():
+    product = Product.query.get(id)
+
+    if product is None:
+        return {'message': "Product doesn't exist"}, 404
+
+    if current_user.id != product.sellerId:
+        return {'message': "You do not have permission to update this product"}, 403
+
+    form = ProductForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        data = form.data
+
+        product.sellerId=current_user.id,
+        product.name=data["name"],
+        product.description=data["description"],
+        product.price=data["price"],
+        product.category=data["category"],
+        product.shipping_time=data["shipping_time"],
+        product.return_policy=data["return_policy"],
+        product.free_shipping=data["free_shipping"]
+
+        db.session.commit()
+
+        return {"product": product.to_dict()}
+    else:
+        return {"errors": form.errors}, 400
+
 #delete a specific product
 @product_routes.route('/<int:id>', methods=['DELETE'])
 @login_required
