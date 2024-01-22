@@ -6,4 +6,4 @@ from .product_images import ProductImage
 from .reviews import Review
 from .order import Order
 from .order_item import OrderItem
-from .favorited_items import favorited_items
+from .favorited_items import FavoritedItem
