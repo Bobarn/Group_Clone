@@ -4,6 +4,7 @@ import SignupFormPage from '../components/SignupFormPage';
 import Layout from './Layout';
 import CreateProduct from '../components/ProductFormPage/CreateProduct/CreateProduct';
 import UpdateProduct from '../components/ProductFormPage/UpdateProduct/UpdateProduct';
+import ProductDetailsPage from '../components/ProductDetails/ProductDetails';
 
 export const router = createBrowserRouter([
   {
@@ -22,13 +23,17 @@ export const router = createBrowserRouter([
         element: <SignupFormPage />,
       },
       {
+        path: "/products/:productId",
+        element: <ProductDetailsPage />
+      },
+      {
         path: "/products/new",
         element: <CreateProduct />
       },
       {
         path: "/products/:productId/edit",
         element: <UpdateProduct />
-      }
+      },
     ],
   },
 ]);

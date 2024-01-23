@@ -36,6 +36,7 @@ export const thunkGetAllProducts = () => async (dispatch) => {
 
   if (response.ok) {
     const products = await response.json();
+    console.log(products)
 
     dispatch(getAllProducts(products));
 
@@ -46,28 +47,32 @@ export const thunkGetAllProducts = () => async (dispatch) => {
 };
 
 export const thunkCreateProduct =
-  (productFormData, images) => async (dispatch) => {
+  (productFormData, image) => async (dispatch) => {
     const response = await fetch("/api/products/new", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(productFormData),
     });
+    // console.log(images)
 
     if (response.ok) {
       const newProduct = await response.json();
 
       // for (let image in images) {
-      //   console.log(image)
-      //   const imageResponse = await fetch(
-      //     `/api/products/${newProduct.id}/images/new`,
-      //     {
-      //       method: "POST",
-      //       headers: { "Content-Type": "application/json" },
-      //       body: JSON.stringify({
-      //         "url": image
-      //       }),
-      //     }
-      //   );
+        // console.log(image)
+        const imageResponse = await fetch(
+          `/api/products/${newProduct.product.id}/images/new`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              "url": image
+            }),
+          }
+        );
+        const url = await imageResponse.json()
+
+        newProduct.product.preview_image = url.product_image
       // }
       // ! Consider attaching images or revisit to see if we need/should return images
       dispatch(createProduct(newProduct));
@@ -98,6 +103,7 @@ export const thunkDeleteProduct = (productId) => async (dispatch) => {
 };
 
 export const thunkUpdateProduct = (productId, product) => async (dispatch) => {
+  // console.log(product)
   const response = await fetch(`/api/products/${productId}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
@@ -107,9 +113,12 @@ export const thunkUpdateProduct = (productId, product) => async (dispatch) => {
   if (response.ok) {
     const updatedProduct = await response.json();
 
+    dispatch(updateProduct(updatedProduct))
+
     return updatedProduct;
   } else {
     const errors = await response.json();
+    console.log(errors)
     return errors;
   }
 };
@@ -118,6 +127,7 @@ function productReducer(state = {}, action) {
   switch (action.type) {
     case GET_ALL_PRODUCTS: {
       let products = action.products.products;
+      console.log(products)
       let newProducts = {};
 
       products.map((product) => {

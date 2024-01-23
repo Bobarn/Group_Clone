@@ -35,7 +35,8 @@ const product = useSelector((state) => state.products[productId]);
             shipping_time: product?.shipping_time,
             free_shipping: product?.free_shipping === 'true',
             category: product?.category,
-            return_policy: product?.return_policy
+            return_policy: product?.return_policy,
+            image: product?.preview_image
           }}
           productId={productId}
           formType="Update Product"

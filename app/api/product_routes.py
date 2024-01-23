@@ -11,11 +11,13 @@ product_routes = Blueprint("products",__name__)
 def get_all_products():
     # we want all products regardless of category but maybe sort them based on category?
     # or we just display based on id
-    page = request.args.get('page')
-    if page == None:
-        page = 1
-    page = (int(page) - 1) * 10
-    products = Product.query.order_by(desc(Product.created_at)).limit(10).offset(page).all()
+    # page = request.args.get('page')
+    # if page == None:
+    #     page = 1
+    # page = (int(page) - 1) * 10
+    # products = Product.query.order_by(desc(Product.created_at)).limit(10).offset(page).all()
+    products = Product.query.order_by(desc(Product.created_at)).all()
+
     if not products:
         return {"message": "That page does not exist"}
     list_dict_products = [product.to_dict() for product in products]
@@ -86,7 +88,7 @@ def create_product():
 
 @product_routes.route('/<int:id>', methods=['PUT'])
 @login_required
-def update_product():
+def update_product(id):
     product = Product.query.get(id)
 
     if product is None:
@@ -97,22 +99,35 @@ def update_product():
 
     form = ProductForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+    print(form.data)
 
     if form.validate_on_submit():
-        data = form.data
+        # data = form.data
 
-        product.sellerId=current_user.id,
-        product.name=data["name"],
-        product.description=data["description"],
-        product.price=data["price"],
-        product.category=data["category"],
-        product.shipping_time=data["shipping_time"],
-        product.return_policy=data["return_policy"],
-        product.free_shipping=data["free_shipping"]
+        # product.sellerId=current_user.id,
+        # product.name=data["name"],
+        # product.description=data["description"],
+        # product.price=data["price"],
+        # product.category=data["category"],
+        # product.shipping_time=data["shipping_time"],
+        # product.return_policy=data["return_policy"],
+        # product.free_shipping=data["free_shipping"]
+        product.sellerId = current_user.id
+        product.name = form.name.data
+        product.description = form.description.data
+        product.price = form.price.data
+        product.category = form.category.data
+        product.shipping_time = form.shipping_time.data
+        product.return_policy = form.return_policy.data
+        product.free_shipping = form.free_shipping.data
+
+        print(product)
 
         db.session.commit()
 
-        return {"product": product.to_dict()}
+        updated_product = Product.query.get(id)
+
+        return {"product": updated_product.to_dict()}
     else:
         return {"errors": form.errors}, 400
 

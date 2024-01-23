@@ -13,6 +13,7 @@ const ProductForm = ({ product, formType, productId }) => {
     const [free_shipping, setFree_shipping] = useState(product?.free_shipping)
     const [return_policy, setReturn_policy] = useState(product?.return_policy)
     let [shipping_time, setShipping_time] = useState(product?.shipping_time)
+    const [image, setImage] = useState(product?.preview_image)
     const [disabled, setDisabled] = useState(false);
     const [errors, setErrors] = useState({})
     const [submitted, setSubmitted] = useState(false)
@@ -34,13 +35,15 @@ const ProductForm = ({ product, formType, productId }) => {
         }
 
         if(formType === 'Create Product' && !product.errors) {
-            console.log(product)
-            product = await dispatch(thunkCreateProduct(product, ["https://fastly.picsum.photos/id/277/200/200.jpg?hmac=zlHjTbiytnfBWurpKXXSvMRzVSmkgW13o4K7Q-08r68"]));
-            console.log(product)
+            // console.log(product)
+            product = await dispatch(thunkCreateProduct(product, image));
+            // console.log(product)
 
         } else if (formType === "Update Product" && !product.errors) {
+            console.log(product)
+            console.log(productId)
             product = await dispatch(thunkUpdateProduct(productId, product))
-
+            console.log("after thunk", product)
         } else{
 
             setDisabled(false)
@@ -55,7 +58,7 @@ const ProductForm = ({ product, formType, productId }) => {
             setDisabled(false)
         } else {
 
-            navigate(`/products/${product.id}`)
+            navigate(`/products/${product.product.id}`)
         }
     };
 
@@ -110,6 +113,22 @@ const ProductForm = ({ product, formType, productId }) => {
                         {submitted && <div className='errors'>{errors.name}</div>}
                     </div>
                 </div>
+                {formType == "Create Product" &&
+                <div className={'product-form-input'}>
+                    <div className={'product-form-restraint'}>
+                        <h2>What does it look like?</h2>
+                        <h3>Share a picture with us!</h3>
+                        <label>
+                            <input
+                            type="text"
+                            value={image}
+                            onChange={(e) => setImage(e.target.value)}
+                            />
+                        </label>
+                        {submitted && <div className='errors'>{errors.name}</div>}
+                    </div>
+                </div>
+                }
                 <div className={'product-form-input'}>
                     <div className={'product-form-restraint'}>
                         <h2>How would you describe your product?</h2>

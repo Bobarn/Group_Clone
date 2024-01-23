@@ -8,7 +8,8 @@ export default function CreateProduct() {
     category: '',
     shipping_time: '',
     return_policy: '',
-    free_shipping: false
+    free_shipping: false,
+    preview_image: ''
   };
 
   return (
