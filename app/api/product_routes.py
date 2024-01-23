@@ -6,7 +6,11 @@ from sqlalchemy import desc
 
 product_routes = Blueprint("products",__name__)
 
-#get all products
+
+
+
+
+# get all products
 @product_routes.route('/all')
 def get_all_products():
     # we want all products regardless of category but maybe sort them based on category?
@@ -20,6 +24,34 @@ def get_all_products():
         return {"message": "That page does not exist"}
     list_dict_products = [product.to_dict() for product in products]
     return {"products":list_dict_products}
+
+
+
+# POSSIBLE CHANGE TO QUERRY IMAGES WITH THE PRODUCTS TO MAKE TILES EASIER.
+
+@product_routes.route('/images')
+def get_all_products_with_images():
+
+    products = Product.query.order_by(desc(Product.created_at)).all()
+    if not products:
+        return {"message": "That page does not exist"}
+    # list_dict_products = [product.to_dict() for product in products]
+    list_dict_products = []
+
+    for product in products:
+        product_dict = product.to_dict()
+        product_images = ProductImage.query.filter_by(productId=product.id).all()
+
+
+        product_dict['product_images'] = [image.to_dict() for image in product_images]
+
+        list_dict_products.append(product_dict)
+
+
+    return {"products":list_dict_products}
+
+
+
 
 #get all products by category
 @product_routes.route('/category/<cat>')

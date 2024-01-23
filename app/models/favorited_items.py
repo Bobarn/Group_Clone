@@ -1,7 +1,5 @@
 from .db import db
 
-from .db import db
-
 class FavoritedItem(db.Model):
     __tablename__ = "favoriteditems"
 

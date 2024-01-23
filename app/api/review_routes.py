@@ -1,4 +1,4 @@
-from flask import Blueprint, abort
+from flask import Blueprint, abort, request
 from flask_login import current_user, login_required
 from datetime import datetime
 from app.models import db, Review
@@ -37,7 +37,7 @@ def post_review(product_id):
     user_id = current_user.id
     # user_id = 3
     form = ReviewForm()
-    # form['csrf_token'].data = request.cookies['csrf_token']
+    form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
         new_review = Review(
@@ -54,7 +54,7 @@ def post_review(product_id):
         db.session.add(new_review)
         db.session.commit()
 
-        return {"message": "successfully created"}
+        return {"Review": new_review.to_dict()}
 
     return "Missing Required Data"
 
@@ -97,7 +97,7 @@ def update_review(id):
     # print("dict review!!!!!", dict_review.id)
     # print('#######', dict_review)
     form = ReviewForm()
-    # form['csrf_token'].data = request.cookies['csrf_token']
+    form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
         review.reviewText = form.reviewText.data #or review.reviewText # THIS IS A MAYBE IN CASE WE WANT NO ERRORS

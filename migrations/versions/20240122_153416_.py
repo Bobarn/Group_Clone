@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: cf018aca2996
+Revision ID: ffa52a398da0
 Revises: 
-Create Date: 2024-01-22 10:38:18.637397
+Create Date: 2024-01-22 15:34:16.162350
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'cf018aca2996'
+revision = 'ffa52a398da0'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -51,16 +51,19 @@ def upgrade():
     sa.ForeignKeyConstraint(['sellerId'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
-    op.create_table('favorited_items',
+    op.create_table('favoriteditems',
+    sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('userId', sa.Integer(), nullable=True),
     sa.Column('productId', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['productId'], ['products.id'], ),
-    sa.ForeignKeyConstraint(['userId'], ['users.id'], )
+    sa.ForeignKeyConstraint(['userId'], ['users.id'], ),
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('order_items',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('order_id', sa.Integer(), nullable=False),
     sa.Column('product_id', sa.Integer(), nullable=False),
+    sa.Column('quantity', sa.Integer(), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['order_id'], ['orders.id'], ),
     sa.ForeignKeyConstraint(['product_id'], ['products.id'], ),
@@ -97,7 +100,7 @@ def downgrade():
     op.drop_table('reviews')
     op.drop_table('product_images')
     op.drop_table('order_items')
-    op.drop_table('favorited_items')
+    op.drop_table('favoriteditems')
     op.drop_table('products')
     op.drop_table('orders')
     op.drop_table('users')

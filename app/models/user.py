@@ -18,7 +18,7 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
 
     products = db.relationship("Product", back_populates="seller", cascade='all, delete-orphan')
-    favorited_items = db.relationship("FavoritedItems", back_populates="user", cascade='all, delete-orphan')
+    favorited_items = db.relationship("FavoritedItem", back_populates="user", cascade='all, delete-orphan')
     orders = db.relationship("Order", back_populates="buyer", cascade='all, delete-orphan')
     reviews = db.relationship("Review", back_populates="user", cascade='all, delete-orphan')
 
