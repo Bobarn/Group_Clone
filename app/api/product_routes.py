@@ -151,7 +151,8 @@ def post_product_images(id):
 
     if form.validate_on_submit():
 
-        url = form.url.data
+        url = form.data["url"]
+        print(url)
 
         new_image = ProductImage(url=url, productId=int(id))
 

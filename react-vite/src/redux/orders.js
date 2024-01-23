@@ -10,7 +10,7 @@ const getAllOrders = (orders) => {
 
 const makeOrder = (order) => {
   return {
-    type: CREATE_REVIEW,
+    type: CREATE_ORDER,
     order,
   };
 };

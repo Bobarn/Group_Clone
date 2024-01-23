@@ -46,32 +46,36 @@ export const thunkGetAllProducts = () => async (dispatch) => {
 };
 
 export const thunkCreateProduct =
-  (productDetails, images) => async (dispatch) => {
+  (productFormData, images) => async (dispatch) => {
     const response = await fetch("/api/products/new", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(productDetails),
+      body: JSON.stringify(productFormData),
     });
 
     if (response.ok) {
       const newProduct = await response.json();
 
-      for (let image in images) {
-        const imageResponse = await fetch(
-          `/api/products/${newProduct.id}/new`,
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(image),
-          }
-        );
-      }
+      // for (let image in images) {
+      //   console.log(image)
+      //   const imageResponse = await fetch(
+      //     `/api/products/${newProduct.id}/images/new`,
+      //     {
+      //       method: "POST",
+      //       headers: { "Content-Type": "application/json" },
+      //       body: JSON.stringify({
+      //         "url": image
+      //       }),
+      //     }
+      //   );
+      // }
       // ! Consider attaching images or revisit to see if we need/should return images
       dispatch(createProduct(newProduct));
 
       return newProduct;
     } else {
-      return { Error: "Could not create product" };
+      const errors = await response.json();
+      return errors
     }
   };
 

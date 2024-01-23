@@ -2,6 +2,8 @@ import { createBrowserRouter } from 'react-router-dom';
 import LoginFormPage from '../components/LoginFormPage';
 import SignupFormPage from '../components/SignupFormPage';
 import Layout from './Layout';
+import CreateProduct from '../components/ProductFormPage/CreateProduct/CreateProduct';
+import UpdateProduct from '../components/ProductFormPage/UpdateProduct/UpdateProduct';
 
 export const router = createBrowserRouter([
   {
@@ -19,6 +21,14 @@ export const router = createBrowserRouter([
         path: "signup",
         element: <SignupFormPage />,
       },
+      {
+        path: "/products/new",
+        element: <CreateProduct />
+      },
+      {
+        path: "/products/:productId/edit",
+        element: <UpdateProduct />
+      }
     ],
   },
 ]);
