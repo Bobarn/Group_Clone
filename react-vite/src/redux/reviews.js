@@ -35,7 +35,7 @@ export const thunkGetAllReviews = () => async (dispatch) => {
   const response = await fetch("/api/reviews/all");
 
   if (response.ok) {
-    const reviews = await response.json();
+    let reviews = await response.json();
 
     dispatch(getAllReviews(reviews));
 

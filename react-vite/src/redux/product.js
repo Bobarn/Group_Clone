@@ -1,7 +1,9 @@
 const GET_ALL_PRODUCTS = "products/getAllProducts";
+const GET_ALL_PRODUCTS_IMAGES = "product/images/getAll"
 const CREATE_PRODUCT = "products/makeProduct";
 const DELETE_PRODUCT = "products/deleteProduct";
 const UPDATE_PRODUCT = "products/updateProduct";
+
 
 const getAllProducts = (products) => {
   return {
@@ -9,6 +11,15 @@ const getAllProducts = (products) => {
     products,
   };
 };
+
+const getAllProductsWImages = (products) => {
+  return{
+    type:GET_ALL_PRODUCTS_IMAGES,
+    products
+  }
+}
+
+
 
 const createProduct = (product) => {
   return {
@@ -45,6 +56,24 @@ export const thunkGetAllProducts = () => async (dispatch) => {
     return { errors: "Could not get all products" };
   }
 };
+
+
+// ALTERNATIVE THUNK TO PULL IMAGES FOR LANDING
+export const thunkGetAllProductsWImages = () => async (dispatch) => {
+  const response = await fetch("/api/products/images");
+
+  if (response.ok) {
+    const products = await response.json();
+
+
+    dispatch(getAllProductsWImages(products));
+
+    return products;
+  } else {
+    return { errors: "Could not get all products" };
+  }
+};
+
 
 export const thunkCreateProduct =
   (productFormData, image) => async (dispatch) => {
@@ -128,6 +157,16 @@ function productReducer(state = {}, action) {
     case GET_ALL_PRODUCTS: {
       let products = action.products.products;
       console.log(products)
+      let newProducts = {};
+
+      products.map((product) => {
+        newProducts[product.id] = product;
+      });
+
+      return { ...state, ...newProducts };
+    }
+    case GET_ALL_PRODUCTS_IMAGES: {
+      let products = action.products.products;
       let newProducts = {};
 
       products.map((product) => {
