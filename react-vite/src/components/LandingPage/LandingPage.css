@@ -1,8 +1,36 @@
-.sqr-img{
-    height:100px;
-    width:100px
+/* SQUARE PRODUCT TILES  */
+
+.main-img-cont {
+  display: flex;
+  flex-direction: row;
 }
 
-.filled-heart{
-    color:#d3012f;
+.sqr-img {
+  height: 100px;
+  width: 100px;
 }
+
+.filled-heart {
+  color: #d3012f;
+}
+/*  *******  */
+
+
+
+/* CIRCLE CATEGORY IMAGES */
+.category-main-cont{
+    display: flex;
+    flex-direction: row;
+}
+
+
+.single-cat-main-cont{
+    display: flex;
+    flex-direction: column;
+}
+
+.cat-single-img{
+    height: 50px;
+    width:50px
+}
+/*  *******  */

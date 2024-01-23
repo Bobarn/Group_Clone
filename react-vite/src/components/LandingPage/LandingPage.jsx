@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { thunkGetAllProductsWImages } from "../../redux/product";
-import { thunkCreateFavorite } from "../../redux/favorited_items";
+import CategoryImages from "./CategoryImages";
 import "./LandingPage.css";
 
-function LandingImage({ category }) {
+function LandingImage() {
   const dispatch = useDispatch();
   const allProducts = useSelector((state) => state.products);
   const currUser = useSelector((state) => state.session.user);
@@ -25,33 +25,31 @@ function LandingImage({ category }) {
   //     .filter((product) => product.category == category)
   //     .slice(0, 11);
 
-  const filteredProducts = Object.values(
-    Object.values(allProducts).slice(0, 11)
-  );
+  const filteredProducts = Object.values(Object.values(allProducts).slice(0, 11));
 
   // LOADS PRODUCTS
   useEffect(() => {
     dispatch(thunkGetAllProductsWImages());
   }, [dispatch]);
 
-  // ADDS PRODUCT TO FAVORITE ON CLICK
-  // const addToFav = (productId) =>{
+  //
 
-  //     dispatch(thunkCreateFavorite(productId))
 
-  // }
 
+
+
+  // ADD TO FAVORITES ONCLICK FUNCTION
   const [heartStates, setHeartStates] = useState({});
 
   const addToFav = (productId) => {
     dispatch(thunkCreateFavorite(productId));
 
-    // Toggle the heart state for the clicked product
     setHeartStates((prevHeartStates) => ({
       ...prevHeartStates,
       [productId]: !prevHeartStates[productId],
     }));
   };
+
 
   const imageCreator = () => {
     return (
@@ -89,8 +87,17 @@ function LandingImage({ category }) {
     );
   };
 
+
+
   if (!allProducts) return null;
-  return <div className="landing-main-cont">{imageCreator()}</div>;
+  return (
+    <div className="landing-main-cont">
+        <span>Welcome, { currUser? currUser.first_name : 'To Itsy'}</span>
+        <CategoryImages />
+
+      <div className="landing-main-cont">{imageCreator()}</div>
+    </div>
+  );
 }
 
 export default LandingImage;
