@@ -35,7 +35,7 @@ class Product(db.Model):
 
         product_dict =  {
             "id": self.id,
-            "seller": self.sellerId,
+            "seller": self.seller.to_dict(),
             "name": self.name,
             "description": self.description,
             "price": self.price,
@@ -44,6 +44,8 @@ class Product(db.Model):
             "reviews":reviews_length,
             "return_policy":self.return_policy,
             "shipping_time": self.shipping_time,
-            "preview_image": preview_image
+            "preview_image": preview_image,
+            "images":[image.to_dict() for image in self.images],
+            "sellerId": self.sellerId
         }
         return product_dict

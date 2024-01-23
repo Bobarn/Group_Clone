@@ -88,11 +88,13 @@ export const thunkUpdateReview = (reviewId, review) => async (dispatch) => {
   });
 
   if (response.ok) {
-    updatedReview = await response.json();
+    const updatedReview = await response.json();
+
+    dispatch(updateReview(updatedReview))
 
     return updatedReview;
   } else {
-    errors = await response.json();
+    const errors = await response.json();
     return errors;
   }
 };

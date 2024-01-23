@@ -8,7 +8,7 @@ class ProductForm(FlaskForm):
     price = DecimalField("Price", validators=[DataRequired(), NumberRange(min=0)], places=2)
     category = SelectField("Category", validators=[DataRequired()], choices=['Art', 'Art Supplies', 'Pet Supplies', 'Electronics', 'Jewelry', 'Clothes'])
     shipping_time = IntegerField("Shipping Time", validators=[DataRequired(), NumberRange(min=0)])
-    sellerId = IntegerField("Seller ID", validators=[])
+    sellerId = IntegerField("Seller ID")
     return_policy = StringField("Return Policy")
     free_shipping = BooleanField("Free Shipping")
 

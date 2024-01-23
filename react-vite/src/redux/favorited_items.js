@@ -27,7 +27,7 @@ export const thunkGetAllFavorites = () => async (dispatch) => {
   const response = await fetch("/api/favorites");
 
   if (response.ok) {
-    favorites = await response.json();
+    const favorites = await response.json();
 
     dispatch(getAllFavorites(favorites));
 

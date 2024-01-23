@@ -18,11 +18,12 @@ class Order(db.Model):
         prices = [order_item.product.price * order_item.quantity for order_item in self.order_items]
 
         total = sum(prices)
+        order_items = [order_item.to_dict() for order_item in self.order_items]
 
         return {
             "id": self.id,
             "buyer": self.buyer.to_dict(),
-            "items": self.order_items,
+            "items": order_items,
             "total": total,
             "purchase_date": self.date
         }

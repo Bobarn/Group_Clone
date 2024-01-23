@@ -42,5 +42,5 @@ class User(db.Model, UserMixin):
             "last_name": self.last_name,
             "email": self.email,
             "reviews":reviews,
-            "products":[product.to_dict() for product in self.products]
+            "products":len(self.products)
         }
