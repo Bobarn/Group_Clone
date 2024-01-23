@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { thunkGetAllProductsWImages } from "../../redux/product";
 import CategoryImages from "./CategoryImages";
+import TrendingImages from "./TrendingImages";
 import "./LandingPage.css";
 
 function LandingImage() {
@@ -95,7 +96,10 @@ function LandingImage() {
         <span>Welcome, { currUser? currUser.first_name : 'To Itsy'}</span>
         <CategoryImages />
 
-      <div className="landing-main-cont">{imageCreator()}</div>
+        <div className="landing-main-cont">{imageCreator()}</div>
+
+        <TrendingImages />
+
     </div>
   );
 }
