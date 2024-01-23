@@ -19,8 +19,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ReduxProvider store={store}>
       <RouterProvider router={router} />
-      {/* <App />
-      </RouterProvider> */}
     </ReduxProvider>
   </React.StrictMode>
 );

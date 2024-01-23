@@ -6,24 +6,11 @@ from sqlalchemy import desc
 
 product_routes = Blueprint("products",__name__)
 
-#get all products
-# @product_routes.route('/all')
-# def get_all_products():
-#     # we want all products regardless of category but maybe sort them based on category?
-#     # or we just display based on id
-#     page = request.args.get('page')
-#     if page == None:
-#         page = 1
-#     page = (int(page) - 1) * 10
-#     products = Product.query.order_by(desc(Product.created_at)).limit(10).offset(page).all()
-#     if not products:
-#         return {"message": "That page does not exist"}
-#     list_dict_products = [product.to_dict() for product in products]
-#     return {"products":list_dict_products}
 
 
-# POSSIBLE CHANGE TO QUERRY IMAGES WITH THE PRODUCTS TO MAKE TILES EASIER.
 
+
+# get all products
 @product_routes.route('/all')
 def get_all_products():
     # we want all products regardless of category but maybe sort them based on category?
@@ -33,6 +20,19 @@ def get_all_products():
         page = 1
     page = (int(page) - 1) * 10
     products = Product.query.order_by(desc(Product.created_at)).limit(10).offset(page).all()
+    if not products:
+        return {"message": "That page does not exist"}
+    list_dict_products = [product.to_dict() for product in products]
+    return {"products":list_dict_products}
+
+
+
+# POSSIBLE CHANGE TO QUERRY IMAGES WITH THE PRODUCTS TO MAKE TILES EASIER.
+
+@product_routes.route('/images')
+def get_all_products_with_images():
+
+    products = Product.query.order_by(desc(Product.created_at)).all()
     if not products:
         return {"message": "That page does not exist"}
     # list_dict_products = [product.to_dict() for product in products]
@@ -49,7 +49,6 @@ def get_all_products():
 
 
     return {"products":list_dict_products}
-
 
 
 
