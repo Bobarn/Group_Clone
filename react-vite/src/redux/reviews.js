@@ -32,15 +32,22 @@ const updateReview = (review) => {
 };
 
 export const thunkGetAllReviews = () => async (dispatch) => {
-  const response = await fetch("/api/reviews/all");
+  try{
+    const response = await fetch("/api/reviews/all");
+    console.log("thunkgetallreviews", await response.json())
 
-  if (response.ok) {
-    const reviews = await response.json();
+    if (response.ok) {
+      const reviews = await response.json();
+      dispatch(getAllReviews(reviews));
 
-    dispatch(getAllReviews(reviews));
-
-    return reviews;
+      return reviews;
+    }
   }
+  catch(e){
+    console.error("error in thunk", e)
+  }
+
+
 };
 
 export const thunkCreateReview =
@@ -100,14 +107,7 @@ export const thunkUpdateReview = (reviewId, review) => async (dispatch) => {
 function reviewReducer(state = {}, action) {
   switch (action.type) {
     case GET_ALL_REVIEWS: {
-      let reviews = action.reviews.Reviews;
-      let newReviews = {};
-
-      reviews.map((review) => {
-        newReviews[review.id] = review;
-      });
-
-      return { ...state, ...newReviews };
+      return { ...state, ...action.review };
     }
     case CREATE_REVIEW: {
       const review = action.review.Review;

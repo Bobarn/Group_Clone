@@ -1,4 +1,4 @@
-from flask import Blueprint, abort, request
+from flask import Blueprint, abort, request, jsonify
 from flask_login import current_user, login_required
 from datetime import datetime
 from app.models import db, Review
@@ -12,8 +12,8 @@ review_routes = Blueprint('reviews',__name__)
 def get_all_reviews():
     reviews = Review.query.all()
     dict_reviews = [review.to_dict() for review in reviews]
-
-    return {"Reviews":dict_reviews}
+    print("AAAAAAAAAAAAAAAAAAAAAAAAA" , dict_reviews)
+    return jsonify(dict_reviews)
 
 
 
@@ -24,7 +24,7 @@ def get_review_product_id(product_id):
     reviews = Review.query.filter_by(productId=product_id).all()
     dict_reviews = [review.to_dict() for review in reviews]
 
-    return {"Reviews": dict_reviews}
+    return jsonify(dict_reviews)
 
 
 
@@ -54,7 +54,7 @@ def post_review(product_id):
         db.session.add(new_review)
         db.session.commit()
 
-        return {"Review": new_review.to_dict()}
+        return jsonify(new_review.to_dict())
 
     return "Missing Required Data"
 
@@ -111,6 +111,6 @@ def update_review(id):
 
         updated_review = Review.query.get(id)
         dict_updated_review = updated_review.to_dict()
-        return {"message": "Review successfully updated", "updated_review": dict_updated_review}, 200
+        return jsonify(dict_updated_review)
     else:
         return {"message": "Missing Required Data"}, 404
