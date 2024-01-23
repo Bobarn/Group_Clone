@@ -1,6 +1,6 @@
 from .db import db, SCHEMA, environment
 from datetime import datetime
-from .favorited_items import favorited_items
+from .favorited_items import FavoritedItem
 
 class Product(db.Model):
     __tablename__ = 'products'
