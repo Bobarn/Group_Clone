@@ -65,7 +65,6 @@ def create_product():
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         data = form.data
-        print(data)
 
         newProduct = Product(
             sellerId=current_user.id,
