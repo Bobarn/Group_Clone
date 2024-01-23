@@ -35,7 +35,7 @@ export const thunkGetAllReviews = () => async (dispatch) => {
   const response = await fetch("/api/reviews/all");
 
   if (response.ok) {
-    reviews = await response.json();
+    const reviews = await response.json();
 
     dispatch(getAllReviews(reviews));
 
@@ -88,11 +88,11 @@ export const thunkUpdateReview = (reviewId, review) => async (dispatch) => {
   });
 
   if (response.ok) {
-    updatedReview = await response.json();
+    const updatedReview = await response.json();
 
     return updatedReview;
   } else {
-    errors = await response.json();
+    const errors = await response.json();
     return errors;
   }
 };

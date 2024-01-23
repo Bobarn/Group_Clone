@@ -76,7 +76,7 @@ export const thunkCreateProduct =
   };
 
 export const thunkDeleteProduct = (productId) => async (dispatch) => {
-  const response = await fetch(`/api/products/${newProduct.id}`, {
+  const response = await fetch(`/api/products/${productId}`, {
     method: "DELETE",
     headers: { "Content-Type": "application/json" },
   });
@@ -101,11 +101,11 @@ export const thunkUpdateProduct = (productId, product) => async (dispatch) => {
   });
 
   if (response.ok) {
-    updatedProduct = await response.json();
+    const updatedProduct = await response.json();
 
     return updatedProduct;
   } else {
-    errors = await response.json();
+    const errors = await response.json();
     return errors;
   }
 };
