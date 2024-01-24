@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { thunkGetAllProductsWImages } from "../../redux/product";
+import { thunkCreateFavorite } from "../../redux/favorited_items";
 import CategoryImages from "./CategoryImages";
 import TrendingImages from "./TrendingImages";
 import "./LandingPage.css";
