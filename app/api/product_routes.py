@@ -6,20 +6,54 @@ from sqlalchemy import desc
 
 product_routes = Blueprint("products",__name__)
 
-#get all products
+
+
+
+
+# get all products
 @product_routes.route('/all')
 def get_all_products():
     # we want all products regardless of category but maybe sort them based on category?
     # or we just display based on id
-    page = request.args.get('page')
-    if page == None:
-        page = 1
-    page = (int(page) - 1) * 10
-    products = Product.query.order_by(desc(Product.created_at)).limit(10).offset(page).all()
+    # page = request.args.get('page')
+    # if page == None:
+    #     page = 1
+    # page = (int(page) - 1) * 10
+    # products = Product.query.order_by(desc(Product.created_at)).limit(10).offset(page).all()
+    products = Product.query.order_by(desc(Product.created_at)).all()
+
     if not products:
         return {"message": "That page does not exist"}
     list_dict_products = [product.to_dict() for product in products]
     return {"products":list_dict_products}
+
+
+
+# POSSIBLE CHANGE TO QUERRY IMAGES WITH THE PRODUCTS TO MAKE TILES EASIER.
+
+@product_routes.route('/images')
+def get_all_products_with_images():
+
+    products = Product.query.order_by(desc(Product.created_at)).all()
+    if not products:
+        return {"message": "That page does not exist"}
+    # list_dict_products = [product.to_dict() for product in products]
+    list_dict_products = []
+
+    for product in products:
+        product_dict = product.to_dict()
+        product_images = ProductImage.query.filter_by(productId=product.id).all()
+
+
+        product_dict['product_images'] = [image.to_dict() for image in product_images]
+
+        list_dict_products.append(product_dict)
+
+
+    return {"products":list_dict_products}
+
+
+
 
 #get all products by category
 @product_routes.route('/category/<cat>')
@@ -65,7 +99,6 @@ def create_product():
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         data = form.data
-        print(data)
 
         newProduct = Product(
             sellerId=current_user.id,
@@ -87,7 +120,7 @@ def create_product():
 
 @product_routes.route('/<int:id>', methods=['PUT'])
 @login_required
-def update_product():
+def update_product(id):
     product = Product.query.get(id)
 
     if product is None:
@@ -98,22 +131,35 @@ def update_product():
 
     form = ProductForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+    print(form.data)
 
     if form.validate_on_submit():
-        data = form.data
+        # data = form.data
 
-        product.sellerId=current_user.id,
-        product.name=data["name"],
-        product.description=data["description"],
-        product.price=data["price"],
-        product.category=data["category"],
-        product.shipping_time=data["shipping_time"],
-        product.return_policy=data["return_policy"],
-        product.free_shipping=data["free_shipping"]
+        # product.sellerId=current_user.id,
+        # product.name=data["name"],
+        # product.description=data["description"],
+        # product.price=data["price"],
+        # product.category=data["category"],
+        # product.shipping_time=data["shipping_time"],
+        # product.return_policy=data["return_policy"],
+        # product.free_shipping=data["free_shipping"]
+        product.sellerId = current_user.id
+        product.name = form.name.data
+        product.description = form.description.data
+        product.price = form.price.data
+        product.category = form.category.data
+        product.shipping_time = form.shipping_time.data
+        product.return_policy = form.return_policy.data
+        product.free_shipping = form.free_shipping.data
+
+        print(product)
 
         db.session.commit()
 
-        return {"product": product.to_dict()}
+        updated_product = Product.query.get(id)
+
+        return {"product": updated_product.to_dict()}
     else:
         return {"errors": form.errors}, 400
 
@@ -152,7 +198,8 @@ def post_product_images(id):
 
     if form.validate_on_submit():
 
-        url = form.url.data
+        url = form.data["url"]
+        print(url)
 
         new_image = ProductImage(url=url, productId=int(id))
 

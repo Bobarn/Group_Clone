@@ -45,7 +45,8 @@ class Product(db.Model):
             "reviews":reviews_length,
             "return_policy":self.return_policy,
             "shipping_time": self.shipping_time,
-            "preview_image": preview_image
-
+            "preview_image": preview_image,
+            "images":[image.to_dict() for image in self.images],
+            "sellerId": self.sellerId
         }
         return product_dict

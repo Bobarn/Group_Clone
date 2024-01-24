@@ -36,7 +36,7 @@ export const thunkGetAllFavorites = () => async (dispatch) => {
 };
 
 export const thunkCreateFavorite = (productId) => async (dispatch) => {
-  const response = await fetch(`/api/reviews/${productId}`, {
+  const response = await fetch(`/api/favorites/${productId}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({

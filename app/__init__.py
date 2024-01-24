@@ -9,6 +9,7 @@ from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
 #IMPORT PRODUCT ROUTES LIGHT
 from .api.product_routes import product_routes
+from .api.order_routes import order_routes
 from .seeds import seed_commands
 from .config import Config
 from .models.product_images import ProductImage
@@ -38,6 +39,7 @@ app.register_blueprint(auth_routes, url_prefix='/api/auth')
 
 #ADD PRODUCTS ROUTE AND REGISTURE IT INTO SERVER LIGHT
 app.register_blueprint(product_routes, url_prefix='/api/products')
+app.register_blueprint(order_routes, url_prefix='/api/orders')
 db.init_app(app)
 Migrate(app, db)
 

@@ -42,5 +42,5 @@ class User(db.Model, UserMixin):
             "last_name": self.last_name,
             "email": self.email,
             "reviews":reviews,
-            "products": len(self.products)
+            "products":len(self.products)
         }

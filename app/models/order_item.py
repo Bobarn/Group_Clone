@@ -23,5 +23,6 @@ class OrderItem(db.Model):
         return {
             "id": self.id,
             "order_id": self.order_id,
+            "quantity": self.quantity,
             "product":self.product.to_dict()
         }
