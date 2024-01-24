@@ -4,6 +4,7 @@ import { Link, useParams, useNavigate } from 'react-router-dom';
 import { thunkGetAllProducts } from '../../redux/product'
 import DeleteProductConfirmationModal from './ProductDeleteModal';
 import { thunkCreateFavorite, thunkDeleteFavorite } from '../../redux/favorited_items';
+import { thunkCreateOrder } from '../../redux/orders';
 import OpenModalButton from '../OpenModalButton/OpenModalButton';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel'
@@ -32,6 +33,7 @@ export default function ProductDetailsPage() {
   const product = useSelector((state) => state.products[productId]);
 
   const userId = useSelector((state) => state.session.user?.id);
+  const [heartStates, setHeartStates] = useState({});
 
   useEffect(() => {
     dispatch(thunkGetAllProducts());
@@ -41,6 +43,10 @@ export default function ProductDetailsPage() {
     var result = new Date();
     result.setDate(result.getDate() + days);
     return result.toDateString();
+  }
+
+  function buyNow() {
+    dispatch(thunkCreateOrder([{id: productId, quantity: 1}]))
   }
 
 
@@ -62,7 +68,6 @@ export default function ProductDetailsPage() {
         return parts.join(".");
     }
 
-    const [heartStates, setHeartStates] = useState({});
 
     const addToFav = (productId) => {
 
@@ -86,7 +91,7 @@ export default function ProductDetailsPage() {
 
     return (
         <div id='product-details-main'>
-                    <Link to='/products' className='back-button'> <i className="fa-solid fa-angle-left"></i>Products</Link>
+                    <Link to='/' className='back-button'> <i className="fa-solid fa-angle-left"></i>Products</Link>
                     {!showModal && <button id='cart-button'  onClick={toggle}>Cart ({cartItems.length})</button>}
                     <Cart showModal={showModal} toggle={toggle} />
             <div id='product-details-body'>
@@ -124,7 +129,7 @@ export default function ProductDetailsPage() {
                             <OpenModalButton modalComponent={<DeleteProductConfirmationModal productId={productId}/>} buttonText={'Remove Item Listing'}/>
                         </div>}
                         {userId && userId !== product?.sellerId && <div className='purchase-button'>
-                            <button className='purchase action-button' onClick={() => alert('Feature coming soon')}>Buy now</button>
+                            <button className='purchase action-button' onClick={buyNow}>Buy now</button>
                             <button className='purchase add-to-cart action-button' onClick={() => addToCart(product)}>Add to Cart</button>
                         </div>}
                     </span>

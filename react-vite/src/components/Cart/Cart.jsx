@@ -1,6 +1,8 @@
 import { useContext } from 'react'
 import { CartContext } from '../../context/CartContext'
 import './Cart.css'
+import CheckoutConfirmationModal from './CheckoutConfirmationModal'
+import OpenModalButton from '../OpenModalButton/OpenModalButton'
 
 export default function Cart({showModal, toggle}) {
     const { cartItems, addToCart, removeFromCart, clearCart, getCartTotal } = useContext(CartContext)
@@ -40,6 +42,7 @@ export default function Cart({showModal, toggle}) {
               cartItems.length > 0 ? (
                 <div>
               <h1>Total: ${getCartTotal()}</h1>
+              <OpenModalButton modalComponent={<CheckoutConfirmationModal cartItems={cartItems}/>} buttonText={'Checkout'}/>
               <button onClick={() => {clearCart()}}>
                 Clear cart
               </button>
