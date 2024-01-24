@@ -55,21 +55,14 @@ export const thunkGetAllReviews = () => async (dispatch) => {
       const reviews = await response.json();
       console.log("all reviews", reviews)
       dispatch(getAllReviews(reviews));
-
-<<<<<<< HEAD
-      return reviews;
     }
-    else {
-      throw new Error("Error in thunk")
-    }
-=======
   if (response.ok) {
     let reviews = await response.json();
 
     dispatch(getAllReviews(reviews));
 
     return reviews;
->>>>>>> dev
+  }
   }
   catch (e) {
     console.error("error in thunk", e)
