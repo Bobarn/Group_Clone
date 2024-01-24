@@ -1,45 +1,140 @@
-/* SQUARE PRODUCT TILES  */
+ENTIRE LANDING PAGE CONTAINER   */
+.landing-main-cont {
+  height: 100%;
+  max-width: 1024px;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: ui-sans-serif;
 
-.main-img-cont {
-  display: flex;
-  flex-direction: row;
 }
-
-.sqr-img {
-  height: 100px;
-  width: 100px;
-}
-
-.filled-heart {
-  color: #d3012f;
+@media (min-width: 1025px) {
+  .landing-main-cont {
+    max-width: 1024px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 /*  *******  */
 
+/* GREETING MESSAGE*/
+.greeting-cont{
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+.greeting-cont > span{
+  font-size:40px;
+  font-weight:100;
+  align-self: center;
 
+}
+
+
+/*  *******  */
+
+
+/*  CATEGORIES CIRCLE CONTAINERS   */
+.category-main-cont {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.cat-single-img {
+  height: 150px;
+  border-radius: 150%;
+  width: 100px;
+}
+
+/*  *******  */
+
+/* SQUARE PRODUCT TILES  */
+
+.main-img-cont {
+  display: grid;
+  flex-direction: row;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+@media (min-width: 1025px) {
+  .main-img-cont {
+    max-width: 1024px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+.sqr-img {
+  height: 150px;
+  width: 200px;
+  border-radius: 5px;
+  object-fit: cover;
+}
+
+/*  *******  */
 
 /* CIRCLE CATEGORY IMAGES */
-.category-main-cont{
-    display: flex;
-    flex-direction: row;
+.category-main-cont {
+  display: flex;
+  flex-direction: row;
+  padding:40px
 }
 
-
-.single-cat-main-cont{
-    display: flex;
-    flex-direction: column;
+.single-cat-main-cont {
+  display: flex;
+  flex-direction: column;
+  gap:10px
 }
 
-.cat-single-img{
-    height: 50px;
-    width:50px
+.single-cat-main-cont > span{
+  align-self: center;
+  justify-self: center;
+
+}
+
+.cat-single-img {
+  height: 100px;
+  width: 100px;
 }
 /*  *******  */
 
 /* RECTANGLE IMAGES */
-.rectangle-img{
-  height: 400px;
-  width: 200px
 
+.trending-img-main-cont {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 20px;
+}
+.rectangle-img {
+  height: 275px;
+  width: 200px;
+  border-radius: 5px;
 }
 
 /*  *******  */
+
+/* HEART CONTAINER  */
+.heart-button {
+  display: flex;
+  flex-direction: center;
+  justify-content: center;
+  padding: 1px;
+  width: 0.5px;
+  height: 0.5px;
+  border-radius: 100%;
+  background-color: white;
+  padding: 20px;
+  border: 2px solid black;
+}
+.filled-heart {
+  color: #d3012f;
+}
+
+.heart-button > i {
+  size: 1px;
+}
+
+/*  *******
