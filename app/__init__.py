@@ -41,7 +41,6 @@ app.register_blueprint(favorited_routes, url_prefix='/api/favorites')
 #ADD PRODUCTS ROUTE AND REGISTURE IT INTO SERVER LIGHT
 app.register_blueprint(product_routes, url_prefix='/api/products')
 app.register_blueprint(order_routes, url_prefix='/api/orders')
-app.register_blueprint()
 db.init_app(app)
 Migrate(app, db)
 
