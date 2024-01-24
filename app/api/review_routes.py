@@ -1,4 +1,4 @@
-from flask import Blueprint, abort, request
+from flask import Blueprint, abort, request, jsonify
 from flask_login import current_user, login_required
 from datetime import datetime
 from app.models import db, Review
@@ -13,7 +13,7 @@ def get_all_reviews():
     reviews = Review.query.all()
     dict_reviews = [review.to_dict() for review in reviews]
 
-    return {"Reviews":dict_reviews}
+    return jsonify(dict_reviews)
 
 
 
@@ -24,7 +24,7 @@ def get_review_product_id(product_id):
     reviews = Review.query.filter_by(productId=product_id).all()
     dict_reviews = [review.to_dict() for review in reviews]
 
-    return {"Reviews": dict_reviews}
+    return jsonify(dict_reviews)
 
 
 
@@ -38,7 +38,7 @@ def post_review(product_id):
     # user_id = 3
     form = ReviewForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-
+    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!LOOOK AT THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     if form.validate_on_submit():
         new_review = Review(
             userId = user_id, #login form needs to be updated in order for this to work
@@ -51,10 +51,11 @@ def post_review(product_id):
             created_at = datetime.now(),
             updated_at = datetime.now()
         )
+        print("LOOOK AT THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" , new_review)
         db.session.add(new_review)
         db.session.commit()
 
-        return {"Review": new_review.to_dict()}
+        return jsonify(new_review.to_dict())
 
     return "Missing Required Data"
 
@@ -111,6 +112,6 @@ def update_review(id):
 
         updated_review = Review.query.get(id)
         dict_updated_review = updated_review.to_dict()
-        return {"message": "Review successfully updated", "updated_review": dict_updated_review}, 200
+        return jsonify(dict_updated_review)
     else:
         return {"message": "Missing Required Data"}, 404
