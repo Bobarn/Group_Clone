@@ -18,22 +18,21 @@ function TrendingImages() {
   }, [dispatch]);
 
   // UNCOMMENT THIS ONCE MERGE IS DONE AS WELL AS LINE 32 DELETE LINE 31
-//   const handleOnClick = (productId) =>{
-//     navigate(`/products/${productId}`)
+  // const handleOnClick = (productId) =>{
+  //   navigate(`/products/${productId}`)
 
-//   }
+  // }
 
 
 return (
     <div className="trending-img-main-cont">
       <div className="main-img-cont">
         {filteredProducts.map((product) => (
-            <div key={product.id} className="single-img-tile">
-                {/* <div key={product.id} className="single-img-tile" onClick={handleOnClick(product.id)}> */}
+                <div key={product.id} className="single-img-tile" onClick={() => navigate(`/products/${product.id}`)}>
             <img
               className="rectangle-img"
               src={
-                product.product_images.find((img) => img.preview === true).url
+                product?.product_images.find((img) => img.preview === true).url
               }
               onError={(e) => {
                 e.target.src =

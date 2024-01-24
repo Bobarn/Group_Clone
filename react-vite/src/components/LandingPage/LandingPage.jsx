@@ -72,7 +72,7 @@ function LandingImage() {
             <img
               className="sqr-img"
               src={
-                product.product_images.find((img) => img.preview === true).url
+                product?.product_images.find((img) => img.preview === true).url
               }
               onError={(e) => {
                 e.target.src =
