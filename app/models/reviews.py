@@ -25,7 +25,7 @@ class Review(db.Model):
     def to_dict(self):
         converted_review = {
             "id": self.id,
-            "user_id": self.userId,
+            "user": self.user.to_dict(),
             "product_id": self.productId,
             "review_text": self.reviewText,
             "star_rating": self.starRating,

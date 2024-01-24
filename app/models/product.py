@@ -34,8 +34,9 @@ class Product(db.Model):
             preview_image = self.images[0].url
 
         product_dict =  {
+
             "id": self.id,
-            "seller": self.sellerId,
+            "seller": self.seller.to_dict(),
             "name": self.name,
             "description": self.description,
             "price": self.price,
@@ -45,5 +46,6 @@ class Product(db.Model):
             "return_policy":self.return_policy,
             "shipping_time": self.shipping_time,
             "preview_image": preview_image
+
         }
         return product_dict

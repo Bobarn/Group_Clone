@@ -12,7 +12,7 @@ review_routes = Blueprint('reviews',__name__)
 def get_all_reviews():
     reviews = Review.query.all()
     dict_reviews = [review.to_dict() for review in reviews]
-    print("AAAAAAAAAAAAAAAAAAAAAAAAA" , dict_reviews)
+
     return jsonify(dict_reviews)
 
 
@@ -38,7 +38,7 @@ def post_review(product_id):
     # user_id = 3
     form = ReviewForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-
+    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!LOOOK AT THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     if form.validate_on_submit():
         new_review = Review(
             userId = user_id, #login form needs to be updated in order for this to work
@@ -51,6 +51,7 @@ def post_review(product_id):
             created_at = datetime.now(),
             updated_at = datetime.now()
         )
+        print("LOOOK AT THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" , new_review)
         db.session.add(new_review)
         db.session.commit()
 
