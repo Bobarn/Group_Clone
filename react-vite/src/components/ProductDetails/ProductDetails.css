@@ -2,6 +2,21 @@
     width: 600px;
 }
 
+#cart-button {
+    position: absolute;
+    width: 100px;
+    align-self: flex-end;
+    z-index: 1;
+}
+
+.heart-button-big {
+    display: flex;
+    height: fit-content;
+    position: absolute;
+    right: 5px;
+    top: 40px;
+    z-index: 1;
+}
 
 #product-details-main {
     display: flex;
@@ -76,6 +91,11 @@
     background-color: darkgrey;
 }
 
+.purchase-button {
+    display: flex;
+    flex-direction: column;
+}
+
 
 .back-button {
     position: relative;
@@ -120,4 +140,13 @@ display: inline-block;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+}
+
+.reviews-stats {
+    display: flex;
+    align-items: center;;
+}
+
+.stat {
+    padding: 0px 10px;
 }

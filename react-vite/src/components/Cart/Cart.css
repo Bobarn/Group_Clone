@@ -1,0 +1,11 @@
+#cart {
+    position: absolute;
+    right: 0px;
+    z-index: 1;
+    background-color: lightgrey;
+    border-radius: 5px;
+}
+
+.product-cart-preview {
+    width: 200px;
+}

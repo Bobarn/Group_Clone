@@ -1,11 +1,15 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState, useContext } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import { thunkGetAllProducts, thunkDeleteProduct } from '../../redux/product'
+import { thunkGetAllProducts } from '../../redux/product'
+import DeleteProductConfirmationModal from './ProductDeleteModal';
+import { thunkCreateFavorite, thunkDeleteFavorite } from '../../redux/favorited_items';
+import OpenModalButton from '../OpenModalButton/OpenModalButton';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel'
 import { CartContext } from '../../context/CartContext';
 import Cart from '../Cart/Cart'
+import StarRatings from 'react-star-ratings'
 import "./ProductDetails.css"
 
 
@@ -44,11 +48,6 @@ export default function ProductDetailsPage() {
         navigate(`/products/${productId}/edit`)
     }
 
-    function onClickDelete() {
-        dispatch(thunkDeleteProduct(productId))
-        navigate('/products/all')
-    }
-
     function dropFunction() {
         document.getElementById("myDropdown").classList.toggle("show");
       }
@@ -56,6 +55,29 @@ export default function ProductDetailsPage() {
     function shippingDropFunction() {
         document.getElementById("shippingDropdown").classList.toggle("show");
     }
+
+    function numberWithCommas(x) {
+        var parts = x.toString().split(".");
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return parts.join(".");
+    }
+
+    const [heartStates, setHeartStates] = useState({});
+
+    const addToFav = (productId) => {
+
+        if(userId && heartStates[product?.id]) {
+            dispatch(thunkDeleteFavorite(productId))
+        }
+        else if(userId) {
+            dispatch(thunkCreateFavorite(productId));
+        }
+
+        setHeartStates((prevHeartStates) => ({
+          ...prevHeartStates,
+          [productId]: !prevHeartStates[productId],
+        }));
+      };
 
 
     if(!product) {
@@ -65,16 +87,30 @@ export default function ProductDetailsPage() {
     return (
         <div id='product-details-main'>
                     <Link to='/products' className='back-button'> <i className="fa-solid fa-angle-left"></i>Products</Link>
-                    {!showModal && <button onClick={toggle}>Cart ({cartItems.length})</button>}
+                    {!showModal && <button id='cart-button'  onClick={toggle}>Cart ({cartItems.length})</button>}
                     <Cart showModal={showModal} toggle={toggle} />
             <div id='product-details-body'>
-                <Carousel className='Carousel Images'>
-                    {product?.images.map((image) => {
-                        return (<div key={image?.id}>
-                            <img src={image?.url} alt="product image"/>
-                        </div>)
-                    })}
-                </Carousel>
+                <div className='review-area'>
+                    <Carousel className='Carousel Images'>
+                        {product?.images.map((image) => {
+                            return (<div key={image?.id}>
+                                                    <div className="heart-button-big" onClick={() => addToFav(product?.id)}>
+              {heartStates[product.id] ? (
+                  <i className="fa-solid fa-xl fa-heart filled-heart"></i>
+                  ) : (
+                      <i className="fa-regular fa-xl fa-heart empty-heart"></i>
+                      )}
+                    </div>
+                                <img src={image?.url} alt="product image"/>
+                            </div>)
+                        })}
+                    </Carousel>
+
+                    <span className='reviews-stats'>
+                    <h2 className='stat'>{numberWithCommas(product?.reviews)} Reviews </h2>
+                    <StarRatings className="stat" rating={product?.star_rating ? product?.star_rating : 0} starDimension="30px" starSpacing="5px" />
+                    </span>
+                </div>
                 <div id='product-details-information'>
                     <div className='product-information'>
                         <h2 className='product-price'>${product?.price}</h2>
@@ -85,7 +121,7 @@ export default function ProductDetailsPage() {
                         {userId === product?.sellerId &&
                         <div className='seller-actions action-button'>
                             <button onClick={onClickUpdate}>Update</button>
-                            <button onClick={onClickDelete}>Remove Item Listing</button>
+                            <OpenModalButton modalComponent={<DeleteProductConfirmationModal productId={productId}/>} buttonText={'Remove Item Listing'}/>
                         </div>}
                         {userId && userId !== product?.sellerId && <div className='purchase-button'>
                             <button className='purchase action-button' onClick={() => alert('Feature coming soon')}>Buy now</button>

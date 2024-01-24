@@ -1,23 +1,24 @@
 import { useContext } from 'react'
 import { CartContext } from '../../context/CartContext'
+import './Cart.css'
 
 export default function Cart({showModal, toggle}) {
     const { cartItems, addToCart, removeFromCart, clearCart, getCartTotal } = useContext(CartContext)
 
     return (
         showModal && (
-          <span>
-            <h1>Cart</h1>
-            <div>
+          <div id='cart'>
               <button onClick={toggle}>
                 Close
               </button>
+            <h1>Cart</h1>
+            <div>
             </div>
             <div>
               {cartItems.map((product) => (
                 <div key={product.id}>
                   <div>
-                    <img src={product.preview_image} alt={product.name} className="rounded-md h-24" />
+                    <img src={product.preview_image} alt={product.name} className="product-cart-preview" />
                     <div>
                       <h1>{product.name}</h1>
                       <p>{product.price}</p>
@@ -47,7 +48,7 @@ export default function Cart({showModal, toggle}) {
                 <h1>Your cart is empty</h1>
               )
             }
-          </span>
+          </div>
         )
       )
     }
