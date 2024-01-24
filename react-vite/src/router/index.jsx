@@ -2,8 +2,10 @@ import { createBrowserRouter } from 'react-router-dom';
 import LoginFormPage from '../components/LoginFormPage';
 import SignupFormPage from '../components/SignupFormPage';
 import Layout from './Layout';
+import ReviewsComponent from '../components/ReviewForm/ReviewsComponent';
 import ReviewComponent from '../components/ReviewForm/ReviewComponent';
 import FavoritesPage from '../components/FavoritedPage/FavoritedPage';
+import ReviewModal from '../components/ReviewForm/ReviewModal';
 
 export const router = createBrowserRouter([
   {
@@ -15,7 +17,15 @@ export const router = createBrowserRouter([
       },
       {
         path: "/reviews",
+        element: <ReviewsComponent />,
+      },
+      {
+        path: "/review/:productId",
         element: <ReviewComponent />,
+      },
+      {
+        path: "/tester/:productId",
+        element: <ReviewModal />,
       },
       {
         path: "login",

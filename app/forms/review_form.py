@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import IntegerField,TextAreaField
+from wtforms import IntegerField,TextAreaField, SubmitField
 from wtforms.validators import DataRequired
 
 class ReviewForm(FlaskForm):
@@ -9,3 +9,4 @@ class ReviewForm(FlaskForm):
     itemQual = IntegerField('Quality Rating')
     shippingQual = IntegerField('Shipping Quality')
     serviceQual = IntegerField('Service Quality')
+    submit = SubmitField('Submit')

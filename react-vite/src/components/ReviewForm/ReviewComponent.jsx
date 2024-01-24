@@ -1,32 +1,39 @@
 import { useEffect } from "react";
-import { thunkGetAllReviews } from "../../redux/reviews";
+import { thunkGetOneReview } from "../../redux/reviews";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+
+const ReviewComponent = () => {
+
+   const dispatch = useDispatch();
+
+   const {productId} = useParams();
+
+   // const reviews = useSelector(state => Object.values(state?.reviews))
+   const reviews = useSelector(state => state.reviews)
+
+   const array = Object.values(reviews)
 
 
-export default function ReviewComponent () {
+   useEffect(() => {
+      dispatch(thunkGetOneReview(productId))
+   }, [dispatch, productId])
 
 
+   return (
+      <>
 
-const reviews = useSelector(state => state?.reviews)
-const dispatch = useDispatch()
- useEffect( ()=> {
-    dispatch(thunkGetAllReviews())
- }, [dispatch])
+         <h1> hello world </h1>
 
-    // getJSON()
-    // .then((result) => console.log(result))
-    // .catch((error) => console.error(error));
+         {array.map((review) => {
+            return (
+               <div key={review}>{review.review_text}</div>
+            )
+         })}
 
-    // thunkGetAllReviews.then((result) => console.log(result))
-    // console.log(dispatch(thunkGetAllReviews()) , "!!!!!!!!!!!!!!!!!!!!!!!!")
- console.log("REVIEWS!!!!!!!!!!!!!!!!" , reviews)
- if(!reviews) return null
-return (
-    <>
-
- <h1> hello world </h1>
- <div> def {reviews.map( (review) => <p key={review} > abc {review} </p>)} </div>
-    </>
-)
+      </>
+   )
 
 }
+
+export default ReviewComponent

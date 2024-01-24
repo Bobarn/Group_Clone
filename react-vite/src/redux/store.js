@@ -31,4 +31,10 @@ const configureStore = (preloadedState) => {
   return createStore(rootReducer, preloadedState, enhancer);
 };
 
+/**
+ * comments defining the store object shape used to provide
+ * intelligent suggestions and autocompletion from the editor for free
+ * @typedef {ReturnType<createStore>} RootStore
+ */
+
 export default configureStore;
