@@ -118,6 +118,7 @@ export const thunkDeleteProduct = (productId) => async (dispatch) => {
     method: "DELETE",
     headers: { "Content-Type": "application/json" },
   });
+  console.log(response)
 
   if (response.ok) {
     const message = await response.json();
@@ -126,6 +127,7 @@ export const thunkDeleteProduct = (productId) => async (dispatch) => {
     return message;
   } else {
     const error = await response.json();
+    console.log(error, "Here is the error")
 
     return error;
   }
