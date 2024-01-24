@@ -3,6 +3,7 @@ import LoginFormPage from '../components/LoginFormPage';
 import SignupFormPage from '../components/SignupFormPage';
 import Layout from './Layout';
 import ReviewComponent from '../components/ReviewForm/ReviewComponent';
+import FavoritesPage from '../components/FavoritedPage/FavoritedPage';
 
 export const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ export const router = createBrowserRouter([
       {
         path: "signup",
         element: <SignupFormPage />,
+      },
+      {
+        path: "/favorites",
+        element: <FavoritesPage/>,
       },
     ],
   },

@@ -1,0 +1,37 @@
+.onefav {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid black;
+    align-items: center;
+    width: 300px;
+    border-radius: 10px;
+    text-decoration: none;
+}
+
+.favoritescont {
+    display: flex;
+    justify-content: center;
+}
+
+.previmg {
+    width: 300px;
+    height: 200px;
+    border-radius: 10px;
+}
+
+.itemname {
+    color: black
+}
+
+.price {
+    color: black
+}
+
+.proddesc {
+    color: black
+}
+
+.onefav:hover {
+    cursor: pointer;
+    box-shadow: 0 3px 5px rgba(108, 108, 108, 0.5);
+}
