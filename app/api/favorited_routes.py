@@ -20,7 +20,7 @@ def add_saved_product(product_id):
         new_favorite = FavoritedItem(userId=current_user.id, productId=product_id)
         db.session.add(new_favorite)
         db.session.commit()
-        return jsonify(new_favorite.product.to_dict())
+        return jsonify(new_favorite.product.to_dict)
 
     return jsonify(message='Product already favorited')
 
