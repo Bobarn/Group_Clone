@@ -2,11 +2,19 @@ const GET_ALL_REVIEWS = "reviews/getAllReviews";
 const CREATE_REVIEW = "reviews/makeReview";
 const DELETE_REVIEW = "reviews/deleteReview";
 const UPDATE_REVIEW = "reviews/updateReview";
+const GET_ONE_REVIEW = "reviews/getOneReview"
+const POST_REVIEW = 'reviews/postReview'
 
 const getAllReviews = (reviews) => {
   return {
     type: GET_ALL_REVIEWS,
     reviews,
+  };
+};
+const getOneReview = (review) => {
+  return {
+    type: GET_ONE_REVIEW,
+    review,
   };
 };
 
@@ -30,18 +38,76 @@ const updateReview = (review) => {
     review,
   };
 };
+export const postReview = (review) => {
+  return {
+    type: POST_REVIEW,
+    review,
+  };
+};
+
 
 export const thunkGetAllReviews = () => async (dispatch) => {
-  const response = await fetch("/api/reviews/all");
+  try {
+    const response = await fetch("/api/reviews/all");
+    // console.log("thunkgetallreviews", await response.json())
+    console.log(response, "!!!!!!!!!!!!!!!!!!RESPONSE HERE!!!!!!!!!!!!!!!!!!!!!!")
+    if (response.ok) {
+      const reviews = await response.json();
+      console.log("all reviews", reviews)
+      dispatch(getAllReviews(reviews));
 
+<<<<<<< HEAD
+      return reviews;
+    }
+    else {
+      throw new Error("Error in thunk")
+    }
+=======
   if (response.ok) {
     let reviews = await response.json();
 
     dispatch(getAllReviews(reviews));
 
     return reviews;
+>>>>>>> dev
   }
+  catch (e) {
+    console.error("error in thunk", e)
+  }
+
 };
+export const thunkGetOneReview = (productId) => async (dispatch) => {
+  try {
+    const response = await fetch(`/api/reviews/${productId}`);
+
+    // console.log(productId, "THIS IS PRODUCTID!~!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+    if (response.ok) {
+      const review = await response.json();
+      console.log(review, "FOR BRANDON!!!!!!!")
+      dispatch(getOneReview(review));
+
+      return review;
+    }
+    else {
+      throw new Error("Error in thunk")
+    }
+  }
+  catch (e) {
+    console.error("error in thunk", e)
+  }
+
+};
+
+// export const thunkGetUserReviews = (userId) => async (dispatch) => {
+
+//   const response = await fetch(`/api/reviews/${userId}`);
+
+//   const reviews  = await response.json();
+//   console.log(reviews, "LOOK HERE!!!!!!!!!")
+//   dispatch(getAllReviews(reviews));
+//   return reviews
+// }
+
 
 export const thunkCreateReview =
   (reviewDetails, productId) => async (dispatch) => {
@@ -102,15 +168,24 @@ export const thunkUpdateReview = (reviewId, review) => async (dispatch) => {
 function reviewReducer(state = {}, action) {
   switch (action.type) {
     case GET_ALL_REVIEWS: {
-      let reviews = action.reviews.Reviews;
+      let reviews = action.reviews;
       let newReviews = {};
 
       reviews.map((review) => {
         newReviews[review.id] = review;
-      });
-
+      })
       return { ...state, ...newReviews };
     }
+    case GET_ONE_REVIEW: {
+      let reviews = action.review;
+      let newReviews = {};
+
+      reviews.map((review) => {
+          newReviews[review.id] = review;
+      })
+      return { ...state, ...newReviews };
+    }
+
     case CREATE_REVIEW: {
       const review = action.review.Review;
       const newState = { ...state };
@@ -125,6 +200,12 @@ function reviewReducer(state = {}, action) {
     }
     case UPDATE_REVIEW: {
       const review = action.review.updated_review;
+      const newState = { ...state };
+      newState[review.id] = review;
+      return newState;
+    }
+    case POST_REVIEW: {
+      const review = action.review;
       const newState = { ...state };
       newState[review.id] = review;
       return newState;

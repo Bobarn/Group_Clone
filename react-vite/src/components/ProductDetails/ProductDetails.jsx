@@ -25,36 +25,36 @@ export default function ProductDetailsPage() {
 
     const navigate = useNavigate();
 
-    const { productId } = useParams();
+  const { productId } = useParams();
 
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-    const product = useSelector((state) => state.products[productId]);
+  const product = useSelector((state) => state.products[productId]);
 
-    const userId = useSelector((state) => state.session.user?.id);
+  const userId = useSelector((state) => state.session.user?.id);
 
-    useEffect(() => {
-        dispatch(thunkGetAllProducts());
-    }, [dispatch]);
+  useEffect(() => {
+    dispatch(thunkGetAllProducts());
+  }, [dispatch]);
 
-    function addDays(days) {
-        var result = new Date();
-        result.setDate(result.getDate() + days);
-        return result.toDateString();
-      }
+  function addDays(days) {
+    var result = new Date();
+    result.setDate(result.getDate() + days);
+    return result.toDateString();
+  }
 
 
     function onClickUpdate() {
         navigate(`/products/${productId}/edit`)
     }
 
-    function dropFunction() {
-        document.getElementById("myDropdown").classList.toggle("show");
-      }
+  function dropFunction() {
+    document.getElementById("myDropdown").classList.toggle("show");
+  }
 
-    function shippingDropFunction() {
-        document.getElementById("shippingDropdown").classList.toggle("show");
-    }
+  function shippingDropFunction() {
+    document.getElementById("shippingDropdown").classList.toggle("show");
+  }
 
     function numberWithCommas(x) {
         var parts = x.toString().split(".");

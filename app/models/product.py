@@ -34,6 +34,7 @@ class Product(db.Model):
             preview_image = self.images[0].url
 
         product_dict =  {
+
             "id": self.id,
             "seller": self.seller.to_dict(),
             "name": self.name,

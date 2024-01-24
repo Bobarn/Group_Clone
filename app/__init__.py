@@ -3,16 +3,19 @@ from flask import Flask, render_template, request, session, redirect
 from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, generate_csrf
-from flask_login import LoginManager
+from flask_login import LoginManager, login_required
 from .models import db, User
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
-from .api.favorited_routes import favorited_routes
-from .api.review_routes import review_routes
+#IMPORT PRODUCT ROUTES LIGHT
 from .api.product_routes import product_routes
 from .api.order_routes import order_routes
 from .seeds import seed_commands
 from .config import Config
+from .models.product_images import ProductImage
+from .forms.product_image_form import ImageForm
+from .api.review_routes import review_routes
+
 
 app = Flask(__name__, static_folder='../react-vite/dist', static_url_path='/')
 
@@ -31,9 +34,10 @@ app.cli.add_command(seed_commands)
 
 app.config.from_object(Config)
 app.register_blueprint(user_routes, url_prefix='/api/users')
+app.register_blueprint(review_routes, url_prefix ='/api/reviews')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
-app.register_blueprint(favorited_routes, url_prefix='/api/favorites')
-app.register_blueprint(review_routes, url_prefix ='/api/review_routes')
+
+#ADD PRODUCTS ROUTE AND REGISTURE IT INTO SERVER LIGHT
 app.register_blueprint(product_routes, url_prefix='/api/products')
 app.register_blueprint(order_routes, url_prefix='/api/orders')
 db.init_app(app)
@@ -48,6 +52,45 @@ CORS(app)
 # Therefore, we need to make sure that in production any
 # request made over http is redirected to https.
 # Well.........
+
+@app.route("/products/<int:id>/images",methods=['GET'])
+def product_images(id):
+    products = ProductImage.query.filter(productId=id)
+    # print((products[0].images[0].url))
+    return render_template("product_image.html", products=products)
+
+@app.route("/products/<int:id>/images/new", methods=['POST'] )
+@login_required
+
+def post_product_images(id):
+    form = ImageForm()
+    form["csrf_token"].data = request.cookies["csrf_token"]
+
+    if form.validate_on_submit():
+
+        url = form.url.data
+
+        new_image = ProductImage(url=url, productId=int(id))
+
+        db.session.add(new_image)
+        db.session.commit()
+
+        return {"product_image": url}
+    # return render_template("new_image_form.html", form=form)
+    return { "post_product_images": form.errors }
+
+
+
+@app.route("/images/<int:id>", methods=['DELETE'])
+@login_required
+
+def delete_product_images(id):
+    productImage = ProductImage.query.get(id)
+    db.session.delete(productImage)
+    db.session.commit()
+
+    return {'id' : "Image deleted successfully!"}
+
 @app.before_request
 def https_redirect():
     if os.environ.get('FLASK_ENV') == 'production':
