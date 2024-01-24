@@ -39,6 +39,7 @@ ENTIRE LANDING PAGE CONTAINER */ .landing-main-cont {
   height: 150px;
   border-radius: 150%;
   width: 100px;
+  cursor: pointer;
 }
 
 /*  *******  */
@@ -66,6 +67,7 @@ ENTIRE LANDING PAGE CONTAINER */ .landing-main-cont {
   width: 200px;
   border-radius: 5px;
   object-fit: cover;
+  cursor: pointer;
 }
 
 /*  *******  */
@@ -91,6 +93,7 @@ ENTIRE LANDING PAGE CONTAINER */ .landing-main-cont {
 .cat-single-img {
   height: 100px;
   width: 100px;
+  cursor: pointer;
 }
 /*  *******  */
 
@@ -101,6 +104,7 @@ ENTIRE LANDING PAGE CONTAINER */ .landing-main-cont {
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(2, 1fr);
   gap: 20px;
+  cursor: pointer;
 }
 .rectangle-img {
   height: 275px;
@@ -121,6 +125,7 @@ ENTIRE LANDING PAGE CONTAINER */ .landing-main-cont {
   border-radius: 100%;
   background-color: white;
   padding: 20px;
+  cursor: pointer;
 }
 .single-img-tile > .heart-button {
   position: relative;
