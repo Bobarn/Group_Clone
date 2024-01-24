@@ -1,12 +1,11 @@
+function CategoryProducts() {
+  // {category}
 
-function CategoryProducts({category}){
-
-
-    return(
-        <div>
-            <h1>Hello</h1>
-        </div>
-    )
+  return (
+    <div>
+      <h1>Hello</h1>
+    </div>
+  );
 }
 
-export default CategoryProducts
+export default CategoryProducts;
