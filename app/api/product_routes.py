@@ -23,7 +23,7 @@ def get_all_products():
     products = Product.query.order_by(desc(Product.created_at)).all()
 
     if not products:
-        return {"message": "That page does not exist"}
+        return {"message": "That page does not exist"}, 404
     list_dict_products = [product.to_dict() for product in products]
     return {"products":list_dict_products}
 
