@@ -23,7 +23,7 @@ import { thunkGetAllProducts } from "../../redux/product";
 const useProductsSelector = () => useSelector((store) => store.products);
 // const useReviewsSelector = () => useSelector((store) => store.reviews);
 // const useProductsSelector =  ()=>useSelector((store) => store.products)
-
+//
 function ReviewModal() {
   const dispatch = useDispatch();
   const { productId } = useParams();
