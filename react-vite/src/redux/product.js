@@ -77,8 +77,9 @@ export const thunkGetAllProductsWImages = () => async (dispatch) => {
   }
 };
 
-export const thunkGetAllByCat = (category) => async (dispatch) => {
-  const response = await fetch(`/api/products/category/${category}`);
+export const thunkGetAllByCat = (cat) => async (dispatch) => {
+  console.log("IN THUNK", category)
+  const response = await fetch(`/api/products/category/${cat}`);
 
   if (response.ok) {
     const products = await response.json();
@@ -193,18 +194,17 @@ function productReducer(state = {}, action) {
 
       return { ...state, ...newProducts };
     }
-    switch (action.type) {
-      case GET_ALL_PRODUCTS_CAT: {
-        let products = action.products.products;
-        console.log(products);
-        let newProducts = {};
+    case GET_ALL_PRODUCTS_CAT: {
+      let products = action.products.products;
 
-        products.map((product) => {
-          newProducts[product.id] = product;
-        });
+      let newProducts = {};
 
-        return { ...state, ...newProducts };
-      }
+      products.map((product) => {
+        newProducts[product.id] = product;
+      });
+
+      return { ...state, ...newProducts };
+    }
     case CREATE_PRODUCT: {
       const product = action.product.product;
       const newState = { ...state };
