@@ -1,11 +1,9 @@
-ENTIRE LANDING PAGE CONTAINER   */
-.landing-main-cont {
+ENTIRE LANDING PAGE CONTAINER */ .landing-main-cont {
   height: 100%;
   max-width: 1024px;
   margin-left: auto;
   margin-right: auto;
   font-family: ui-sans-serif;
-
 }
 @media (min-width: 1025px) {
   .landing-main-cont {
@@ -17,21 +15,18 @@ ENTIRE LANDING PAGE CONTAINER   */
 /*  *******  */
 
 /* GREETING MESSAGE*/
-.greeting-cont{
+.greeting-cont {
   display: flex;
   align-content: center;
   justify-content: center;
 }
-.greeting-cont > span{
-  font-size:40px;
-  font-weight:100;
+.greeting-cont > span {
+  font-size: 40px;
+  font-weight: 100;
   align-self: center;
-
 }
 
-
 /*  *******  */
-
 
 /*  CATEGORIES CIRCLE CONTAINERS   */
 .category-main-cont {
@@ -79,19 +74,18 @@ ENTIRE LANDING PAGE CONTAINER   */
 .category-main-cont {
   display: flex;
   flex-direction: row;
-  padding:40px
+  padding: 40px;
 }
 
 .single-cat-main-cont {
   display: flex;
   flex-direction: column;
-  gap:10px
+  gap: 10px;
 }
 
-.single-cat-main-cont > span{
+.single-cat-main-cont > span {
   align-self: center;
   justify-self: center;
-
 }
 
 .cat-single-img {
@@ -127,8 +121,15 @@ ENTIRE LANDING PAGE CONTAINER   */
   border-radius: 100%;
   background-color: white;
   padding: 20px;
-  border: 2px solid black;
 }
+.single-img-tile > .heart-button {
+  position: relative;
+  top: 29%;
+  left: 85%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
 .filled-heart {
   color: #d3012f;
 }
@@ -138,3 +139,21 @@ ENTIRE LANDING PAGE CONTAINER   */
 }
 
 /*  *******
+
+/* PRICE CONTAINER*/
+.price-cont {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  font-size: 14px;
+  width: 60px;
+  background-color: white;
+  padding: 5px;
+  border-radius: 30px;
+  margin-top: 10px;
+  position: relative;
+  top: -15%;
+  left: 20%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
