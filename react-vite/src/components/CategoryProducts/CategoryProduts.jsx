@@ -1,7 +1,7 @@
 import { useEffect,useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { thunkGetAllByCat, clearState } from "../../redux/product";
+import { thunkGetAllByCat, clearState, thunkGetAllProductsByCategory } from "../../redux/product";
 import { thunkCreateFavorite,thunkDeleteFavorite  } from "../../redux/favorited_items";
 import StarRatings from 'react-star-ratings'
 import "./CategoryProducts.css"
@@ -12,16 +12,17 @@ function CategoryProducts() {
   const navigate = useNavigate()
 
   let { category } = useParams();
-  const products = useSelector((state) => state.products);
+  const allCatProds = useSelector((state) => state.products[category]);
   const currUser = useSelector((state) => state.session.user);
-  const allCatProds = Object.values(products)
+  // const allCatProds = Object.values(products)
+  console.log(category)
    console.log('ALL PRODUCTS', allCatProds)
 
 
   useEffect(() => {
-    dispatch(thunkGetAllByCat(category));
+    dispatch(thunkGetAllProductsByCategory(category));
     // Only way I can get it to only pull category otherwise it loads all products
-    return () => dispatch(clearState())
+    // return () => dispatch(clearState())
   }, [dispatch,category]);
 
 
@@ -120,7 +121,7 @@ function CategoryProducts() {
     );
   };
 
-  if(!allCatProds.length) return null
+  if(!allCatProds) return null
   return(
   <div className="cat-page-main-cont">
     <div className='cat-head-cont'>
