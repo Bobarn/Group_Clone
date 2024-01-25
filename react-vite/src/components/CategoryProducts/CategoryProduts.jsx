@@ -10,7 +10,8 @@ import "./CategoryProducts.css"
 function CategoryProducts() {
   const dispatch = useDispatch();
   const navigate = useNavigate()
-  const { category } = useParams();
+
+  let { category } = useParams();
   const products = useSelector((state) => state.products);
   const currUser = useSelector((state) => state.session.user);
   const allCatProds = Object.values(products)

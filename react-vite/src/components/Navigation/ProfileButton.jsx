@@ -39,7 +39,7 @@ function ProfileButton() {
   };
 
   return (
-    <>
+    <div className="profile-bttn-main-cont">
       <button onClick={toggleMenu}>
         <i className="fas fa-user-circle" />
       </button>
@@ -69,7 +69,7 @@ function ProfileButton() {
           )}
         </ul>
       )}
-    </>
+    </div>
   );
 }
 
