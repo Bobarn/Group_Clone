@@ -5,8 +5,6 @@
     margin-left: 10%;
     width: 80%;
     border-radius: 5px;
-    background-color: #854b9d;
-    color: #ececec;
 }
 
 .form-text {
@@ -16,6 +14,10 @@
 
 #product-form-heading {
     margin: 5px;
+}
+
+#product-form-heading > * {
+    color:#b00bf4;
 }
 
 .product-input {
@@ -48,6 +50,7 @@
     display: flex;
 }
 
+
 .input-radio {
     display: flex;
     width: 40%;
@@ -55,10 +58,21 @@
     justify-content: space-around;
 }
 
+
+
 #days-input {
     width: 10%;
 }
 
+.radio-button {
+    accent-color: #b00bf4;
+}
+#returns-policy-input:focus, #category-input:focus, #cost-input:focus, #description-input:focus, #product-name:focus, #days-input:focus, #product-name-input:focus, #image-input:focus {
+    box-shadow:
+    0 0 5px 1px #fff,  /* inner white */
+    0 0 3px 1px #e68cfc, /* middle pink */
+    0 0 3px 1px #b00bf4; /* outer purple */
+}
 
 .product-form-restraint {
     width: 100%;
@@ -68,10 +82,6 @@
 }
 
 
-.product-form-input-area {
-    background-color: #763194;
-}
-
 #product-form-submit {
     margin: 10px;
     width: 150px;
@@ -79,7 +89,6 @@
     font-size: 0.9rem;
     line-height: 1.2rem;
     font-weight: 400;
-    background-color:#ececec;
     border: solid 1px;
     border-radius: 5px;
     align-self: center;

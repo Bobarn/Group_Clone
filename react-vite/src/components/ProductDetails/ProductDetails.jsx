@@ -52,6 +52,7 @@ export default function ProductDetailsPage() {
   }
 
   function buyNow() {
+    alert("Thank you for your purchase, an order has been made for this item!")
     dispatch(thunkCreateOrder([{id: productId, quantity: 1}]))
   }
 

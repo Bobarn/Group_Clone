@@ -25,7 +25,7 @@ const ProductForm = ({ product, formType, productId }) => {
         setDisabled(true)
 
         setSubmitted(true)
-        price = parseInt(price)
+        price = parseFloat(price)
 
         shipping_time = parseInt(shipping_time)
 
@@ -72,6 +72,9 @@ const ProductForm = ({ product, formType, productId }) => {
         if(!description) {
             newErrors.description = "Description is required"
         }
+        if(formType == "Create Product" && !image) {
+            newErrors.image = "Image is required"
+        }
         if(!category) {
             newErrors.category = "Category is required"
         }
@@ -114,8 +117,8 @@ const ProductForm = ({ product, formType, productId }) => {
                             placeholder='Something to stand out!'
                             onChange={(e) => setName(e.target.value)}
                             />
-                        </label>
                         {submitted && <div className='errors'>{errors.name}</div>}
+                        </label>
                     </div>
                 </div>
                 {formType == "Create Product" &&
@@ -133,8 +136,8 @@ const ProductForm = ({ product, formType, productId }) => {
                             placeholder="Spooky? Pretty? Cool? What's your aesthetic?"
                             onChange={(e) => setImage(e.target.value)}
                             />
+                        {submitted && <div className='errors'>{errors.image}</div>}
                         </label>
-                        {submitted && <div className='errors'>{errors.name}</div>}
                     </div>
                 </div>
                 }
@@ -153,8 +156,8 @@ const ProductForm = ({ product, formType, productId }) => {
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
                             />
-                        </label>
                         {submitted && <div className='errors'>{errors.description}</div>}
+                        </label>
                     </div>
                 </div>
                 <div className={'product-form-input'}>
@@ -167,14 +170,14 @@ const ProductForm = ({ product, formType, productId }) => {
                             <input
                             id='cost-input'
                             type="number"
-                            min="0.00"
+                            min="0.01"
                             step="0.01"
                             placeholder='$0'
                             value={price}
                             onChange={(e) => setPrice(e.target.value)}
                             />
-                        </label>
                         {submitted && <div className='errors'>{errors.price}</div>}
+                        </label>
                     </div>
                 </div>
                 <div className={'product-form-input'}>
@@ -197,8 +200,8 @@ const ProductForm = ({ product, formType, productId }) => {
                                 <option value={'Pet Supplies'}>Pet Supplies</option>
                                 <option value='' disabled>&#40;select one&#41;</option>
                             </select>
-                        </label>
                         {submitted && <div className='errors'>{errors.category}</div>}
+                        </label>
                     </div>
                 </div>
                 <div className={'product-form-input'}>
@@ -216,8 +219,8 @@ const ProductForm = ({ product, formType, productId }) => {
                             value={return_policy}
                             onChange={(e) => setReturn_policy(e.target.value)}
                             />
-                        </label>
                         {submitted && <div className='errors'>{errors.return_policy}</div>}
+                        </label>
                     </div>
                 </div>
                 <div className={'product-form-input'}>
@@ -230,6 +233,7 @@ const ProductForm = ({ product, formType, productId }) => {
                         <div className='input-radio'>
                             <label className="product-input-shipping">
                                 <input
+                                className='radio-button'
                                 type="radio"
                                 value={true}
                                 name="free_shipping"
@@ -240,6 +244,7 @@ const ProductForm = ({ product, formType, productId }) => {
                             </label>
                             <label className="product-input-shipping">
                                 <input
+                                className='radio-button'
                                 type="radio"
                                 value={false}
                                 name="free_shipping"
@@ -267,8 +272,8 @@ const ProductForm = ({ product, formType, productId }) => {
                             value={shipping_time}
                             onChange={(e) => setShipping_time(e.target.value)}
                             />
-                        </label>
                         {submitted && <div className='errors'>{errors.shipping_time}</div>}
+                        </label>
                     </div>
                 </div>
                 <div id='submit-area'>
