@@ -1,0 +1,33 @@
+#checkout-cart-modal {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    text-align: center;
+    align-items: center;
+}
+
+#checkout-cart-modal > h3 {
+    width: 300px;
+}
+
+.checkout-button, .keep-button {
+    width: 150px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom: none;
+    border: none;
+}
+
+.checkout-button:hover, .keep-button:hover {
+    cursor: pointer;
+}
+
+#cart-buttons-cont {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 30px;
+}
+
+.cart-button-title {
+    margin: 0px;
+}

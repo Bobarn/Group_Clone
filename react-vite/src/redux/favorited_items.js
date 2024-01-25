@@ -43,6 +43,7 @@ export const thunkCreateFavorite = (productId) => async (dispatch) => {
       productId,
     }),
   });
+  console.log(response)
 
   if (response.ok) {
     const newFavorite = await response.json();
@@ -51,6 +52,8 @@ export const thunkCreateFavorite = (productId) => async (dispatch) => {
 
     return newFavorite;
   } else {
+    const error = await response.json()
+    console.log(error)
     return { Error: "Could not add to favorites" };
   }
 };

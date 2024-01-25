@@ -1,0 +1,110 @@
+#product-form {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+    margin-left: 10%;
+    width: 80%;
+    border-radius: 5px;
+}
+
+.form-text {
+    font-family: 'Arimo', sans-serif;
+    font-family: 'Source Serif 4', serif;
+}
+
+#product-form-heading {
+    margin: 5px;
+}
+
+#product-form-heading > * {
+    color:#b00bf4;
+}
+
+.product-input {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 5%;
+}
+
+#product-name-input {
+    width: 50%;
+}
+
+#description-input {
+    height: 70%;
+}
+
+#cost-input {
+    width: 15%;
+}
+
+#category-input {
+    width: 20%;
+}
+
+#returns-policy-input {
+    width: 70%;
+    height: 60%;
+    display: flex;
+}
+
+
+.input-radio {
+    display: flex;
+    width: 40%;
+    align-items: center;
+    justify-content: space-around;
+}
+
+
+
+#days-input {
+    width: 10%;
+}
+
+.radio-button {
+    accent-color: #b00bf4;
+}
+#returns-policy-input:focus, #category-input:focus, #cost-input:focus, #description-input:focus, #product-name:focus, #days-input:focus, #product-name-input:focus, #image-input:focus {
+    box-shadow:
+    0 0 5px 1px #fff,  /* inner white */
+    0 0 3px 1px #e68cfc, /* middle pink */
+    0 0 3px 1px #b00bf4; /* outer purple */
+}
+
+.product-form-restraint {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    margin: 5px;
+}
+
+
+#product-form-submit {
+    margin: 10px;
+    width: 150px;
+    height: 40px;
+    font-size: 0.9rem;
+    line-height: 1.2rem;
+    font-weight: 400;
+    border: solid 1px;
+    border-radius: 5px;
+    align-self: center;
+    transition: 0.2s ease;
+}
+
+#product-form-submit:hover {
+    box-shadow:
+    0 0 10px 3px #fff,  /* inner white */
+    0 0 4px 3px #e68cfc, /* middle pink */
+    0 0 4px 3px #b00bf4; /* outer purple */
+    transform: translateY(10px);
+}
+
+#submit-area {
+    display: flex;
+    justify-content: center;
+    margin: 1%;
+}

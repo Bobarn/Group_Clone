@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { thunkCreateProduct, thunkUpdateProduct } from '../../redux/product';
+import './ProductForm.css'
 
 const ProductForm = ({ product, formType, productId }) => {
     const navigate = useNavigate();
@@ -24,7 +25,7 @@ const ProductForm = ({ product, formType, productId }) => {
         setDisabled(true)
 
         setSubmitted(true)
-        price = parseInt(price)
+        price = parseFloat(price)
 
         shipping_time = parseInt(shipping_time)
 
@@ -71,6 +72,9 @@ const ProductForm = ({ product, formType, productId }) => {
         if(!description) {
             newErrors.description = "Description is required"
         }
+        if(formType == "Create Product" && !image) {
+            newErrors.image = "Image is required"
+        }
         if(!category) {
             newErrors.category = "Category is required"
         }
@@ -91,80 +95,100 @@ const ProductForm = ({ product, formType, productId }) => {
         <form id='product-form' onSubmit={handleSubmit}>
             {formType === 'Create Product' ?
             <div id='product-form-heading'>
-                <h2>Post Your Wares</h2>
-                <h5>You&#39;re just a few steps away from the start of your store!</h5>
+                <h2 className='form-text'>Post Your Wares</h2>
+                <h5 className='form-text'>You&#39;re just a few steps away from the start of your store!</h5>
             </div> :
-            <div id='product-form-headings'>
-                <h2>Making changes?</h2>
-                <h5>Get them back on the web quick!</h5>
+            <div id='product-form-heading'>
+                <h2 className='form-text'>Making changes?</h2>
+                <h5 className='form-text'>Get them back on the web quick!</h5>
             </div>}
 
             <div id='product-form-input-area'>
                 <div className={'product-form-input'}>
                     <div className={'product-form-restraint'}>
-                        <h2>What will you name your product?</h2>
-                        <label>
+                    <div className='input-name'>
+                        <h2 className='form-text'>What will you name your product?</h2>
+                    </div>
+                        <label className="product-input">
                             <input
+                            id='product-name-input'
                             type="text"
                             value={name}
+                            placeholder='Something to stand out!'
                             onChange={(e) => setName(e.target.value)}
                             />
-                        </label>
                         {submitted && <div className='errors'>{errors.name}</div>}
+                        </label>
                     </div>
                 </div>
                 {formType == "Create Product" &&
                 <div className={'product-form-input'}>
                     <div className={'product-form-restraint'}>
-                        <h2>What does it look like?</h2>
-                        <h3>Share a picture with us!</h3>
-                        <label>
+                        <div className='input-name'>
+                            <h2 className='form-text'>What does it look like?</h2>
+                            <h3 className='form-text'>Share a picture with us!</h3>
+                        </div>
+                        <label className="product-input">
                             <input
+                            id='image-input'
                             type="text"
                             value={image}
+                            placeholder="Spooky? Pretty? Cool? What's your aesthetic?"
                             onChange={(e) => setImage(e.target.value)}
                             />
+                        {submitted && <div className='errors'>{errors.image}</div>}
                         </label>
-                        {submitted && <div className='errors'>{errors.name}</div>}
                     </div>
                 </div>
                 }
                 <div className={'product-form-input'}>
                     <div className={'product-form-restraint'}>
-                        <h2>How would you describe your product?</h2>
-                        <h3>Tell us what you find neat about.</h3>
-                        <label>
-                            <input
+                        <div className='input-name'>
+                            <h2 className='form-text'>How would you describe your product?</h2>
+                            <h3 className='form-text'>Tell us what you find neat about.</h3>
+                        </div>
+
+                        <label className="product-input">
+                            <textarea
+                            id='description-input'
+                            placeholder='We love it already.'
                             type="text"
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
                             />
-                        </label>
                         {submitted && <div className='errors'>{errors.description}</div>}
+                        </label>
                     </div>
                 </div>
                 <div className={'product-form-input'}>
                     <div className={'product-form-restraint'}>
-                        <h2>How much will it cost?</h2>
-                        <label>
+                    <div className='input-name'>
+                        <h2 className='form-text'>How much will it cost?</h2>
+                    </div>
+
+                        <label className="product-input">
                             <input
+                            id='cost-input'
                             type="number"
-                            min="0.00"
+                            min="0.01"
                             step="0.01"
-                            placeholder='0'
+                            placeholder='$0'
                             value={price}
                             onChange={(e) => setPrice(e.target.value)}
                             />
-                        </label>
                         {submitted && <div className='errors'>{errors.price}</div>}
+                        </label>
                     </div>
                 </div>
                 <div className={'product-form-input'}>
                     <div className={'product-form-restraint'}>
-                        <h2>What kind of product is it?</h2>
-                        <h3>Help us figure out where it fits on our site, just choose what you think is right.</h3>
-                        <label>
+                    <div className='input-name'>
+                        <h2 className='form-text'>What kind of product is it?</h2>
+                        <h3 className='form-text'>Help us figure out where it fits on our site, just choose what you think is right.</h3>
+                    </div>
+                        <label className="product-input">
                             <select
+                            id='category-input'
                             value={category}
                             onChange={(e) => setCategory(e.target.value)}
                             >
@@ -176,56 +200,71 @@ const ProductForm = ({ product, formType, productId }) => {
                                 <option value={'Pet Supplies'}>Pet Supplies</option>
                                 <option value='' disabled>&#40;select one&#41;</option>
                             </select>
-                        </label>
                         {submitted && <div className='errors'>{errors.category}</div>}
+                        </label>
                     </div>
                 </div>
                 <div className={'product-form-input'}>
                     <div className={'product-form-restraint'}>
-                        <h2>How will you handle returns?</h2>
-                        <h3>Not everybody will love your stuff but, don&#39;t worry, we will.</h3>
-                        <label>
-                            <input
+                    <div className='input-name'>
+                        <h2 className='form-text'>How will you handle returns?</h2>
+                        <h3 className='form-text'>Not everybody will love your stuff but, don&#39;t worry, we will.</h3>
+                    </div>
+                        <label className="product-input">
+                            <textarea id='returns-policy-input'
                             type="text"
+                            size={200}
+                            maxLength={200}
                             placeholder='Returns?'
                             value={return_policy}
                             onChange={(e) => setReturn_policy(e.target.value)}
                             />
-                        </label>
                         {submitted && <div className='errors'>{errors.return_policy}</div>}
-                    </div>
-                </div>
-                <div className={'product-form-input'}>
-                    <div className={'product-form-restraint'}>
-                        <h2>Do you want to offer free shipping?</h2>
-                        <h3>We don&#39;t blame you if not.</h3>
-                        <label>
-                            <input
-                            type="radio"
-                            value={true}
-                            name="free_shipping"
-                            defaultChecked={free_shipping == true}
-                            onChange={() => setFree_shipping(true)}
-                            />
-                            Yes
-                        </label>
-                        <label>
-                            <input
-                            type="radio"
-                            value={false}
-                            name="free_shipping"
-                            defaultChecked={free_shipping == false}
-                            onChange={() => setFree_shipping(false)}
-                            />
-                            No
                         </label>
                     </div>
                 </div>
                 <div className={'product-form-input'}>
                     <div className={'product-form-restraint'}>
-                        <h2>How many days do you think it will take to reach the customer?</h2>
-                        <label>
+                        <div className='input-name'>
+                            <h2 className='form-text'>Do you want to offer free shipping?</h2>
+                            <h3 className='form-text'>We don&#39;t blame you if not.</h3>
+
+                        </div>
+                        <div className='input-radio'>
+                            <label className="product-input-shipping">
+                                <input
+                                className='radio-button'
+                                type="radio"
+                                value={true}
+                                name="free_shipping"
+                                defaultChecked={free_shipping == true}
+                                onChange={() => setFree_shipping(true)}
+                                />
+                                Yes
+                            </label>
+                            <label className="product-input-shipping">
+                                <input
+                                className='radio-button'
+                                type="radio"
+                                value={false}
+                                name="free_shipping"
+                                defaultChecked={free_shipping == false}
+                                onChange={() => setFree_shipping(false)}
+                                />
+                                No
+                            </label>
+
+                        </div>
+                    </div>
+                </div>
+                <div className={'product-form-input'}>
+                    <div className={'product-form-restraint'}>
+                    <div className='input-name'>
+                        <h2 className='form-text'>How many days do you think it will take to reach the customer?</h2>
+                    </div>
+                        <label className="product-input">
                             <input
+                            id='days-input'
                             type="number"
                             min="0"
                             step="1"
@@ -233,12 +272,12 @@ const ProductForm = ({ product, formType, productId }) => {
                             value={shipping_time}
                             onChange={(e) => setShipping_time(e.target.value)}
                             />
-                        </label>
                         {submitted && <div className='errors'>{errors.shipping_time}</div>}
+                        </label>
                     </div>
                 </div>
-                <div>
-                    <button disabled={disabled} id='product-form-submit' type="submit">{formType}</button>
+                <div id='submit-area'>
+                    <button disabled={disabled} className='form-text' id='product-form-submit' type="submit">{formType}</button>
                 </div>
             </div>
         </form>

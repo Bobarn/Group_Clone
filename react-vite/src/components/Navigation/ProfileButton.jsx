@@ -5,8 +5,11 @@ import { thunkLogout } from "../../redux/session";
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
+import { useContext } from "react";
+import { CartContext } from "../../context/CartContext";
 
 function ProfileButton() {
+  const {clearCart} = useContext(CartContext)
   const dispatch = useDispatch();
   const navigate = useNavigate()
   const [showMenu, setShowMenu] = useState(false);
@@ -36,6 +39,7 @@ function ProfileButton() {
 
   const logout = (e) => {
     e.preventDefault();
+    clearCart()
     dispatch(thunkLogout());
     closeMenu();
   };
