@@ -1,15 +1,17 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from ..models import db, FavoritedItem
+from app.models import db, FavoritedItem
 
-favorited_routes = Blueprint('favorited', __name__)
+favorited_routes = Blueprint('favorites', __name__)
 
 @favorited_routes.route('/', methods=['GET'])
 @login_required
 def get_saved_products():
+
     saved_products = FavoritedItem.query.filter_by(userId=current_user.id).all()
     saved_product_data = [saved_product.product.to_dict() for saved_product in saved_products]
     return jsonify(saved_product_data)
+    # return {"favorites":saved_product_data}
 
 @favorited_routes.route('/<int:product_id>', methods=['POST'])
 @login_required

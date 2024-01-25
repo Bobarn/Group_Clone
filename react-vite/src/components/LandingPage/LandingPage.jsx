@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { thunkGetAllProductsWImages } from "../../redux/product";
-import { thunkCreateFavorite } from "../../redux/favorited_items";
+import { thunkCreateFavorite,thunkDeleteFavorite  } from "../../redux/favorited_items";
 import { useNavigate } from "react-router-dom";
 import CategoryImages from "./CategoryImages";
 import TrendingImages from "./TrendingImages";
@@ -31,7 +31,12 @@ function LandingImage() {
 
   const addToFav = (productId) => {
     // e.preventDefault();
-    dispatch(thunkCreateFavorite(productId));
+    if(currUser.id && heartStates[productId]) {
+      dispatch(thunkDeleteFavorite(productId))
+    }
+    else if(currUser.id) {
+      dispatch(thunkCreateFavorite(productId));
+    }
 
     setHeartStates((prevHeartStates) => ({
       ...prevHeartStates,

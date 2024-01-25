@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { thunkLogout } from "../../redux/session";
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
@@ -10,6 +11,7 @@ import { CartContext } from "../../context/CartContext";
 function ProfileButton() {
   const {clearCart} = useContext(CartContext)
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const [showMenu, setShowMenu] = useState(false);
   const user = useSelector((store) => store.session.user);
   const ulRef = useRef();
@@ -42,8 +44,12 @@ function ProfileButton() {
     closeMenu();
   };
 
+  // const handleOnClock = (param) =>{
+  //   navigate
+  // }
+
   return (
-    <>
+    <div className="profile-bttn-main-cont">
       <button onClick={toggleMenu}>
         <i className="fas fa-user-circle" />
       </button>
@@ -51,11 +57,22 @@ function ProfileButton() {
         <ul className={"profile-dropdown"} ref={ulRef}>
           {user ? (
             <>
-              <li>{user.username}</li>
-              <li>{user.email}</li>
-              <li>
+            <div className='pb-quad-one blocks'>
+              <span>{user.username}</span>
+              <span></span>
+            </div>
+            <div className='pb-quad-two blocks'>
+              <span onClick={() =>{ navigate('need to ask zee route'); closeMenu()}}>Your Orders</span>
+              {/* <span>Reviews</span> */}
+              <span onClick={() => {navigate('/favorites'); closeMenu();}}>Favorite Items</span>
+
+            </div>
+            <div>
+              <div className='pb-quad-three blocks'>
                 <button onClick={logout}>Log Out</button>
-              </li>
+              </div>
+
+            </div>
             </>
           ) : (
             <>
@@ -73,7 +90,7 @@ function ProfileButton() {
           )}
         </ul>
       )}
-    </>
+    </div>
   );
 }
 

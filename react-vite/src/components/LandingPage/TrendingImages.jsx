@@ -1,10 +1,6 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { thunkGetAllProductsWImages } from "../../redux/product";
 import { useNavigate } from "react-router-dom";
 
 function TrendingImages({ products }) {
-  const dispatch = useDispatch();
   //   const allProducts = useSelector((state) => state.products);
   const navigate = useNavigate();
   //   const currUser = useSelector((state) => state.session.user);

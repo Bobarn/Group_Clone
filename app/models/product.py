@@ -1,4 +1,4 @@
-from .db import db, SCHEMA, environment
+from .db import db, SCHEMA, environment, add_prefix_for_prod
 from datetime import datetime
 from .favorited_items import FavoritedItem
 
@@ -16,7 +16,7 @@ class Product(db.Model):
     free_shipping = db.Column(db.Boolean)
     return_policy = db.Column(db.Text)
     shipping_time = db.Column(db.Integer)
-    sellerId = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    sellerId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.now)
     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
 
