@@ -146,8 +146,8 @@ export default function ProductDetailsPage() {
     return (
         <>
             <div className='product-details-main'>
-                        <Link to='/' className='back-button'> <i className="fa-solid fa-angle-left"></i>Products</Link>
-                        {!showModal && <button id='cart-button'  onClick={toggle}><i className="fa-solid fa-cart-shopping fa-xl"></i> ({cartItems.length})</button>}
+                        <Link to='/' className='back-button'> <i className="fa-solid fa-angle-left"></i>Home</Link>
+                        {!showModal && userId && <button id='cart-button'  onClick={toggle}><i className="fa-solid fa-cart-shopping fa-xl"></i> ({cartItems.length})</button>}
                         <Cart showModal={showModal} toggle={toggle} />
                 <div id='product-details-body'>
                     <div className='review-area'>
@@ -172,7 +172,7 @@ export default function ProductDetailsPage() {
                         <StarRatings
                 className="stat"
                 rating={product?.star_rating === null ? 0 : product?.star_rating}
-                starRatedColor="#ececec"
+                starRatedColor="black"
                 starEmptyColor="gray"
                 numberOfStars={5}
                 starDimension="20px"
