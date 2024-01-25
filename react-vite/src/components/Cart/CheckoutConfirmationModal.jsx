@@ -4,6 +4,7 @@ import { useModal } from '../../context/Modal.jsx';
 import { thunkCreateOrder } from '../../redux/orders'
 import { useContext } from 'react'
 import { CartContext } from '../../context/CartContext'
+import './CheckoutConfirmationModal.css'
 
 export default function CheckoutConfirmationModal( { cartItems } ) {
     const { clearCart } = useContext(CartContext)
@@ -26,8 +27,10 @@ export default function CheckoutConfirmationModal( { cartItems } ) {
       <div id='checkout-cart-modal'>
         <h1>Confirm Checkout</h1>
         <h3>Are you sure you want to finish up this shopping spree?</h3>
-        <button className='checkout-button' onClick={handleSubmit}>Yes &#40;Checkout Now&#41;</button>
-        <button className='keep-button' onClick={handleCancel}>No &#40;Keep Shopping&#41;</button>
+        <div id='cart-buttons-cont'>
+          <button className='checkout-button' onClick={handleSubmit}><h2 className='cart-button-title'>Yes</h2> &#40;Checkout Now&#41;</button>
+          <button className='keep-button' onClick={handleCancel}><h2 className='cart-button-title'>No</h2> &#40;Keep Shopping&#41;</button>
+        </div>
       </div>
     );
   }

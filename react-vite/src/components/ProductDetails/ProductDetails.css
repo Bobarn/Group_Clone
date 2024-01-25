@@ -108,7 +108,6 @@
     display: flex;
     flex-direction: column;
     padding-left: 5%;
-    background-color: #19191c;
 }
 
 #product-details-body {
@@ -131,7 +130,6 @@
 }
 
 .product-detail-price, .product-detail-name, .product-detail-seller {
-    color:#ececec;
 }
 
 #product-details-information {
@@ -218,8 +216,6 @@
 /* Drop downs for the product and shipping details */
 
 .dropbtn, .shipbtn {
-    background-color:#19191c;
-    color: #ececec;
     padding: 16px;
     font-size: 16px;
     border: none;
@@ -228,6 +224,7 @@
     border-radius: 30px;
     margin: 10px;
     transition: transform 0.2s ease;
+    background-color: white;
   }
 
 .dropbtn:hover, .shipbtn:hover {
@@ -250,7 +247,6 @@ display: inline-block;
     top: -5px;
     min-width: 160px;
     z-index: 1;
-    color: #ececec;
   }
 
 .show {
@@ -288,19 +284,29 @@ display: inline-block;
     border-radius: 4px;
 }
 .suggested-name {
-    color: #ececec;
     position: relative;
     bottom: 50px;
     align-self: center;
 }
 
+#suggested-info {
+    display: block;
+    position: relative;
+}
+
 #suggested-img-tile {
-    border-radius: 15px;
-    transition: box-shadow 0.2s ease
+    border-radius: 25px;
+    transition: box-shadow 0.2s ease;
+    padding: 2%;
+}
+
+#suggested-img {
+    position: relative;
+    right: 2%;
 }
 
 #suggested-img-tile:hover {
-    box-shadow: #e68cfc 0 0 2px 2px;
+    box-shadow: #b00bf4 0 0 2px 2px;
 }
 
 
@@ -312,8 +318,17 @@ display: inline-block;
     margin-bottom: 0%;
 }
 
-/* To ensure whole site gets the black color */
+#free-shipping-banner {
+    background-color: #e68cfc;
+    color: black;
+    border-radius: 10px;
+    padding: 2px;
+    width: fit-content;
+    position: relative;
+    top: -18%;
+    margin: 0px;
+}
 
-html {
-    background-color: #19191c;
+#suggested-price, #suggested-name, #free-shipping-banner {
+    margin: 0px;
 }

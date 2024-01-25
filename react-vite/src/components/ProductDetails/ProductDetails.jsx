@@ -116,6 +116,7 @@ export default function ProductDetailsPage() {
                 onClick={() => navigate(`/products/${item.id}`)}
             >
                 <img
+                id='suggested-img'
                 className="sqr-img"
                 src={item.preview_image}
                 onError={(e) => {
@@ -124,10 +125,12 @@ export default function ProductDetailsPage() {
                 }}
                 />
             </div>
-            <div className="price-cont product-price">
-                <span>${item.price}</span>
-            </div>
-            <p className='suggested-name'>{item.name}</p>
+
+                <div id='suggested-info'>
+                    <p id='suggested-price'>${item.price}</p>
+                    <p id='suggested-name'>{item.name}</p>
+                    {item.free_shipping && <p id='free-shipping-banner'>Free shipping!</p>}
+                </div>
             </div>
         ))}
         </div>

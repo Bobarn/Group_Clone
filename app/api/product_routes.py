@@ -165,6 +165,7 @@ def update_product(id):
 @product_routes.route('/<int:id>', methods=['DELETE'])
 @login_required
 def delete_specific_product(id):
+    print("WE ARE IN THE DELETION")
 
     product = Product.query.get(id)
 

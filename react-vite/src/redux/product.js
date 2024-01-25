@@ -143,6 +143,7 @@ export const thunkDeleteProduct = (productId) => async (dispatch) => {
     headers: { "Content-Type": "application/json" },
   });
   // console.log(response)
+  await dispatch(thunkGetAllProducts())
 
   if (response.ok) {
     const message = await response.json();
