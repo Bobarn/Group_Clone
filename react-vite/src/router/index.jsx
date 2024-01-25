@@ -11,6 +11,7 @@ import ReviewModal from '../components/ReviewForm/ReviewModal';
 import CreateProduct from '../components/ProductFormPage/CreateProduct/CreateProduct';
 import UpdateProduct from '../components/ProductFormPage/UpdateProduct/UpdateProduct';
 import ProductDetailsPage from '../components/ProductDetails/ProductDetails';
+import EditReviewComponent from '../components/ReviewForm/EditReviewComponent';
 
 export const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ export const router = createBrowserRouter([
       {
         path: "/review/:productId",
         element: <ReviewComponent />,
+      },
+      {
+        path: "/edit_review/:productId",
+        element: <EditReviewComponent />,
       },
       {
         path: "/tester/:productId",

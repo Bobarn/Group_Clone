@@ -4,6 +4,7 @@ const DELETE_REVIEW = "reviews/deleteReview";
 const UPDATE_REVIEW = "reviews/updateReview";
 const GET_ONE_REVIEW = "reviews/getOneReview"
 const POST_REVIEW = 'reviews/postReview'
+// const UPDATE_SELECTED_REVIEW = 'reviews/updateSelectedReview'
 
 const getAllReviews = (reviews) => {
   return {
@@ -126,9 +127,10 @@ export const thunkDeleteReview = (reviewId) => async (dispatch) => {
     method: "DELETE",
     headers: { "Content-Type": "application/json" },
   });
-
+  console.log(response , '!!!!!!!!!!!!!!!!!!!!!!!!!!!')
   if (response.ok) {
     const message = await response.json();
+    console.log(message , '@@@@@@@@@@@@@@@@@@@@@@@')
     dispatch(deleteReview(reviewId));
 
     return message;
@@ -139,8 +141,10 @@ export const thunkDeleteReview = (reviewId) => async (dispatch) => {
   }
 };
 
-export const thunkUpdateReview = (reviewId, review) => async (dispatch) => {
-  const response = await fetch(`/api/reviews/${reviewId}`, {
+// export const thunkUpdateReview = (reviewId, review) => async (dispatch) => {
+  export const thunkUpdateReview = (review, reviewId) => async (dispatch) => {
+
+const response = await fetch(`/api/reviews/${reviewId}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(review),

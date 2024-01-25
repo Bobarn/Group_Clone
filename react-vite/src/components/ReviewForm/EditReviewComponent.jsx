@@ -1,80 +1,58 @@
+import "./ReviewForm.css";
+
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { useCallback, useEffect, useState } from "react";
-import "./ReviewForm.css";
 import { useParams } from "react-router-dom";
-// import { useParams } from "react-router-dom";
-import { postReview, thunkGetAllReviews } from "../../redux/reviews";
+import { thunkGetOneReview, thunkUpdateReview } from "../../redux/reviews";
 import { thunkGetAllProducts} from "../../redux/product";
-// import { useNavigate } from "react-router-dom";
 
-// selectors to quickly access values from redux store without duplicating selector logic everywhere\
-/**
- *
- * @example
- * how to use the selector
- * function DialogCmp(){
- * //get the list of products
- *  const products = useProductsSelector()
- *
- * }
- * @returns {Record<string,product>}
- */
 const useProductsSelector = () => useSelector((store) => store.products);
 const useReviewsSelector = () => useSelector((store) => store.reviews);
-
 const useUserSelector = () => useSelector((store) => store.session)
 
+const EditReviewModal = () => {
 
-
-
-function ReviewModal() {
+  const reviewId = localStorage.getItem("selectedReviewId")
 
   const dispatch = useDispatch();
   const { productId } = useParams();
 
   const products = useProductsSelector();
-  const getReview = useReviewsSelector();
+  const getReviews = useReviewsSelector();
   const sessions = useUserSelector();
 
-  const { closeModal, setModalContent } = useModal();
+  // const { closeModal, setModalContent } = useModal();
+  const { closeModal } = useModal();
 
-  // const { visible, show, close } = useModal();
-  // const navigate = useNavigate();
+  const reviewData = getReviews[reviewId]
 
-  const [review, setReview] = useState("");
-
-  const [rating, setRating] = useState(0);
-
+  const [review, setReview] = useState(reviewData?.review_text);
+  const [rating, setRating] = useState(reviewData?.star_rating);
   const [enableSubmit, setEnableSubmit] = useState(false);
-
 
    const cancel = () => {
       closeModal();
   }
 
+  console.log(reviewData, "reviewData");
+
   useEffect(() => {
-    setModalContent(<ReviewModal></ReviewModal>);
-
     dispatch(thunkGetAllProducts());
-
+    // setModalContent(<ReviewModal></ReviewModal>);
+    dispatch(thunkGetOneReview(productId))
   }, []);
 
-  useEffect(()=>{
-    dispatch(thunkGetAllReviews())
-  }, [])
-
-  const product = products[productId];
+  // const product = products[productId];
   // const reviews = getReview[productId];
+
+  console.log(getReviews, "reviews")
+
   const user = sessions["user"];
-
-
+  const product = products[productId];
 
   const canSubmit = useCallback(() => {
-    if (review.length < 2) {
-      return false;
-    }
-    if (rating < 0) {
+    if(review.length < 2 && rating === 0) {
       return false;
     }
     return true;
@@ -83,10 +61,6 @@ function ReviewModal() {
   useEffect(() => {
     setEnableSubmit(canSubmit());
   }, [review, canSubmit]);
-
-  // if (!product){
-  //   return <div>product with id :{productId} not found</div>
-  // }
 
   const onReviewChange = (e) => {
     setReview(e.target.value);
@@ -101,26 +75,17 @@ function ReviewModal() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (canSubmit()) {
-      addReview(productId);
+      editReview(reviewId);
     }
   };
 
-  const addReview = async (id) => {
-
-    // navigate(`/review/${id}`)
+  const editReview = async (reviewId) => {
     closeModal();
-    await fetch(`/api/reviews/${id}`, {
-      method: "POST",
-      // headers: { user: sessionUser },
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
+      dispatch(thunkUpdateReview({
         reviewText: review,
         starRating: rating,
-      }),
-    }).then(async (response) => {
+      }, reviewId));
 
-      dispatch(postReview(response));
-    });
   };
 
   return (
@@ -195,4 +160,4 @@ function ReviewModal() {
   );
 }
 
-export default ReviewModal;
+export default EditReviewModal;
