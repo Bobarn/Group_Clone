@@ -4,8 +4,8 @@ import { useCallback, useEffect, useState } from "react";
 import "./ReviewForm.css";
 import { useParams } from "react-router-dom";
 // import { useParams } from "react-router-dom";
-import { postReview } from "../../redux/reviews";
-import { thunkGetAllProducts } from "../../redux/product";
+import { postReview, thunkGetAllReviews } from "../../redux/reviews";
+import { thunkGetAllProducts} from "../../redux/product";
 // import { useNavigate } from "react-router-dom";
 
 // selectors to quickly access values from redux store without duplicating selector logic everywhere\
@@ -21,14 +21,18 @@ import { thunkGetAllProducts } from "../../redux/product";
  * @returns {Record<string,product>}
  */
 const useProductsSelector = () => useSelector((store) => store.products);
-// const useReviewsSelector = () => useSelector((store) => store.reviews);
-// const useProductsSelector =  ()=>useSelector((store) => store.products)
-//
+const useReviewsSelector = () => useSelector((store) => store.reviews);
+
+const useUserSelector = () => useSelector((store) => store.session)
+
 function ReviewModal() {
+
   const dispatch = useDispatch();
   const { productId } = useParams();
 
   const products = useProductsSelector();
+  const getReview = useReviewsSelector();
+  const sessions = useUserSelector();
 
   const { closeModal, setModalContent } = useModal();
 
@@ -48,7 +52,14 @@ function ReviewModal() {
 
   }, []);
 
+  useEffect(()=>{
+    dispatch(thunkGetAllReviews())
+  }, [])
+
   const product = products[productId];
+  // const reviews = getReview[productId];
+  const user = sessions["user"];
+
 
 
   const canSubmit = useCallback(() => {
@@ -105,7 +116,7 @@ function ReviewModal() {
   };
 
   return (
-    <div className="review_form">
+   <div className="review_form">
       <img src={product?.preview_image} height="350px" alt="" />
       <caption>{product?.name}</caption>
       <p>Reviews: {product?.reviews}</p>
@@ -154,13 +165,16 @@ function ReviewModal() {
             required
           />
         </div>
+        <p> Reviewed by {user?.first_name} {user?.last_name}</p>
+        <p></p>
+        <p> Your review and profile information will be publicly displayed </p>
 
         <button
           type="submit"
           disabled={!enableSubmit || rating === 0}
-          className={
-            enableSubmit ? "x" : "x"
-          }
+          // className={
+          //   enableSubmit ? "x" : "x"
+          // }
         >
           Post Your Review
         </button>
