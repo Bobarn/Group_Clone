@@ -19,11 +19,14 @@ function Navigation() {
       </div>
       <div className='nav-search-main-cont'>
       <input
+
+        className='search-bar'
         type="text"
         value={value}
         onChange={(e) => setValue(e.target.value)}
         placeholder="Search..."
       />
+      <i class="fa-solid fa-magnifying-glass"></i>
 
       </div>
 
