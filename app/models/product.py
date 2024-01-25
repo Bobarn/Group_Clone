@@ -10,7 +10,7 @@ class Product(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
-    price = db.Column(db.Numeric(4, 2), nullable=False)
+    price = db.Column(db.Numeric(6, 2), nullable=False)
     description = db.Column(db.Text)
     category = db.Column(db.String(30), nullable=False)
     free_shipping = db.Column(db.Boolean)
@@ -28,6 +28,10 @@ class Product(db.Model):
 
 
     def to_dict(self):
+        ratings = [rating.starRating for rating in self.reviews]
+        star_rating = None
+        if self.reviews:
+            star_rating = sum(ratings) / len(self.reviews)
         reviews_length = len(self.reviews)
         preview_image = None
         if self.images:
@@ -47,6 +51,7 @@ class Product(db.Model):
             "shipping_time": self.shipping_time,
             "preview_image": preview_image,
             "images":[image.to_dict() for image in self.images],
-            "sellerId": self.sellerId
+            "sellerId": self.sellerId,
+            "star_rating": star_rating
         }
         return product_dict

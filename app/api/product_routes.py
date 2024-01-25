@@ -62,10 +62,8 @@ def get_products_by_category(cat):
     if cat not in ['Jewelry', 'Clothes', 'Art', 'Art Supplies', 'Electronics', 'Pet Supplies']:
         return {"message": "Category doesn't exist"}, 404
     page = request.args.get('page')
-    if page == None:
-        page = 1
-    page = (int(page) - 1) * 5
-    products = Product.query.filter_by(category=cat).limit(5).offset(page).all()
+
+    products = Product.query.filter_by(category=cat).all()
     if not products:
         return {"message": "That page does not exist"}
     return {"products": [product.to_dict() for product in products]}

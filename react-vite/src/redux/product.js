@@ -1,5 +1,6 @@
 const GET_ALL_PRODUCTS = "products/getAllProducts";
 const GET_ALL_PRODUCTS_IMAGES = "product/images/getAll"
+const GET_ALL_PRODUCTS_BY_CATEGORY = "products/getAllProductsByCategory"
 const CREATE_PRODUCT = "products/makeProduct";
 const DELETE_PRODUCT = "products/deleteProduct";
 const UPDATE_PRODUCT = "products/updateProduct";
@@ -12,14 +13,19 @@ const getAllProducts = (products) => {
   };
 };
 
+const getAllProductsByCategory = (products) => {
+  return {
+    type: GET_ALL_PRODUCTS_BY_CATEGORY,
+    products
+  }
+}
+
 const getAllProductsWImages = (products) => {
   return{
     type:GET_ALL_PRODUCTS_IMAGES,
     products
   }
 }
-
-
 
 const createProduct = (product) => {
   return {
@@ -47,7 +53,7 @@ export const thunkGetAllProducts = () => async (dispatch) => {
 
   if (response.ok) {
     const products = await response.json();
-    console.log(products)
+    // console.log(products)
 
     dispatch(getAllProducts(products));
 
@@ -73,6 +79,24 @@ export const thunkGetAllProductsWImages = () => async (dispatch) => {
     return { errors: "Could not get all products" };
   }
 };
+
+//To create new area in store containing all products of each category
+export const thunkGetAllProductsByCategory = (category) => async (dispatch) => {
+  const response = await fetch(`/api/products/category/${category}`)
+
+  if(response.ok) {
+    const products = await response.json();
+    products.Category = category;
+
+    dispatch(getAllProductsByCategory(products));
+
+    return products;
+  } else {
+    const errors = await response.json()
+
+    return errors;
+  }
+}
 
 
 export const thunkCreateProduct =
@@ -118,7 +142,7 @@ export const thunkDeleteProduct = (productId) => async (dispatch) => {
     method: "DELETE",
     headers: { "Content-Type": "application/json" },
   });
-  console.log(response)
+  // console.log(response)
 
   if (response.ok) {
     const message = await response.json();
@@ -127,7 +151,7 @@ export const thunkDeleteProduct = (productId) => async (dispatch) => {
     return message;
   } else {
     const error = await response.json();
-    console.log(error, "Here is the error")
+    // console.log(error, "Here is the error")
 
     return error;
   }
@@ -149,7 +173,7 @@ export const thunkUpdateProduct = (productId, product) => async (dispatch) => {
     return updatedProduct;
   } else {
     const errors = await response.json();
-    console.log(errors)
+    // console.log(errors)
     return errors;
   }
 };
@@ -158,7 +182,7 @@ function productReducer(state = {}, action) {
   switch (action.type) {
     case GET_ALL_PRODUCTS: {
       let products = action.products.products;
-      console.log(products)
+      // console.log(products)
       let newProducts = {};
 
       products.map((product) => {
@@ -176,6 +200,16 @@ function productReducer(state = {}, action) {
       });
 
       return { ...state, ...newProducts };
+    }
+    case GET_ALL_PRODUCTS_BY_CATEGORY: {
+      let products = action.products.products;
+      let category = action.products.Category;
+
+      const newState = {...state};
+      newState[category] = [...products]
+
+      return newState;
+
     }
     case CREATE_PRODUCT: {
       const product = action.product.product;

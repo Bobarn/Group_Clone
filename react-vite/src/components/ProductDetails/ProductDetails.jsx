@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState, useContext } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import { thunkGetAllProducts } from '../../redux/product'
+import { thunkGetAllProducts, thunkGetAllProductsByCategory } from '../../redux/product'
 import DeleteProductConfirmationModal from './ProductDeleteModal';
 import { thunkCreateFavorite, thunkDeleteFavorite } from '../../redux/favorited_items';
 import { thunkCreateOrder } from '../../redux/orders';
@@ -33,11 +33,17 @@ export default function ProductDetailsPage() {
   const product = useSelector((state) => state.products[productId]);
 
   const userId = useSelector((state) => state.session.user?.id);
+
+  const categoryProducts = useSelector((state) => state.products[product?.category]);
+
   const [heartStates, setHeartStates] = useState({});
 
   useEffect(() => {
     dispatch(thunkGetAllProducts());
-  }, [dispatch]);
+}, [dispatch]);
+  useEffect(() => {
+      dispatch(thunkGetAllProductsByCategory(product?.category))
+  }, [product?.category])
 
   function addDays(days) {
     var result = new Date();
@@ -70,8 +76,9 @@ export default function ProductDetailsPage() {
 
 
     const addToFav = (productId) => {
+        console.log(productId);
 
-        if(userId && heartStates[product?.id]) {
+        if(userId && heartStates[productId]) {
             dispatch(thunkDeleteFavorite(productId))
         }
         else if(userId) {
@@ -84,74 +91,134 @@ export default function ProductDetailsPage() {
         }));
       };
 
+    const imageCreator = () => {
+    return (
+        <div className="suggestions-img-cont">
+        {categoryProducts?.map((item) => (
+            <div key={item.id} id='suggested-img-tile' className="single-img-tile">
+            <div
+                className="heart-button suggested-hearts"
+                id='product-heart'
+                onClick={() =>
+                userId
+                    ? addToFav(item.id)
+                    : window.alert("Must sign-in to add to favorites!")
+                }
+            >
+                {heartStates[item.id] ? (
+                <i id='suggested-heart' className="fa-solid fa-heart filled-heart"></i>
+                ) : (
+                <i id='suggested-heart' className="fa-regular fa-heart empty-heart"></i>
+                )}
+            </div>
+            <div
+                className="sqr-img-cont suggested-img-cont"
+                onClick={() => navigate(`/products/${item.id}`)}
+            >
+                <img
+                className="sqr-img"
+                src={item.preview_image}
+                onError={(e) => {
+                    e.target.src =
+                    "https://i.graphicmama.com/uploads/2023/3/64182e9d20d37-spider-animated-gifs.gif";
+                }}
+                />
+            </div>
+            <div className="price-cont product-price">
+                <span>${item.price}</span>
+            </div>
+            <p className='suggested-name'>{item.name}</p>
+            </div>
+        ))}
+        </div>
+    );
+    };
+
 
     if(!product) {
         return <></>
     }
 
     return (
-        <div id='product-details-main'>
-                    <Link to='/' className='back-button'> <i className="fa-solid fa-angle-left"></i>Products</Link>
-                    {!showModal && <button id='cart-button'  onClick={toggle}>Cart ({cartItems.length})</button>}
-                    <Cart showModal={showModal} toggle={toggle} />
-            <div id='product-details-body'>
-                <div className='review-area'>
-                    <Carousel className='Carousel Images'>
-                        {product?.images.map((image) => {
-                            return (<div key={image?.id}>
-                                                    <div className="heart-button-big" onClick={() => addToFav(product?.id)}>
-              {heartStates[product.id] ? (
-                  <i className="fa-solid fa-xl fa-heart filled-heart"></i>
-                  ) : (
-                      <i className="fa-regular fa-xl fa-heart empty-heart"></i>
-                      )}
-                    </div>
-                                <img src={image?.url} alt="product image"/>
-                            </div>)
-                        })}
-                    </Carousel>
-
-                    <span className='reviews-stats'>
-                    <h2 className='stat'>{numberWithCommas(product?.reviews)} Reviews </h2>
-                    <StarRatings className="stat" rating={product?.star_rating ? product?.star_rating : 0} starDimension="30px" starSpacing="5px" />
-                    </span>
-                </div>
-                <div id='product-details-information'>
-                    <div className='product-information'>
-                        <h2 className='product-price'>${product?.price}</h2>
-                        <h2 className='product-name'>{product?.name}</h2>
-                        <h5>Sold by {`${product?.seller.first_name}`}</h5>
-                    </div>
-                    <span>
-                        {userId === product?.sellerId &&
-                        <div className='seller-actions action-button'>
-                            <button onClick={onClickUpdate}>Update</button>
-                            <OpenModalButton modalComponent={<DeleteProductConfirmationModal productId={productId}/>} buttonText={'Remove Item Listing'}/>
-                        </div>}
-                        {userId && userId !== product?.sellerId && <div className='purchase-button'>
-                            <button className='purchase action-button' onClick={buyNow}>Buy now</button>
-                            <button className='purchase add-to-cart action-button' onClick={() => addToCart(product)}>Add to Cart</button>
-                        </div>}
-                    </span>
-
-                    <span className='product-block'>
-                        <div className='product-details dropdown'>
-                            <button onClick={dropFunction} className='dropbtn'>Item details</button>
-                        <h5 id="myDropdown" className="dropdown-content">
-                            {product?.description}
-                        </h5>
+        <>
+            <div className='product-details-main'>
+                        <Link to='/' className='back-button'> <i className="fa-solid fa-angle-left"></i>Products</Link>
+                        {!showModal && <button id='cart-button'  onClick={toggle}><i className="fa-solid fa-cart-shopping fa-xl"></i> ({cartItems.length})</button>}
+                        <Cart showModal={showModal} toggle={toggle} />
+                <div id='product-details-body'>
+                    <div className='review-area'>
+                        <Carousel className='Carousel Images'>
+                            {product?.images.map((image) => {
+                                return (<div key={image?.id}>
+                                                        <div className="heart-button-big" onClick={() => addToFav(product?.id)}>
+                {heartStates[product.id] ? (
+                    <i className="fa-solid fa-xl fa-heart filled-heart big-heart"></i>
+                    ) : (
+                        <i className="fa-regular fa-xl fa-heart empty-heart big-heart"></i>
+                        )}
                         </div>
-                        <div className='product-details product-shipping dropdown'>
-                            <button onClick={shippingDropFunction} className='shipbtn'>Shipping and return policies</button>
-                            <div id="shippingDropdown" className="shipping-dropdown">
-                                <p>Shipping Time: {product?.shipping_time} days</p>
-                                <p>Estimated Arrival Date: {addDays(product?.shipping_time)}</p>
-                                <p>Return Policy: {product?.return_policy}</p>
+                                    <img src={image?.url} alt="product image"/>
+                                </div>)
+                            })}
+                        </Carousel>
+
+                        <span className='reviews-stats'>
+                        <h2 className='stat'>{numberWithCommas(product?.reviews)} Reviews </h2>
+                        {/* <StarRatings className="stat" rating={product?.star_rating ? product?.star_rating : 0} starDimension="20px" starSpacing="5px" /> */}
+                        <StarRatings
+                className="stat"
+                rating={product?.star_rating === null ? 0 : product?.star_rating}
+                starRatedColor="#ececec"
+                starEmptyColor="gray"
+                numberOfStars={5}
+                starDimension="20px"
+                starSpacing="3px"
+                name="rating"/>
+                        </span>
+                    </div>
+                    <div id='product-details-information'>
+                        <div className='product-information'>
+                            <h2 className='product-detail-price'>${product?.price}</h2>
+                            <h2 className='product-detail-name'>{product?.name}</h2>
+                            <h5 className='product-detail-seller'>Sold by {`${product?.seller.first_name}`}</h5>
+                        </div>
+                        <span>
+                            {userId === product?.sellerId &&
+                            <div className='seller-actions action-button'>
+                                <button onClick={onClickUpdate}>Update</button>
+                                <OpenModalButton modalComponent={<DeleteProductConfirmationModal productId={productId}/>} buttonText={'Remove Item Listing'}/>
+                            </div>}
+                            {userId && userId !== product?.sellerId && <div className='purchase-button'>
+                                <button className='purchase action-button' onClick={buyNow}>Buy it now</button>
+                                <button className='purchase add-to-cart action-button' onClick={() => addToCart(product)}>Add to Cart</button>
+                            </div>}
+                        </span>
+
+                        <span className='product-block'>
+                            <div className='product-details dropdown'>
+                                <button onClick={dropFunction} className='dropbtn'>Item details</button>
+                            <h5 id="myDropdown" className="dropdown-content">
+                                {product?.description}
+                            </h5>
                             </div>
-                        </div>
-                    </span>
+                            <div className='product-details product-shipping dropdown'>
+                                <button onClick={shippingDropFunction} className='shipbtn'>Shipping and return policies</button>
+                                <div id="shippingDropdown" className="shipping-dropdown">
+                                    <p><i className="fa-regular fa-calendar"></i>  Estimated Shipping Time: {product?.shipping_time} days</p>
+                                    <p><i className="fa-solid fa-truck-fast"></i>  Order today and get by {addDays(product?.shipping_time)}</p>
+                                    <p><i className="fa-solid fa-boxes-packing"></i>  Return Policy: {product?.return_policy}</p>
+                                </div>
+                            </div>
+                        </span>
+                    </div>
                 </div>
             </div>
-        </div>
+            <h2 id='suggestions-title'>
+                Interested in More Like This?
+            </h2>
+            <div className='product-details-main suggested-products-row'>
+            {imageCreator()}
+            </div>
+        </>
     )
 }

@@ -1,0 +1,75 @@
+#product-form {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+    margin-left: 10%;
+    width: 80%;
+    border-radius: 5px;
+    background-color: #854b9d;
+    color: #ececec;
+}
+
+#product-form-heading {
+    margin: 5px;
+}
+
+.product-input {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#product-name-input {
+    width: 50%;
+}
+
+#description-input {
+    height: 70%;
+}
+
+#cost-input {
+    width: fit-content;
+}
+
+#returns-policy-input {
+    width: 70%;
+    height: 60%;
+    display: flex;
+}
+
+
+.product-form-restraint {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    margin: 5px;
+}
+
+.input-radio {
+    display: flex;
+    width: 40%;
+    justify-content: space-around;
+}
+
+.product-form-input-area {
+    background-color: #763194;
+}
+
+#product-form-submit {
+    margin: 10px;
+    width: 150px;
+    height: 40px;
+    font-size: 0.9rem;
+    line-height: 1.2rem;
+    font-weight: 400;
+    box-shadow: 1px 2px 2px lightgrey;
+    border: solid 1px;
+    border-radius: 5px;
+    align-self: center;
+}
+
+#submit-area {
+    display: flex;
+    justify-content: center;
+}
