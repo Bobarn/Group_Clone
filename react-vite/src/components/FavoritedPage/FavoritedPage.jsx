@@ -6,13 +6,16 @@ import "./FavoritedPage.css";
 
 const FavoritesPage = () => {
   const dispatch = useDispatch();
-  const favorites = useSelector((state) => Object.values(state.favorites));
+  // const favorites = useSelector((state) => Object.values(state.favorites));
+  const allFavorites = useSelector(state => state.favorites)
+  console.log(allFavorites,'ALL FAVORITES')
+  const favorites = Object.values(allFavorites)
 
   useEffect(() => {
     dispatch(thunkGetAllFavorites());
   }, [dispatch]);
 
-  if (!favorites) return null;
+
 
   return (
     <div className="favoritescont">
