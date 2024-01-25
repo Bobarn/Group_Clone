@@ -1,17 +1,18 @@
-ENTIRE LANDING PAGE CONTAINER */ .landing-main-cont {
+/*ENTIRE LANDING PAGE CONTAINER */
+.landing-main-cont {
   height: 100%;
   max-width: 1024px;
   margin-left: auto;
   margin-right: auto;
   font-family: ui-sans-serif;
 }
-@media (min-width: 1025px) {
+/* @media (min-width: 1025px) {
   .landing-main-cont {
     max-width: 1024px;
     margin-left: auto;
     margin-right: auto;
   }
-}
+} */
 /*  *******  */
 
 /* GREETING MESSAGE*/
