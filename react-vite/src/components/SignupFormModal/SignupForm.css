@@ -1,0 +1,35 @@
+#sign-up-modal {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    height: 350px;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#sign-up-form {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+}
+
+#sign-up-form > * {
+    margin: 5px 0px;
+    width: 100%;
+}
+
+#sign-up-submit {
+    line-height: 2rem;
+    border-radius: 5px;
+    border: none;
+}
+
+#sign-up-submit:hover {
+    box-shadow:
+    0 0 3px 1px #e68cfc;
+}
+
+.label {
+    display: flex;
+    justify-content: space-between;
+}
