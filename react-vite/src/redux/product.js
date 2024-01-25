@@ -4,6 +4,7 @@ const GET_ALL_PRODUCTS_CAT = "product/getAllCat";
 const CREATE_PRODUCT = "products/makeProduct";
 const DELETE_PRODUCT = "products/deleteProduct";
 const UPDATE_PRODUCT = "products/updateProduct";
+const CLEAR_STATE = "products/clearState"
 
 const getAllProducts = (products) => {
   return {
@@ -46,6 +47,14 @@ const updateProduct = (product) => {
     product,
   };
 };
+
+export const clearState = () => {
+
+  return {
+    type:CLEAR_STATE
+  }
+}
+
 
 export const thunkGetAllProducts = () => async (dispatch) => {
   const response = await fetch("/api/products/all");
@@ -222,6 +231,9 @@ function productReducer(state = {}, action) {
       const newState = { ...state };
       newState[product.id] = product;
       return newState;
+    }
+    case CLEAR_STATE:{
+      return {}
     }
     default:
       return state;
