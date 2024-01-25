@@ -1,49 +1,58 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState, useContext } from 'react';
-import { Link, useParams, useNavigate } from 'react-router-dom';
-import { thunkGetAllProducts, thunkGetAllProductsByCategory } from '../../redux/product'
-import DeleteProductConfirmationModal from './ProductDeleteModal';
-import { thunkCreateFavorite, thunkDeleteFavorite } from '../../redux/favorited_items';
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState, useContext } from "react";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import { thunkGetAllProducts, thunkGetAllProductsByCategory } from "../../redux/product";
+import DeleteProductConfirmationModal from "./ProductDeleteModal";
+import {thunkCreateFavorite, thunkDeleteFavorite} from "../../redux/favorited_items";
 import { thunkCreateOrder } from '../../redux/orders';
-import OpenModalButton from '../OpenModalButton/OpenModalButton';
+import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { Carousel } from 'react-responsive-carousel'
-import { CartContext } from '../../context/CartContext';
-import Cart from '../Cart/Cart'
-import StarRatings from 'react-star-ratings'
-import "./ProductDetails.css"
-
+import { Carousel } from "react-responsive-carousel";
+import { CartContext } from "../../context/CartContext";
+import Cart from "../Cart/Cart";
+import StarRatings from "react-star-ratings";
+import "./ProductDetails.css";
+import { thunkGetOneReview } from "../../redux/reviews";
+import ReviewsComponent from "../ReviewForm/ReviewsComponent";
 
 export default function ProductDetailsPage() {
+  const { cartItems, addToCart } = useContext(CartContext);
 
-    const {cartItems, addToCart } = useContext(CartContext)
+  const [showModal, setShowModal] = useState(false);
 
-    const [showModal, setShowModal] = useState(false)
+  const toggle = () => {
+    setShowModal(!showModal);
+  };
 
-    const toggle = () => {
-        setShowModal(!showModal)
-      }
-
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const { productId } = useParams();
 
   const dispatch = useDispatch();
 
   const product = useSelector((state) => state.products[productId]);
-
   const userId = useSelector((state) => state.session.user?.id);
 
   const categoryProducts = useSelector((state) => state.products[product?.category]);
 
   const [heartStates, setHeartStates] = useState({});
 
+  const reviews = useSelector((state) => state.reviews);
+  // converting the reviews object of objects to an array
+  const reviewsArray = Object.values(reviews);
+  // console.log(reviewsArray, "reviews array");
+
+//   console.log(reviews, "reviews");
   useEffect(() => {
     dispatch(thunkGetAllProducts());
 }, [dispatch]);
   useEffect(() => {
       dispatch(thunkGetAllProductsByCategory(product?.category))
   }, [product?.category])
+
+  useEffect(() => {
+    dispatch(thunkGetOneReview(productId))
+  }, []);
 
   function addDays(days) {
     var result = new Date();
@@ -57,9 +66,9 @@ export default function ProductDetailsPage() {
   }
 
 
-    function onClickUpdate() {
-        navigate(`/products/${productId}/edit`)
-    }
+  function onClickUpdate() {
+    navigate(`/products/${productId}/edit`);
+  }
 
   function dropFunction() {
     document.getElementById("myDropdown").classList.toggle("show");
@@ -69,15 +78,14 @@ export default function ProductDetailsPage() {
     document.getElementById("shippingDropdown").classList.toggle("show");
   }
 
-    function numberWithCommas(x) {
-        var parts = x.toString().split(".");
-        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        return parts.join(".");
-    }
+  function numberWithCommas(x) {
+    var parts = x.toString().split(".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return parts.join(".");
+  }
 
 
     const addToFav = (productId) => {
-        console.log(productId);
 
         if(userId && heartStates[productId]) {
             dispatch(thunkDeleteFavorite(productId))
@@ -138,10 +146,9 @@ export default function ProductDetailsPage() {
     );
     };
 
-
-    if(!product) {
-        return <></>
-    }
+  if (!product) {
+    return <></>;
+  }
 
     return (
         <>
@@ -179,6 +186,7 @@ export default function ProductDetailsPage() {
                 starSpacing="3px"
                 name="rating"/>
                         </span>
+                        <ReviewsComponent reviews={reviewsArray} />
                     </div>
                     <div id='product-details-information'>
                         <div className='product-information'>
