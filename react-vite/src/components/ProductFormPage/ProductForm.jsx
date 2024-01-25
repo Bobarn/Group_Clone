@@ -92,19 +92,19 @@ const ProductForm = ({ product, formType, productId }) => {
         <form id='product-form' onSubmit={handleSubmit}>
             {formType === 'Create Product' ?
             <div id='product-form-heading'>
-                <h2>Post Your Wares</h2>
-                <h5>You&#39;re just a few steps away from the start of your store!</h5>
+                <h2 className='form-text'>Post Your Wares</h2>
+                <h5 className='form-text'>You&#39;re just a few steps away from the start of your store!</h5>
             </div> :
             <div id='product-form-heading'>
-                <h2>Making changes?</h2>
-                <h5>Get them back on the web quick!</h5>
+                <h2 className='form-text'>Making changes?</h2>
+                <h5 className='form-text'>Get them back on the web quick!</h5>
             </div>}
 
             <div id='product-form-input-area'>
                 <div className={'product-form-input'}>
                     <div className={'product-form-restraint'}>
                     <div className='input-name'>
-                        <h2>What will you name your product?</h2>
+                        <h2 className='form-text'>What will you name your product?</h2>
                     </div>
                         <label className="product-input">
                             <input
@@ -122,14 +122,15 @@ const ProductForm = ({ product, formType, productId }) => {
                 <div className={'product-form-input'}>
                     <div className={'product-form-restraint'}>
                         <div className='input-name'>
-                            <h2>What does it look like?</h2>
-                            <h3>Share a picture with us!</h3>
+                            <h2 className='form-text'>What does it look like?</h2>
+                            <h3 className='form-text'>Share a picture with us!</h3>
                         </div>
                         <label className="product-input">
                             <input
                             id='image-input'
                             type="text"
                             value={image}
+                            placeholder="Spooky? Pretty? Cool? What's your aesthetic?"
                             onChange={(e) => setImage(e.target.value)}
                             />
                         </label>
@@ -140,8 +141,8 @@ const ProductForm = ({ product, formType, productId }) => {
                 <div className={'product-form-input'}>
                     <div className={'product-form-restraint'}>
                         <div className='input-name'>
-                            <h2>How would you describe your product?</h2>
-                            <h3>Tell us what you find neat about.</h3>
+                            <h2 className='form-text'>How would you describe your product?</h2>
+                            <h3 className='form-text'>Tell us what you find neat about.</h3>
                         </div>
 
                         <label className="product-input">
@@ -159,7 +160,7 @@ const ProductForm = ({ product, formType, productId }) => {
                 <div className={'product-form-input'}>
                     <div className={'product-form-restraint'}>
                     <div className='input-name'>
-                        <h2>How much will it cost?</h2>
+                        <h2 className='form-text'>How much will it cost?</h2>
                     </div>
 
                         <label className="product-input">
@@ -168,7 +169,7 @@ const ProductForm = ({ product, formType, productId }) => {
                             type="number"
                             min="0.00"
                             step="0.01"
-                            placeholder='0'
+                            placeholder='$0'
                             value={price}
                             onChange={(e) => setPrice(e.target.value)}
                             />
@@ -179,11 +180,12 @@ const ProductForm = ({ product, formType, productId }) => {
                 <div className={'product-form-input'}>
                     <div className={'product-form-restraint'}>
                     <div className='input-name'>
-                        <h2>What kind of product is it?</h2>
-                        <h3>Help us figure out where it fits on our site, just choose what you think is right.</h3>
+                        <h2 className='form-text'>What kind of product is it?</h2>
+                        <h3 className='form-text'>Help us figure out where it fits on our site, just choose what you think is right.</h3>
                     </div>
                         <label className="product-input">
                             <select
+                            id='category-input'
                             value={category}
                             onChange={(e) => setCategory(e.target.value)}
                             >
@@ -202,8 +204,8 @@ const ProductForm = ({ product, formType, productId }) => {
                 <div className={'product-form-input'}>
                     <div className={'product-form-restraint'}>
                     <div className='input-name'>
-                        <h2>How will you handle returns?</h2>
-                        <h3>Not everybody will love your stuff but, don&#39;t worry, we will.</h3>
+                        <h2 className='form-text'>How will you handle returns?</h2>
+                        <h3 className='form-text'>Not everybody will love your stuff but, don&#39;t worry, we will.</h3>
                     </div>
                         <label className="product-input">
                             <textarea id='returns-policy-input'
@@ -221,8 +223,8 @@ const ProductForm = ({ product, formType, productId }) => {
                 <div className={'product-form-input'}>
                     <div className={'product-form-restraint'}>
                         <div className='input-name'>
-                            <h2>Do you want to offer free shipping?</h2>
-                            <h3>We don&#39;t blame you if not.</h3>
+                            <h2 className='form-text'>Do you want to offer free shipping?</h2>
+                            <h3 className='form-text'>We don&#39;t blame you if not.</h3>
 
                         </div>
                         <div className='input-radio'>
@@ -253,10 +255,11 @@ const ProductForm = ({ product, formType, productId }) => {
                 <div className={'product-form-input'}>
                     <div className={'product-form-restraint'}>
                     <div className='input-name'>
-                        <h2>How many days do you think it will take to reach the customer?</h2>
+                        <h2 className='form-text'>How many days do you think it will take to reach the customer?</h2>
                     </div>
                         <label className="product-input">
                             <input
+                            id='days-input'
                             type="number"
                             min="0"
                             step="1"
@@ -269,7 +272,7 @@ const ProductForm = ({ product, formType, productId }) => {
                     </div>
                 </div>
                 <div id='submit-area'>
-                    <button disabled={disabled} id='product-form-submit' type="submit">{formType}</button>
+                    <button disabled={disabled} className='form-text' id='product-form-submit' type="submit">{formType}</button>
                 </div>
             </div>
         </form>

@@ -184,7 +184,7 @@ export default function ProductDetailsPage() {
                         </div>
                         <span>
                             {userId === product?.sellerId &&
-                            <div className='seller-actions action-button'>
+                            <div className='seller-actions'>
                                 <button onClick={onClickUpdate}>Update</button>
                                 <OpenModalButton modalComponent={<DeleteProductConfirmationModal productId={productId}/>} buttonText={'Remove Item Listing'}/>
                             </div>}
