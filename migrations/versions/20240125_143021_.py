@@ -1,19 +1,21 @@
 """empty message
 
-Revision ID: 2d261d64927d
+Revision ID: 8cd7dc32ecee
 Revises:
-Create Date: 2024-01-24 14:50:34.295102
+Create Date: 2024-01-25 14:30:21.586130
 
 """
 from alembic import op
 import sqlalchemy as sa
+
 import os
 environment = os.getenv("FLASK_ENV")
 SCHEMA = os.environ.get("SCHEMA")
 
 
+
 # revision identifiers, used by Alembic.
-revision = '2d261d64927d'
+revision = '8cd7dc32ecee'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -42,7 +44,7 @@ def upgrade():
     op.create_table('products',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=255), nullable=False),
-    sa.Column('price', sa.Numeric(precision=4, scale=2), nullable=False),
+    sa.Column('price', sa.Numeric(precision=6, scale=2), nullable=False),
     sa.Column('description', sa.Text(), nullable=True),
     sa.Column('category', sa.String(length=30), nullable=False),
     sa.Column('free_shipping', sa.Boolean(), nullable=True),
@@ -97,18 +99,13 @@ def upgrade():
     )
     if environment == "production":
         op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
-    if environment == "production":
         op.execute(f"ALTER TABLE products SET SCHEMA {SCHEMA};")
-    if environment == "production":
         op.execute(f"ALTER TABLE orders SET SCHEMA {SCHEMA};")
-    if environment == "production":
         op.execute(f"ALTER TABLE favoriteditems SET SCHEMA {SCHEMA};")
-    if environment == "production":
         op.execute(f"ALTER TABLE order_items SET SCHEMA {SCHEMA};")
-    if environment == "production":
         op.execute(f"ALTER TABLE product_images SET SCHEMA {SCHEMA};")
-    if environment == "production":
         op.execute(f"ALTER TABLE reviews SET SCHEMA {SCHEMA};")
+
     # ### end Alembic commands ###
 
 
