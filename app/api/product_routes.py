@@ -23,7 +23,7 @@ def get_all_products():
     products = Product.query.order_by(desc(Product.created_at)).all()
 
     if not products:
-        return {"message": "That page does not exist"}
+        return {"message": "That page does not exist"}, 404
     list_dict_products = [product.to_dict() for product in products]
     return {"products":list_dict_products}
 
@@ -62,10 +62,8 @@ def get_products_by_category(cat):
     if cat not in ['Jewelry', 'Clothes', 'Art', 'Art Supplies', 'Electronics', 'Pet Supplies']:
         return {"message": "Category doesn't exist"}, 404
     page = request.args.get('page')
-    if page == None:
-        page = 1
-    page = (int(page) - 1) * 5
-    products = Product.query.filter_by(category=cat).limit(5).offset(page).all()
+
+    products = Product.query.filter_by(category=cat).all()
     if not products:
         return {"message": "That page does not exist"}
     return {"products": [product.to_dict() for product in products]}
@@ -167,6 +165,7 @@ def update_product(id):
 @product_routes.route('/<int:id>', methods=['DELETE'])
 @login_required
 def delete_specific_product(id):
+    print("WE ARE IN THE DELETION")
 
     product = Product.query.get(id)
 

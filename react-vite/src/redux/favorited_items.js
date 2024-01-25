@@ -24,8 +24,8 @@ const deleteFavorite = (favoriteId) => {
 };
 
 export const thunkGetAllFavorites = () => async (dispatch) => {
-  const response = await fetch("/api/favorites");
-
+  const response = await fetch("/api/favorites/");
+  console.log("im in thunk favorites", response)
   if (response.ok) {
     const favorites = await response.json();
 
@@ -43,6 +43,7 @@ export const thunkCreateFavorite = (productId) => async (dispatch) => {
       productId,
     }),
   });
+  console.log(response)
 
   if (response.ok) {
     const newFavorite = await response.json();
@@ -51,6 +52,8 @@ export const thunkCreateFavorite = (productId) => async (dispatch) => {
 
     return newFavorite;
   } else {
+    const error = await response.json()
+    console.log(error)
     return { Error: "Could not add to favorites" };
   }
 };

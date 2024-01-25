@@ -36,16 +36,17 @@ export const thunkCreateOrder = (cart) => async (dispatch) => {
   if (response.ok) {
     let newOrder = await response.json();
     let order_item;
-    for (let item in cart) {
-      order_item = await fetch(`/api/orders/item/${item.productId}`, {
+    for (let item of cart) {
+      order_item = await fetch(`/api/orders/item/${item.id}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          "order_id": newOrder.id,
+          "order_id": newOrder.Order.id,
           "quantity": item.quantity,
         }),
       });
     }
+    order_item = await order_item.json()
     dispatch(makeOrder(order_item))
 
     return order_item;
