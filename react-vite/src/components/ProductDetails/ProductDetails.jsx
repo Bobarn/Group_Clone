@@ -202,7 +202,7 @@ export default function ProductDetailsPage() {
                             <div className='product-details dropdown'>
                                 <button onClick={dropFunction} className='dropbtn'>Item details</button>
                             <h5 id="myDropdown" className="dropdown-content">
-                                {product?.description}
+                                <p>{product?.description}</p>
                             </h5>
                             </div>
                             <div className='product-details product-shipping dropdown'>
