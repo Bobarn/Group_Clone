@@ -1,17 +1,19 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { thunkGetAllOrders } from "../../redux/orders";
+import { thunkGetAllOrders, } from "../../redux/orders";
 import "./orders.css";
 
 function Orders() {
   const dispatch = useDispatch();
   const allOrders = useSelector((state) => state.orders);
+  const user = useSelector(state => state.session.user)
+  const currUser = user.id
   const orders = Object.values(allOrders);
 
 
   useEffect(() => {
     dispatch(thunkGetAllOrders());
-  }, [dispatch]);
+  }, [dispatch,currUser]);
 
   return (
     <div className="order-page-main-cont">
