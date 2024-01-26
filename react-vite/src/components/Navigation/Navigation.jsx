@@ -26,7 +26,7 @@ function Navigation() {
         onChange={(e) => setValue(e.target.value)}
         placeholder="Search..."
       />
-      <i className="fa-solid fa-magnifying-glass"></i>
+
 
       </div>
 
