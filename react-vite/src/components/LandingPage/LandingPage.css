@@ -105,6 +105,7 @@
   height: 275px;
   width: 200px;
   border-radius: 5px;
+  box-shadow: 0 3px 5px #e68cfc;
 }
 
 /*  *******  */
@@ -180,6 +181,7 @@
   cursor: pointer;
   height: 150px;
   width: 200px;
+  box-shadow: 3px 3px 5px #e68cfc;
 }
 
 /*  *******/
