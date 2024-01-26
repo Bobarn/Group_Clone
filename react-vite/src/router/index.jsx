@@ -13,6 +13,7 @@ import UpdateProduct from '../components/ProductFormPage/UpdateProduct/UpdatePro
 import ProductDetailsPage from '../components/ProductDetails/ProductDetails';
 import EditReviewComponent from '../components/ReviewForm/EditReviewComponent';
 import Orders from '../components/Orders/Orders';
+import UserStore from '../components/UserStore/UserStore';
 
 export const router = createBrowserRouter([
   {
@@ -81,6 +82,10 @@ export const router = createBrowserRouter([
       {
         path: '/orders',
         element: <Orders />
+      },
+      {
+        path: '/store',
+        element: <UserStore />
       }
 
     ],

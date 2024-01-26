@@ -15,6 +15,8 @@ const ProductForm = ({ product, formType, productId }) => {
     const [return_policy, setReturn_policy] = useState(product?.return_policy)
     let [shipping_time, setShipping_time] = useState(product?.shipping_time)
     const [image, setImage] = useState(product?.preview_image)
+    const [secondImage, setSecondImage] = useState('')
+    const [thirdImage, setThirdImage] = useState('')
     const [disabled, setDisabled] = useState(false);
     const [errors, setErrors] = useState({})
     const [submitted, setSubmitted] = useState(false)
@@ -35,9 +37,21 @@ const ProductForm = ({ product, formType, productId }) => {
             product.errors = errors;
         }
 
+
         if(formType === 'Create Product' && !product.errors) {
             // console.log(product)
-            product = await dispatch(thunkCreateProduct(product, image));
+            let imageInput = image
+            if(secondImage) {
+                imageInput = [image, secondImage]
+                if(thirdImage) {
+                    imageInput = [image, secondImage, thirdImage]
+                }
+            }
+
+            if(thirdImage && !secondImage) {
+                imageInput = [image, thirdImage]
+            }
+            product = await dispatch(thunkCreateProduct(product, imageInput));
             // console.log(product)
 
         } else if (formType === "Update Product" && !product.errors) {
@@ -111,6 +125,7 @@ const ProductForm = ({ product, formType, productId }) => {
                     </div>
                         <label className="product-input">
                             <input
+                            maxLength={50}
                             id='product-name-input'
                             type="text"
                             value={name}
@@ -129,12 +144,39 @@ const ProductForm = ({ product, formType, productId }) => {
                             <h3 className='form-text'>Share a picture with us!</h3>
                         </div>
                         <label className="product-input">
+                            Preview Image:
                             <input
                             id='image-input'
                             type="text"
                             value={image}
                             placeholder="Spooky? Pretty? Cool? What's your aesthetic?"
                             onChange={(e) => setImage(e.target.value)}
+                            />
+                        {submitted && <div className='errors'>{errors.image}</div>}
+                        </label>
+                        <div>
+                        </div>
+                        <label className="product-input">
+                            Second Image (Optional):
+                            <input
+                            id='image-input'
+                            type="text"
+                            value={secondImage}
+                            placeholder="Spooky? Pretty? Cool? What's your aesthetic?"
+                            onChange={(e) => setSecondImage(e.target.value)}
+                            />
+                        {submitted && <div className='errors'>{errors.image}</div>}
+                        </label>
+                        <div>
+                        </div>
+                        <label className="product-input">
+                            Third Image (Optional):
+                            <input
+                            id='image-input'
+                            type="text"
+                            value={thirdImage}
+                            placeholder="Spooky? Pretty? Cool? What's your aesthetic?"
+                            onChange={(e) => setThirdImage(e.target.value)}
                             />
                         {submitted && <div className='errors'>{errors.image}</div>}
                         </label>
@@ -150,6 +192,7 @@ const ProductForm = ({ product, formType, productId }) => {
 
                         <label className="product-input">
                             <textarea
+                            maxLength={1000}
                             id='description-input'
                             placeholder='We love it already.'
                             type="text"
@@ -267,6 +310,7 @@ const ProductForm = ({ product, formType, productId }) => {
                             id='days-input'
                             type="number"
                             min="0"
+                            max={"365"}
                             step="1"
                             placeholder='0'
                             value={shipping_time}
