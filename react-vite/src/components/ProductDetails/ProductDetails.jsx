@@ -159,7 +159,7 @@ export default function ProductDetailsPage() {
                     <div className='review-area'>
                         <Carousel className='Carousel Images'>
                             {product?.images.map((image) => {
-                                return (<div key={image?.id}>
+                                return (<div className="Carousel-image" key={image?.id}>
                                                         <div className="heart-button-big" onClick={() => addToFav(product?.id)}>
                 {heartStates[product.id] ? (
                     <i className="fa-solid fa-xl fa-heart filled-heart big-heart"></i>
