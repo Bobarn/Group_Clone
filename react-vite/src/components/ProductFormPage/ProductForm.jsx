@@ -111,6 +111,7 @@ const ProductForm = ({ product, formType, productId }) => {
                     </div>
                         <label className="product-input">
                             <input
+                            maxLength={50}
                             id='product-name-input'
                             type="text"
                             value={name}
@@ -150,6 +151,7 @@ const ProductForm = ({ product, formType, productId }) => {
 
                         <label className="product-input">
                             <textarea
+                            maxLength={1000}
                             id='description-input'
                             placeholder='We love it already.'
                             type="text"
@@ -267,6 +269,7 @@ const ProductForm = ({ product, formType, productId }) => {
                             id='days-input'
                             type="number"
                             min="0"
+                            max={"365"}
                             step="1"
                             placeholder='0'
                             value={shipping_time}

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState, useContext } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { thunkGetAllProducts, thunkGetAllProductsByCategory } from "../../redux/product";
 import DeleteProductConfirmationModal from "./ProductDeleteModal";
 import {thunkCreateFavorite, thunkDeleteFavorite} from "../../redux/favorited_items";
@@ -153,7 +153,6 @@ export default function ProductDetailsPage() {
     return (
         <>
             <div className='product-details-main'>
-                        <Link to='/' className='back-button'> <i className="fa-solid fa-angle-left"></i>Home</Link>
                         {!showModal && userId && <button id='cart-button'  onClick={toggle}><i className="fa-solid fa-cart-shopping fa-xl"></i> ({cartItems.length})</button>}
                         <Cart showModal={showModal} toggle={toggle} />
                 <div id='product-details-body'>
