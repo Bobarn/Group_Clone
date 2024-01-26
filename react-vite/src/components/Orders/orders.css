@@ -1,7 +1,23 @@
 /* ORDER TITLE HEADING     */
 .order-page-main-cont{
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    font-weight:250;
+    font-family: ui-sans-serif;
+    margin-top: 30px;
+}
+
+/******** */
+
+/******** */
+
+ /* ORDER TITLE CONT*/
+.order-title-cont{
+    padding: 40px;
+    font-size:30px;
+    font-weight:200;
+
 }
 
 /******** */
@@ -11,27 +27,50 @@
     display: flex;
     flex-direction: column;
     gap:40px;
-}
+    width:500px;
 
+}
+.full-order-cont{
+    /* padding: 40px; */
+    border:2px solid #d8d8cf;
+    box-shadow: 0 3px 5px #e68cfc
+
+}
 /******** */
 
-/*  ORDER ITEM CONT */
-.order-item-cont{
-    padding: 40px;
-    border:1px solid black;
+
+/* DATE CONTAINER  */
+.date-cont{
+    display: flex;
+    border-bottom: 2px solid #d8d8cf;
+    margin-bottom: 20px;
+    padding:20px;
+    justify-content: space-between;
+
 }
 
-/******** */
 
+
+/******** */
 /*  IMAGE  */
-.order-lowwer-cont {
+.order-item-cont{
+    padding:20px
+}
+
+.order-lower-cont {
   display: flex;
   flex-direction: row;
+
 }
 
 .order-img {
   width: 100px;
   height: 100px;
+  cursor:pointer
+}
+
+.order-name-cont{
+    margin-left: 20px;
 }
 
 /******** */
