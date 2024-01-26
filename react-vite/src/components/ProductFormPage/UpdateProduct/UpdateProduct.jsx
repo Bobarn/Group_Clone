@@ -13,13 +13,13 @@ const UpdateProduct = () => {
 
   useEffect(() => {
     dispatch(thunkGetAllProducts());
-}, [dispatch]);
+  }, [dispatch, user]);
 
-const product = useSelector((state) => state.products[productId]);
+  const product = useSelector((state) => state.products[productId]);
 
   if (!product) return(<></>);
 
-  if(product.sellerId !== user?.id) {
+  if(product?.sellerId !== user?.id) {
     navigate('/')
   }
 
