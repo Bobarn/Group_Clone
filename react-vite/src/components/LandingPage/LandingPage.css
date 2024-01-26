@@ -6,13 +6,7 @@
   margin-right: auto;
   font-family: ui-sans-serif;
 }
-/* @media (min-width: 1025px) {
-  .landing-main-cont {
-    max-width: 1024px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-} */
+
 /*  *******  */
 
 /* GREETING MESSAGE*/
@@ -162,4 +156,38 @@
   left: 20%;
   transform: translate(-50%, -50%);
   z-index: 1;
+}
+
+/* IMAGE CONTAINERS GRID POSITION */
+.single-img-tile {
+  /* object-fit: cover; */
+  position: relative;
+  overflow: hidden;
+}
+
+.sqr-img-cont {
+  /* width: 100px; */
+  position: relative;
+  overflow: hidden;
+}
+
+
+.sqr-img {
+  border-radius: 5px;
+  object-fit: cover;
+  cursor: pointer;
+  height: 150px;
+  width: 200px;
+}
+
+/*  *******/
+
+.landing-main-cont {
+  height: 100%;
+  max-width: 1024px;
+  margin-left: auto;
+  margin-right: 20px;
+  font-family: ui-sans-serif;
+  margin-left: 20px;
+  margin-top:40px;
 }
