@@ -243,17 +243,6 @@ function productReducer(state = {}, action) {
 
       return { ...state, ...newProducts };
     }
-    case GET_ALL_PRODUCTS_CAT: {
-      let products = action.products.products;
-
-      let newProducts = {};
-
-      products.map((product) => {
-        newProducts[product.id] = product;
-      });
-
-      return { ...state, ...newProducts };
-    }
     case GET_ALL_PRODUCTS_BY_CATEGORY: {
       let products = action.products.products;
       let category = action.products.Category;
