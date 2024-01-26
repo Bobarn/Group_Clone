@@ -45,7 +45,7 @@ export default function ProductDetailsPage() {
 //   console.log(reviews, "reviews");
   useEffect(() => {
     dispatch(thunkGetAllProducts());
-}, [dispatch]);
+}, [dispatch, product?.reviews]);
   useEffect(() => {
       dispatch(thunkGetAllProductsByCategory(product?.category))
   }, [product?.category])

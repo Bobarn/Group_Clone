@@ -5,15 +5,14 @@ import { useModal } from "../../context/Modal";
 import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { thunkGetOneReview, thunkUpdateReview } from "../../redux/reviews";
-import { thunkGetAllProducts} from "../../redux/product";
+import { thunkGetAllProducts } from "../../redux/product";
 
 const useProductsSelector = () => useSelector((store) => store.products);
 const useReviewsSelector = () => useSelector((store) => store.reviews);
-const useUserSelector = () => useSelector((store) => store.session)
+const useUserSelector = () => useSelector((store) => store.session);
 
 const EditReviewModal = () => {
-
-  const reviewId = localStorage.getItem("selectedReviewId")
+  const reviewId = localStorage.getItem("selectedReviewId");
 
   const dispatch = useDispatch();
   const { productId } = useParams();
@@ -22,37 +21,33 @@ const EditReviewModal = () => {
   const getReviews = useReviewsSelector();
   const sessions = useUserSelector();
 
-  // const { closeModal, setModalContent } = useModal();
   const { closeModal } = useModal();
 
-  const reviewData = getReviews[reviewId]
+  const reviewData = getReviews[reviewId];
 
   const [review, setReview] = useState(reviewData?.review_text);
   const [rating, setRating] = useState(reviewData?.star_rating);
+  const [itemQuality, setItemQuality] = useState(reviewData?.item_qual);
+  const [shipping, setShipping] = useState(reviewData?.shipping_qual);
+  const [customerService, setCustomerService] = useState(
+    reviewData?.service_qual
+  );
   const [enableSubmit, setEnableSubmit] = useState(false);
 
-   const cancel = () => {
-      closeModal();
-  }
-
-  console.log(reviewData, "reviewData");
+  const cancel = () => {
+    closeModal();
+  };
 
   useEffect(() => {
     dispatch(thunkGetAllProducts());
-    // setModalContent(<ReviewModal></ReviewModal>);
-    dispatch(thunkGetOneReview(productId))
-  }, []);
-
-  // const product = products[productId];
-  // const reviews = getReview[productId];
-
-  console.log(getReviews, "reviews")
+    dispatch(thunkGetOneReview(productId));
+  }, [dispatch, productId]);
 
   const user = sessions["user"];
   const product = products[productId];
 
   const canSubmit = useCallback(() => {
-    if(review.length < 2 && rating === 0) {
+    if (review.length < 2 && rating === 0) {
       return false;
     }
     return true;
@@ -67,12 +62,12 @@ const EditReviewModal = () => {
     setEnableSubmit(canSubmit());
   };
 
-  const onStarChange = (value) => {
-    setRating(value);
+  const onStarChange = (value, setStarState) => {
+    setStarState(value);
     setEnableSubmit(canSubmit());
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (canSubmit()) {
       editReview(reviewId);
@@ -81,21 +76,43 @@ const EditReviewModal = () => {
 
   const editReview = async (reviewId) => {
     closeModal();
-      dispatch(thunkUpdateReview({
-        reviewText: review,
-        starRating: rating,
-      }, reviewId));
-
+    dispatch(
+      thunkUpdateReview(
+        {
+          reviewText: review,
+          starRating: rating,
+          itemQual: itemQuality,
+          shippingQual: shipping,
+          serviceQual: customerService,
+        },
+        reviewId
+      )
+    );
+    await dispatch(thunkGetOneReview(product.id));
+    await dispatch(thunkGetAllProducts())
   };
 
   return (
-   <div className="review_form">
+    <div className="review_form">
       <img src={product?.preview_image} height="350px" alt="" />
       <caption>{product?.name}</caption>
       <p>Reviews: {product?.reviews}</p>
       <p>Seller: {product?.seller?.username}</p>
-      <h2> My review </h2>
-      <div className="star-rating">
+
+
+
+      <h2 className="edith2">Help others by sharing your feedback</h2>
+      <h3 className="edith2">
+        What do you think about this? Did it ship on time? Describe your
+        experience with this shop.
+      </h3>
+      <h2 className="edith2"> My review </h2>
+      <form onSubmit={handleSubmit}>
+
+      <div className=" star-rating">
+
+
+      <div className="ratings">
         <label>
           {[...Array(5)].map((star, index) => {
             index += 1;
@@ -104,29 +121,88 @@ const EditReviewModal = () => {
                 type="button"
                 key={index}
                 className={index <= rating ? "star-on" : "star-off"}
-                onClick={() => onStarChange(index)}
+                onClick={() => onStarChange(index, setRating)}
               >
                 <i className="fa-solid fa-star"></i>
               </button>
             );
           })}
         </label>
-        {/* <div>Rating</div> */}
       </div>
-
-      <h2>Help others by sharing your feedback</h2>
-      <h3>
-        What do you think about this? Did it ship on time? Describe your
-        experience with this shop.
-      </h3>
       {review.length >= 200 && (
         <p className="error">
           {" "}
-          You have reached the Max Length: 200 character{" "}
+          You have reached the Max Length: 200 characters{" "}
         </p>
       )}
 
-      <form onSubmit={handleSubmit}>
+
+        <div className="ratings">
+          <h2 className="edith2">Item Quality</h2>
+          <label>
+            {[...Array(5)].map((star, index) => {
+              index += 1;
+              return (
+                <button
+                  type="button"
+                  key={index}
+                  className={index <= itemQuality ? "star-on" : "star-off"}
+                  onClick={() => onStarChange(index, setItemQuality)}
+                >
+                  <i className="fa-solid fa-star"></i>
+                </button>
+              );
+            })}
+          </label>
+        </div>
+
+        <div className="ratings">
+          <h2 className="edith2">Shipping</h2>
+          <label>
+            {[...Array(5)].map((star, index) => {
+              index += 1;
+              return (
+                <button
+                  type="button"
+                  key={index}
+                  className={index <= shipping ? "star-on" : "star-off"}
+                  onClick={() => onStarChange(index, setShipping)}
+                >
+                  <i className="fa-solid fa-star"></i>
+                </button>
+              );
+            })}
+          </label>
+        </div>
+
+        <div className="ratings">
+          <h2 className="edith2">Customer Service</h2>
+          <label>
+            {[...Array(5)].map((star, index) => {
+              index += 1;
+              return (
+                <button
+                  type="button"
+                  key={index}
+                  className={index <= customerService ? "star-on" : "star-off"}
+                  onClick={() => onStarChange(index, setCustomerService)}
+                >
+                  <i className="fa-solid fa-star"></i>
+                </button>
+              );
+            })}
+          </label>
+        </div>
+
+
+
+
+
+
+
+      </div>
+
+
         <div className="review-text">
           <textarea
             className="w-100"
@@ -138,26 +214,21 @@ const EditReviewModal = () => {
             required
           />
         </div>
-        <p> Reviewed by {user?.first_name} {user?.last_name}</p>
-        <p></p>
-        <p> Your review and profile information will be publicly displayed </p>
-
-        <button
-          type="submit"
-          disabled={!enableSubmit || rating === 0}
-          // className={
-          //   enableSubmit ? "x" : "x"
-          // }
-        >
+        <p>
+          {" "}
+          Reviewed by {user?.first_name} {user?.last_name}
+        </p>
+        <p>Your review and profile information will be publicly displayed</p>
+        <button type="submit" disabled={!enableSubmit || rating === 0}>
           Post Your Review
         </button>
       </form>
-      {/* <pre>{JSON.stringify(products,null,2)}</pre> */}
+
       <button className="cancel-button" onClick={cancel}>
         CANCEL
       </button>
     </div>
   );
-}
+};
 
 export default EditReviewModal;
