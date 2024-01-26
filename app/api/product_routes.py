@@ -80,11 +80,7 @@ def get_product_details(id):
 @product_routes.route('/current', methods=['GET'])
 @login_required
 def get_current_user_products():
-    page = request.args.get('page')
-    if page == None:
-        page = 1
-    page = (int(page) - 1) * 5
-    products = Product.query.filter_by(sellerId=current_user.id).limit(5).offset(page).all()
+    products = Product.query.filter_by(sellerId=current_user.id).all()
     if not products:
         return {"message": "That page does not exist"}, 404
     return {"products": [product.to_dict() for product in products]}

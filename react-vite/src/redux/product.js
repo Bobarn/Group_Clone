@@ -6,6 +6,7 @@ const CREATE_PRODUCT = "products/makeProduct";
 const DELETE_PRODUCT = "products/deleteProduct";
 const UPDATE_PRODUCT = "products/updateProduct";
 const CLEAR_STATE = "products/clearState"
+const GET_USER_STORE = "products/getUserStore";
 
 const getAllProducts = (products) => {
   return {
@@ -60,6 +61,13 @@ export const clearState = () => {
 
   return {
     type:CLEAR_STATE
+  }
+}
+
+const getUserStore = (products) => {
+  return {
+    type: GET_USER_STORE,
+    products
   }
 }
 
@@ -209,6 +217,24 @@ export const thunkUpdateProduct = (productId, product) => async (dispatch) => {
   }
 };
 
+export const thunkGetUserStore = () => async (dispatch) => {
+
+  const response = await fetch('/api/products/current');
+
+  if(response.ok) {
+    const userStore = await response.json()
+    console.log(userStore)
+
+    dispatch(getUserStore(userStore));
+
+    return userStore
+  } else {
+    const errors = await response.json();
+
+    return errors;
+  }
+}
+
 function productReducer(state = {}, action) {
   switch (action.type) {
     case GET_ALL_PRODUCTS: {
@@ -273,6 +299,13 @@ function productReducer(state = {}, action) {
     }
     case CLEAR_STATE:{
       return {}
+    }
+    case GET_USER_STORE: {
+      const products = action.products.products;
+
+      const newState = {...state, User: [...products]}
+
+      return newState;
     }
     default:
       return state;
