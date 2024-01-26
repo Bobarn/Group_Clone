@@ -21,7 +21,7 @@ import { thunkGetAllProducts} from "../../redux/product";
  * @returns {Record<string,product>}
  */
 const useProductsSelector = () => useSelector((store) => store.products);
-const useReviewsSelector = () => useSelector((store) => store.reviews);
+// const useReviewsSelector = () => useSelector((store) => store.reviews);
 
 const useUserSelector = () => useSelector((store) => store.session)
 
@@ -34,7 +34,7 @@ function ReviewModal() {
   const { productId } = useParams();
 
   const products = useProductsSelector();
-  const getReview = useReviewsSelector();
+  // const getReview = useReviewsSelector();
   const sessions = useUserSelector();
 
   const { closeModal, setModalContent } = useModal();

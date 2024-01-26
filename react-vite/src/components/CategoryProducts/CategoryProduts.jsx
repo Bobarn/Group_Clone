@@ -1,7 +1,7 @@
 import { useEffect,useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { thunkGetAllByCat, clearState, thunkGetAllProductsByCategory } from "../../redux/product";
+import { thunkGetAllProductsByCategory } from "../../redux/product";
 import { thunkCreateFavorite,thunkDeleteFavorite  } from "../../redux/favorited_items";
 import StarRatings from 'react-star-ratings'
 import "./CategoryProducts.css"

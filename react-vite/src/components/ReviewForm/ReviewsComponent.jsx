@@ -2,21 +2,20 @@
 import DeleteReview from "./DeleteReview";
 import EditReview from "./EditReviewComponent"
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
-import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+// import { useParams } from "react-router-dom";
+// import { useSelector } from "react-redux";
 
 
 const ReviewsComponent = ({ reviews }) => {
 
-const useReviewsSelector = () => useSelector((store) => store.reviews);
+// const useReviewsSelector = () => useSelector((store) => store.reviews);
 
   // const [reviewId, setReviewId] = useState();
-  const { productId } = useParams();
-  const getReview = useReviewsSelector();
+  // const { productId } = useParams();
+  // const getReview = useReviewsSelector();
 
 
   if (!reviews) return null;
-  const review = getReview[productId];
 
   const months = {
     0: "January",

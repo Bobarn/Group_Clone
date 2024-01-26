@@ -1,7 +1,7 @@
 import "./DeleteReview.css";
 import { useDispatch , useSelector} from "react-redux";
-import { useEffect } from "react";
-import { thunkDeleteReview, thunkGetAllReviews } from "../../redux/reviews";
+// import { useEffect } from "react";
+import { thunkDeleteReview } from "../../redux/reviews";
 import { useModal } from "../../context/Modal";
 import { thunkGetAllProducts } from "../../redux/product";
 import { useParams } from "react-router-dom";

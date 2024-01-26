@@ -1,20 +1,12 @@
 import { useState, useEffect, useRef } from "react";
 // import OpenModalMenuItem from "./OpenModalMenuItem";
-import { useNavigate, NavLink } from "react-router-dom";
-import CategoryProducts from "../CategoryProducts/CategoryProduts";
+import { useNavigate } from "react-router-dom";
 
 function CategoriesMenu() {
   const [showMenu, setShowMenu] = useState(false);
   const navigate = useNavigate();
   const ulRef = useRef();
-  const catArr = [
-    { category: "Jewelry" },
-    { category: "Clothing" },
-    { category: "Art" },
-    { category: "Art Supplies" },
-    { category: "Electronics" },
-    { category: "Pet Supplies" },
-  ];
+
 
   const toggleMenu = (e) => {
     e.stopPropagation(); // Keep from bubbling up to document and triggering closeMenu

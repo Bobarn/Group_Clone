@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState, useContext } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
-import { thunkGetAllProducts, thunkGetAllProductsByCategory, clearState } from "../../redux/product";
+import { thunkGetAllProducts, thunkGetAllProductsByCategory } from "../../redux/product";
 import DeleteProductConfirmationModal from "./ProductDeleteModal";
 import {thunkCreateFavorite, thunkDeleteFavorite} from "../../redux/favorited_items";
 import { thunkCreateOrder } from '../../redux/orders';
