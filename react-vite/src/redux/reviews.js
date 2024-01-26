@@ -180,7 +180,7 @@ function reviewReducer(state = {}, action) {
       reviews.map((review) => {
           newReviews[review.id] = review;
       })
-      return { ...state, ...newReviews };
+      return {...newReviews };
     }
 
     case CREATE_REVIEW: {

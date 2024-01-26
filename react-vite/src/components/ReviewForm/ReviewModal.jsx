@@ -1,136 +1,72 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { useCallback, useEffect, useState } from "react";
-import "./ReviewForm.css";
 import { useParams } from "react-router-dom";
-// import { useParams } from "react-router-dom";
-import { postReview, thunkGetAllReviews } from "../../redux/reviews";
-import { thunkGetAllProducts} from "../../redux/product";
-// import { useNavigate } from "react-router-dom";
-
-// selectors to quickly access values from redux store without duplicating selector logic everywhere\
-/**
- *
- * @example
- * how to use the selector
- * function DialogCmp(){
- * //get the list of products
- *  const products = useProductsSelector()
- *
- * }
- * @returns {Record<string,product>}
- */
+import { postReview, thunkGetOneReview } from "../../redux/reviews";
+import { thunkGetAllProducts } from "../../redux/product";
 const useProductsSelector = () => useSelector((store) => store.products);
-const useReviewsSelector = () => useSelector((store) => store.reviews);
-
-const useUserSelector = () => useSelector((store) => store.session)
-
-
+const useUserSelector = () => useSelector((store) => store.session);
+import './ReviewForm.css'
 
 
 function ReviewModal() {
-
   const dispatch = useDispatch();
   const { productId } = useParams();
-
   const products = useProductsSelector();
-  const getReview = useReviewsSelector();
   const sessions = useUserSelector();
 
   const { closeModal, setModalContent } = useModal();
 
-  // const { visible, show, close } = useModal();
-  // const navigate = useNavigate();
-
   const [review, setReview] = useState("");
-
   const [rating, setRating] = useState(0);
-
+  const [itemQuality, setItemQuality] = useState(0);
+  const [shipping, setShipping] = useState(0);
+  const [customerService, setCustomerService] = useState(0);
   const [enableSubmit, setEnableSubmit] = useState(false);
 
+  const cancel = () => {
+    closeModal();
+  };
 
-   const cancel = () => {
-      closeModal();
-  }
+  if (!products) return null
+  if (!sessions) return null
 
   useEffect(() => {
     setModalContent(<ReviewModal></ReviewModal>);
-
     dispatch(thunkGetAllProducts());
-
   }, []);
 
-  useEffect(()=>{
-    dispatch(thunkGetAllReviews())
-  }, [])
-
   const product = products[productId];
-  // const reviews = getReview[productId];
-  const user = sessions["user"];
-
-
+  const user = sessions?.user;
 
   const canSubmit = useCallback(() => {
     if (review.length < 2) {
       return false;
     }
-    if (rating < 0) {
+    if (rating < 0 || itemQuality < 0 || shipping < 0 || customerService < 0) {
       return false;
     }
     return true;
-  }, [review, rating]);
+  }, [review, rating, itemQuality, shipping, customerService]);
 
   useEffect(() => {
     setEnableSubmit(canSubmit());
-  }, [review, canSubmit]);
-
-  // if (!product){
-  //   return <div>product with id :{productId} not found</div>
-  // }
+  }, [review, rating, itemQuality, shipping, customerService, canSubmit]);
 
   const onReviewChange = (e) => {
     setReview(e.target.value);
     setEnableSubmit(canSubmit());
   };
 
-  const onStarChange = (value) => {
-    setRating(value);
+  const onStarChange = (value, setStarState) => {
+    setStarState(value);
     setEnableSubmit(canSubmit());
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (canSubmit()) {
-      addReview(productId);
-    }
-  };
-
-  const addReview = async (id) => {
-
-    // navigate(`/review/${id}`)
-    closeModal();
-    await fetch(`/api/reviews/${id}`, {
-      method: "POST",
-      // headers: { user: sessionUser },
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        reviewText: review,
-        starRating: rating,
-      }),
-    }).then(async (response) => {
-
-      dispatch(postReview(response));
-    });
-  };
-
-  return (
-   <div className="review_form">
-      <img src={product?.preview_image} height="350px" alt="" />
-      <caption>{product?.name}</caption>
-      <p>Reviews: {product?.reviews}</p>
-      <p>Seller: {product?.seller?.username}</p>
-      <h2> My review </h2>
-      <div className="star-rating">
+  const renderStars = (value, setStarState, title) => {
+    return (
+      <div className="ratings">
+        <h2>{title}</h2>
         <label>
           {[...Array(5)].map((star, index) => {
             index += 1;
@@ -138,28 +74,71 @@ function ReviewModal() {
               <button
                 type="button"
                 key={index}
-                className={index <= rating ? "star-on" : "star-off"}
-                onClick={() => onStarChange(index)}
+                className={index <= value ? "star-on" : "star-off"}
+                onClick={() => onStarChange(index, setStarState)}
               >
                 <i className="fa-solid fa-star"></i>
               </button>
             );
           })}
         </label>
-        {/* <div>Rating</div> */}
       </div>
+    );
+  };
 
-      <h2>Help others by sharing your feedback</h2>
-      <h3>
-        What do you think about this? Did it ship on time? Describe your
-        experience with this shop.
-      </h3>
-      {review.length >= 200 && (
-        <p className="error">
-          {" "}
-          You have reached the Max Length: 200 character{" "}
-        </p>
-      )}
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (canSubmit()) {
+      addReview(productId);
+    }
+    await dispatch(thunkGetOneReview(productId));
+    closeModal()
+  };
+
+  const addReview = async (id) => {
+    closeModal();
+
+    try {
+      const response = await fetch(`/api/reviews/${id}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          reviewText: review,
+          starRating: rating,
+          itemQual: itemQuality,
+          shippingQual: shipping,
+          serviceQual: customerService,
+        }),
+      });
+
+      if (response.ok) {
+
+        await response.json().then((data) => {
+          dispatch(postReview(data));
+        });
+        dispatch(thunkGetAllProducts())
+        dispatch(thunkGetOneReview(productId));
+      } else {
+        console.error("Failed to add review");
+      }
+    } catch (error) {
+      console.error("Error adding review:", error);
+    }
+  };
+
+  return (
+    <div className="review-form-post">
+      <img src={product?.preview_image} height="350px" alt="" />
+      <caption>{product?.name}</caption>
+      <p>Reviews: {product?.reviews}</p>
+      <p>Seller: {product?.seller?.username}</p>
+      <h2 className='edith2'> My review </h2>
+      <div className="star-rating">
+      {renderStars(rating, setRating, "Overall Rating")}
+      {renderStars(itemQuality, setItemQuality, "Item Quality")}
+      {renderStars(shipping, setShipping, "Shipping")}
+      {renderStars(customerService, setCustomerService, "Customer Service")}
+      </div>
 
       <form onSubmit={handleSubmit}>
         <div className="review-text">
@@ -174,20 +153,14 @@ function ReviewModal() {
           />
         </div>
         <p> Reviewed by {user?.first_name} {user?.last_name}</p>
-        <p></p>
-        <p> Your review and profile information will be publicly displayed </p>
-
+        <p>Your review and profile information will be publicly displayed</p>
         <button
           type="submit"
           disabled={!enableSubmit || rating === 0}
-          // className={
-          //   enableSubmit ? "x" : "x"
-          // }
         >
           Post Your Review
         </button>
       </form>
-      {/* <pre>{JSON.stringify(products,null,2)}</pre> */}
       <button className="cancel-button" onClick={cancel}>
         CANCEL
       </button>
