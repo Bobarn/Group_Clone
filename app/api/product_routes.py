@@ -36,7 +36,7 @@ def get_all_products_with_images():
 
     products = Product.query.order_by(desc(Product.created_at)).all()
     if not products:
-        return {"message": "That page does not exist"}
+        return {"message": "That page does not exist"}, 404
     # list_dict_products = [product.to_dict() for product in products]
     list_dict_products = []
 
@@ -65,7 +65,7 @@ def get_products_by_category(cat):
 
     products = Product.query.filter_by(category=cat).all()
     if not products:
-        return {"message": "That page does not exist"}
+        return {"message": "That page does not exist"}, 404
     return {"products": [product.to_dict() for product in products]}
 
 #get a product's description
@@ -86,7 +86,7 @@ def get_current_user_products():
     page = (int(page) - 1) * 5
     products = Product.query.filter_by(sellerId=current_user.id).limit(5).offset(page).all()
     if not products:
-        return {"message": "That page does not exist"}
+        return {"message": "That page does not exist"}, 404
     return {"products": [product.to_dict() for product in products]}
 
 
@@ -114,7 +114,7 @@ def create_product():
 
         return {"product": newProduct.to_dict()}
     else:
-        return {"errors": form.errors}, 400
+        return form.errors, 401
 
 @product_routes.route('/<int:id>', methods=['PUT'])
 @login_required
@@ -159,7 +159,7 @@ def update_product(id):
 
         return {"product": updated_product.to_dict()}
     else:
-        return {"errors": form.errors}, 400
+        return form.errors, 401
 
 #delete a specific product
 @product_routes.route('/<int:id>', methods=['DELETE'])
