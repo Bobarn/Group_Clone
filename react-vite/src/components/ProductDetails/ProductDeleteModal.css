@@ -1,0 +1,33 @@
+#delete-product-modal {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    text-align: center;
+    align-items: center;
+}
+
+#delete-product-modal > h3 {
+    width: 300px;
+}
+
+.delete-button, .keep-button {
+    width: 150px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom: none;
+    border: none;
+}
+
+.delete-button:hover, .keep-button:hover {
+    cursor: pointer;
+}
+
+#delete-buttons-cont {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 30px;
+}
+
+.delete-button-title {
+    margin: 0px;
+}

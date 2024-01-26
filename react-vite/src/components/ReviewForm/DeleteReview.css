@@ -1,0 +1,15 @@
+.yes-button {
+    color: green
+
+}
+.yes-button:hover {
+    cursor:pointer;
+}
+
+.cancel-button {
+    color: red;
+}
+
+.cancel-button:hover {
+    cursor: pointer;
+}

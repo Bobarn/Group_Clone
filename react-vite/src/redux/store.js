@@ -6,9 +6,17 @@ import {
 } from "redux";
 import thunk from "redux-thunk";
 import sessionReducer from "./session";
+import productReducer from "./product";
+import reviewReducer from "./reviews";
+import favoritesReducer from "./favorited_items";
+import orderReducer from "./orders";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
+  products: productReducer,
+  reviews: reviewReducer,
+  favorites: favoritesReducer,
+  orders: orderReducer,
 });
 
 let enhancer;
@@ -24,5 +32,11 @@ if (import.meta.env.MODE === "production") {
 const configureStore = (preloadedState) => {
   return createStore(rootReducer, preloadedState, enhancer);
 };
+
+/**
+ * comments defining the store object shape used to provide
+ * intelligent suggestions and autocompletion from the editor for free
+ * @typedef {ReturnType<createStore>} RootStore
+ */
 
 export default configureStore;
