@@ -15,8 +15,7 @@ function CategoryProducts() {
   const allCatProds = useSelector((state) => state.products[category]);
   const currUser = useSelector((state) => state.session.user);
   // const allCatProds = Object.values(products)
-  console.log(category)
-   console.log('ALL PRODUCTS', allCatProds)
+
 
 
   useEffect(() => {

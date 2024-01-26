@@ -115,7 +115,7 @@ export const thunkGetAllProductsByCategory = (category) => async (dispatch) => {
 }
 
 export const thunkGetAllByCat = (category) => async (dispatch) => {
-  console.log("IN THUNK", category)
+
   const response = await fetch(`/api/products/category/${category}`);
 
   if (response.ok) {
