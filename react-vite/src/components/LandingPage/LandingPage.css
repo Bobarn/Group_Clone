@@ -1,7 +1,7 @@
 /*ENTIRE LANDING PAGE CONTAINER */
 .landing-main-cont {
   height: 100%;
-  max-width: 1024px;
+  /* max-width: 1024px; */
   margin-left: auto;
   margin-right: auto;
   font-family: ui-sans-serif;
@@ -50,13 +50,13 @@
   margin-bottom: 40px;
 }
 
-@media (min-width: 1025px) {
+/* @media (min-width: 1025px) {
   .main-img-cont {
     max-width: 1024px;
     margin-left: auto;
     margin-right: auto;
   }
-}
+} */
 .sqr-img {
   height: 150px;
   width: 200px;
