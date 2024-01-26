@@ -4,6 +4,11 @@
     width: 600px;
 }
 
+.Carousel-image {
+    width: 600px;
+    height: 600px;
+}
+
 
 /* Cart Button to slide out the cart */
 #cart-button {

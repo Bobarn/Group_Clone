@@ -200,8 +200,9 @@ def post_product_images(id):
 
         db.session.add(new_image)
         db.session.commit()
+        updated_product = Product.query.get(id)
 
-        return {"product_image": url}
+        return {"product": updated_product.to_dict()}
     return { "post_product_images": form.errors }
 
 @product_routes.route("/images/<int:id>", methods=['DELETE'])

@@ -62,7 +62,7 @@ const ReviewsComponent = ({ reviews }) => {
     11: "December",
   };
 
-
+  console.log("reveiewssssssssssssssssssssssssssssssss", reviews)
 
   return (
     <>
