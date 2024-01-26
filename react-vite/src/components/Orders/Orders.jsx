@@ -1,12 +1,10 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { thunkGetAllOrders } from "../../redux/orders";
-import {useNavigate} from "react-router-dom"
 import "./orders.css";
 
 function Orders() {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
   const allOrders = useSelector((state) => state.orders);
   const orders = Object.values(allOrders);
 
