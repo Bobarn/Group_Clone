@@ -128,6 +128,7 @@
   left: 85%;
   transform: translate(-50%, -50%);
   z-index: 1;
+  box-shadow: 0 3px 5px #e68cfc;
 }
 
 .filled-heart {
@@ -153,9 +154,10 @@
   margin-top: 10px;
   position: relative;
   top: -15%;
-  left: 20%;
+  left: 23%;
   transform: translate(-50%, -50%);
   z-index: 1;
+  box-shadow: 0 3px 5px #e68cfc;
 }
 
 /* IMAGE CONTAINERS GRID POSITION */
