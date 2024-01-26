@@ -52,10 +52,10 @@ export const thunkGetAllReviews = () => async (dispatch) => {
   try {
     const response = await fetch("/api/reviews/all");
     // console.log("thunkgetallreviews", await response.json())
-    console.log(response, "!!!!!!!!!!!!!!!!!!RESPONSE HERE!!!!!!!!!!!!!!!!!!!!!!")
+    // console.log(response, "!!!!!!!!!!!!!!!!!!RESPONSE HERE!!!!!!!!!!!!!!!!!!!!!!")
     if (response.ok) {
       const reviews = await response.json();
-      console.log("all reviews", reviews)
+      // console.log("all reviews", reviews)
       dispatch(getAllReviews(reviews));
     }
   if (response.ok) {
@@ -78,7 +78,7 @@ export const thunkGetOneReview = (productId) => async (dispatch) => {
     // console.log(productId, "THIS IS PRODUCTID!~!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     if (response.ok) {
       const review = await response.json();
-      console.log(review, "FOR BRANDON!!!!!!!")
+      // console.log(review, "FOR BRANDON!!!!!!!")
       dispatch(getOneReview(review));
 
       return review;
@@ -130,11 +130,11 @@ export const thunkDeleteReview = (reviewId) => async (dispatch) => {
   });
 
   if (response.ok) {
-    // const message = await response.json();
-
+    const message = await response.json();
+    // console.log(message , '@@@@@@@@@@@@@@@@@@@@@@@')
     dispatch(deleteReview(reviewId));
 
-    // return message;
+    return message;
   } else {
     const error = await response.json();
 
@@ -145,11 +145,14 @@ export const thunkDeleteReview = (reviewId) => async (dispatch) => {
 // export const thunkUpdateReview = (reviewId, review) => async (dispatch) => {
   export const thunkUpdateReview = (review, reviewId) => async (dispatch) => {
 
+    console.log(review);
+
 const response = await fetch(`/api/reviews/${reviewId}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(review),
   });
+  console.log(response);
 
   if (response.ok) {
     const updatedReview = await response.json();
@@ -159,6 +162,7 @@ const response = await fetch(`/api/reviews/${reviewId}`, {
     return updatedReview;
   } else {
     const errors = await response.json();
+    console.log(errors)
     return errors;
   }
 };

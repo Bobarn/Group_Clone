@@ -62,7 +62,7 @@ const ReviewsComponent = ({ reviews }) => {
     11: "December",
   };
 
-
+  console.log("reveiewssssssssssssssssssssssssssssssss", reviews)
 
   return (
     <>
@@ -77,7 +77,7 @@ const ReviewsComponent = ({ reviews }) => {
       {reviewData.map((review) => {
         return (
           <>
-            <div>
+            <div key={review?.id}>
               RATING:
               <label>
                 {review && [...Array(5)].map((star, index) => {

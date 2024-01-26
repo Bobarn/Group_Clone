@@ -89,6 +89,7 @@ const EditReviewModal = () => {
       )
     );
     await dispatch(thunkGetOneReview(product.id));
+    await dispatch(thunkGetAllProducts())
   };
 
   return (

@@ -7,6 +7,9 @@ import { thunkGetAllProducts } from "../../redux/product";
 const useProductsSelector = () => useSelector((store) => store.products);
 const useUserSelector = () => useSelector((store) => store.session);
 import './ReviewForm.css'
+// const useReviewsSelector = () => useSelector((store) => store.reviews);
+
+
 
 
 function ReviewModal() {
@@ -28,8 +31,6 @@ function ReviewModal() {
     closeModal();
   };
 
-  // if (!products) return null
-  // if (!sessions) return null
 
   useEffect(() => {
     setModalContent(<ReviewModal></ReviewModal>);
@@ -53,6 +54,8 @@ function ReviewModal() {
     setEnableSubmit(canSubmit());
   }, [review, rating, itemQuality, shipping, customerService, canSubmit]);
 
+  if (!products) return null
+  if (!sessions) return null
   const onReviewChange = (e) => {
     setReview(e.target.value);
     setEnableSubmit(canSubmit());
