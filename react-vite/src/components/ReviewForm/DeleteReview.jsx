@@ -1,41 +1,42 @@
 import "./DeleteReview.css";
-import { useDispatch , useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 // import { useEffect } from "react";
-import { thunkDeleteReview } from "../../redux/reviews";
+import { thunkDeleteReview, thunkGetOneReview } from "../../redux/reviews";
 import { useModal } from "../../context/Modal";
 import { thunkGetAllProducts } from "../../redux/product";
 import { useParams } from "react-router-dom";
 
 
- function DeleteReview({reviewId}) {
+function DeleteReview({ reviewId }) {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
 
 
-//   useEffect(() => {
-//     dispatch(thunkGetAllReviews().);
-//   }, [dispatch]);
+  //   useEffect(() => {
+  //     dispatch(thunkGetAllReviews().);
+  //   }, [dispatch]);
 
 
-// const onClickDelete = async (e) =>{
-//     e.preventDefault();
-//      await dispatch(thunkDeleteReview(reviews[id].id))
+  // const onClickDelete = async (e) =>{
+  //     e.preventDefault();
+  //      await dispatch(thunkDeleteReview(reviews[id].id))
 
-//     await dispatch(thunkGetDetailsSpot(spotId)).then(() =>{
-//       closeModal()
-//     })
+  //     await dispatch(thunkGetDetailsSpot(spotId)).then(() =>{
+  //       closeModal()
+  //     })
 
-const { productId } = useParams();
-const product = useSelector((state) => state.products[productId]);
+  const { productId } = useParams();
+  const product = useSelector((state) => state.products[productId]);
 
-  const  deleteReview = (e) => {
+  const deleteReview = async (e) => {
     // console.log(reviewId, "LOOOK HERE!!!")
     e.preventDefault();
     // console.log()
-     dispatch(thunkDeleteReview(reviewId));
+    dispatch(thunkDeleteReview(reviewId));
 
-     dispatch(thunkGetAllProducts(product));
+    dispatch(thunkGetAllProducts(product));
     // console.log()
+    await dispatch(thunkGetOneReview(product.id))
     closeModal();
 
   };
