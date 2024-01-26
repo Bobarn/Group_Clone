@@ -16,7 +16,7 @@ const makeOrder = (order) => {
 };
 
 export const thunkGetAllOrders = () => async (dispatch) => {
-  const response = await fetch("/api/orders");
+  const response = await fetch("/api/orders/");
 
   if (response.ok) {
     const orders = await response.json();

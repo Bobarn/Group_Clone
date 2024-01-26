@@ -1,0 +1,37 @@
+/* ORDER TITLE HEADING     */
+.order-page-main-cont{
+    display: flex;
+    justify-content: center;
+}
+
+/******** */
+
+/*  orders container */
+.orders-main-cont{
+    display: flex;
+    flex-direction: column;
+    gap:40px;
+}
+
+/******** */
+
+/*  ORDER ITEM CONT */
+.order-item-cont{
+    padding: 40px;
+    border:1px solid black;
+}
+
+/******** */
+
+/*  IMAGE  */
+.order-lowwer-cont {
+  display: flex;
+  flex-direction: row;
+}
+
+.order-img {
+  width: 100px;
+  height: 100px;
+}
+
+/******** */

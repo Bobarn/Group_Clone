@@ -12,6 +12,7 @@ import CreateProduct from '../components/ProductFormPage/CreateProduct/CreatePro
 import UpdateProduct from '../components/ProductFormPage/UpdateProduct/UpdateProduct';
 import ProductDetailsPage from '../components/ProductDetails/ProductDetails';
 import EditReviewComponent from '../components/ReviewForm/EditReviewComponent';
+import Orders from '../components/Orders/Orders';
 
 export const router = createBrowserRouter([
   {
@@ -76,6 +77,10 @@ export const router = createBrowserRouter([
       {
         path: '/category/:category',
         element: <CategoryProducts />
+      },
+      {
+        path: '/orders',
+        element: <Orders />
       }
 
     ],

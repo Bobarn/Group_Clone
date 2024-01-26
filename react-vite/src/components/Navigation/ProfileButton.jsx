@@ -62,7 +62,7 @@ function ProfileButton() {
               <span></span>
             </div>
             <div className='pb-quad-two blocks'>
-              <span onClick={() =>{ navigate('need to ask zee route'); closeMenu()}}>Your Orders</span>
+              <span onClick={() =>{ navigate('/orders'); closeMenu()}}>Your Orders</span>
               {/* <span>Reviews</span> */}
               <span onClick={() => {navigate('/favorites'); closeMenu();}}>Favorite Items</span>
 
