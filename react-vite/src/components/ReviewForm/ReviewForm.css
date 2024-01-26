@@ -36,4 +36,21 @@ cursor: pointer;
 
 } */
 
+.review-form-post {
+    height:1300px;
+    width: 700px
+}
 
+.edith2 {
+    font-size: 15px;
+}
+
+.star-rating {
+    display:grid;
+    grid-template-columns: repeat(2, 50%);
+}
+
+.ratings {
+    display: flex;
+    flex-direction: column;
+}
