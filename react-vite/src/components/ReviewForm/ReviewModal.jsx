@@ -28,8 +28,8 @@ function ReviewModal() {
     closeModal();
   };
 
-  if (!products) return null
-  if (!sessions) return null
+  // if (!products) return null
+  // if (!sessions) return null
 
   useEffect(() => {
     setModalContent(<ReviewModal></ReviewModal>);

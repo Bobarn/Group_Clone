@@ -47,6 +47,7 @@ export const postReview = (review) => {
 };
 
 
+
 export const thunkGetAllReviews = () => async (dispatch) => {
   try {
     const response = await fetch("/api/reviews/all");
@@ -127,13 +128,13 @@ export const thunkDeleteReview = (reviewId) => async (dispatch) => {
     method: "DELETE",
     headers: { "Content-Type": "application/json" },
   });
-  console.log(response , '!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+
   if (response.ok) {
-    const message = await response.json();
-    console.log(message , '@@@@@@@@@@@@@@@@@@@@@@@')
+    // const message = await response.json();
+
     dispatch(deleteReview(reviewId));
 
-    return message;
+    // return message;
   } else {
     const error = await response.json();
 
@@ -152,7 +153,7 @@ const response = await fetch(`/api/reviews/${reviewId}`, {
 
   if (response.ok) {
     const updatedReview = await response.json();
-
+    console.log(updatedReview, "LOOK HERE!")
     dispatch(updateReview(updatedReview))
 
     return updatedReview;
@@ -184,10 +185,11 @@ function reviewReducer(state = {}, action) {
     }
 
     case CREATE_REVIEW: {
-      const review = action.review.Review;
-      const newState = { ...state };
-      newState[review.id] = review;
-      return newState;
+      // const review = action.review.Review;
+      // const newState = { ...state };
+      // newState[review.id] = review;
+      // return newState;
+      return {...state, [action.review.id]:action.review}
     }
     case DELETE_REVIEW: {
       const newState = { ...state };
@@ -196,10 +198,11 @@ function reviewReducer(state = {}, action) {
       return newState;
     }
     case UPDATE_REVIEW: {
-      const review = action.review.updated_review;
-      const newState = { ...state };
-      newState[review.id] = review;
-      return newState;
+      // const review = action.review;
+      // const newState = { ...state };
+      // newState[review.id] = review;
+      // return newState;
+      return {...state, [action.review.id]:action.review}
     }
     case POST_REVIEW: {
       const review = action.review;

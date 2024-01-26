@@ -12,6 +12,8 @@ import ReviewModal from "./ReviewModal";
 const ReviewsComponent = ({ reviews }) => {
 
 
+  // const [reviewedCheck, setReviewedCheck] = useState(false);
+
   const user = useSelector((state) => state.session.user)
 
   const { productId } = useParams();
@@ -26,21 +28,24 @@ const ReviewsComponent = ({ reviews }) => {
     fetchData();
   }, [dispatch, productId]);
 
-  let reviewedCheck;
+  // let reviewedCheck;
 
-  Object.values(reviews).forEach((review) => {
-    if (user) {
+  const reviewData = Object.values(reviews)
+  // Object.values(reviews).forEach((review) => {
+  //   if (user) {
 
-      if (review.user.id === user.id) {
-        reviewedCheck = true
+  //     if (review.user.id === user.id) {
+  //       reviewedCheck = true
 
-      } else {
-        reviewedCheck = false
-      }
-    }
-  })
+  //     } else {
+  //       reviewedCheck = false
+  //     }
+  //   }
+  // })
+  const reviewedCheck = reviewData.some(obj => obj?.user?.id === user?.id)
+  console.log(reviewData, "LOOK OVER HERE FOR REVIEWDATA!!")
 
-  if (!reviews || !user) return null;
+  if (!reviews) return null;
 
   const months = {
     0: "January",
@@ -57,11 +62,11 @@ const ReviewsComponent = ({ reviews }) => {
     11: "December",
   };
 
-  console.log("reveiewssssssssssssssssssssssssssssssss", reviews)
+
 
   return (
     <>
-      {!reviewedCheck && <div className='postReview'>
+      {(!reviewedCheck && user) && <div className='postReview'>
         {<OpenModalButton
           modalComponent={
             <ReviewModal />
@@ -69,7 +74,7 @@ const ReviewsComponent = ({ reviews }) => {
           buttonText={"Post A Review"}
         />}
       </div>}
-      {reviews.map((review) => {
+      {reviewData.map((review) => {
         return (
           <>
             <div>
