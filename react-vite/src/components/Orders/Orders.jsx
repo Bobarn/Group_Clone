@@ -25,10 +25,7 @@ function Orders() {
         {orders.map((order) => (
           <div key={order.id} className="full-order-cont">
             <div className='date-cont'>
-              <span>{`Purchased on ${order.purchase_date
-                .split(" ")
-                .slice(0, 4)
-                .join(" ")}`}</span>
+                <span>{`Purchased on ${order.purchase_date.substring(0,16)}`}</span>
                 <div className='order-total-cont'>
                     <span>{`$${order.total}`}</span>
 
