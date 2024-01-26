@@ -168,7 +168,7 @@ export default function ProductDetailsPage() {
                         <i className="fa-regular fa-xl fa-heart empty-heart big-heart"></i>
                         )}
                         </div>
-                                    <img src={image?.url} alt="product image"/>
+                                    <img src={image?.url} onError={"https://www.analyticdesign.com/wp-content/uploads/2018/07/unnamed-574x675.gif"} alt="product image"/>
                                 </div>)
                             })}
                         </Carousel>

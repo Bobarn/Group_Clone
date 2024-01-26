@@ -2,18 +2,18 @@
     display: grid;
     width: 100%;
     grid-template-columns: repeat(4, 1fr);
-    column-gap: 10px;
+    gap: 10px;
     margin-top: 5%;
     margin-bottom: 5%;
 }
 
 .store-img {
-    width: 100%;
+    width: 80%;
     border-radius: 5px;
     transition: box-shadow 0.2s ease;
 }
 
-.store-img:hover {
+.store-img-tile:hover {
     box-shadow:
     0 0 2px 1px #e68cfc, /* middle pink */
     0 0 2px 1px #b00bf4;;
@@ -21,7 +21,8 @@
 
 .store-img-tile {
     width: 50%;
-    height: 50%;
+    height: 100%;
+    border-radius: 5px;
 }
 
 .store-product-container {
