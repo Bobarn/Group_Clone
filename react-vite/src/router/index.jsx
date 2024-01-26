@@ -1,6 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom';
-import LoginFormPage from '../components/LoginFormPage';
-import SignupFormPage from '../components/SignupFormPage';
+// import LoginFormPage from '../components/LoginFormPage';
+import LoginFormModal from '../components/LoginFormModal';
+// import SignupFormPage from '../components/SignupFormPage';
+import SignupFormModal from '../components/SignupFormModal';
 import LandingPage from '../components/LandingPage/LandingPage';
 import CategoryProducts from '../components/CategoryProducts/CategoryProduts';
 import Layout from './Layout';
@@ -53,11 +55,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "login",
-        element: <LoginFormPage />,
+        element: <LoginFormModal />,
       },
       {
         path: "signup",
-        element: <SignupFormPage />,
+        element: <SignupFormModal />,
       },
       {
         path: "/favorites",
