@@ -23,7 +23,7 @@ function DeleteReview({ reviewId }) {
 
     dispatch(thunkGetAllProducts(product));
     // console.log()
-    await dispatch(thunkGetOneReview(product.id))
+    dispatch(thunkGetOneReview(product.id))
     closeModal();
 
   };
