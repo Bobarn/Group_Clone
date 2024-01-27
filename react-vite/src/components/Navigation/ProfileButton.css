@@ -18,3 +18,9 @@
     display: flex;
 
 }
+
+
+.profile-dropdown {
+    z-index: 2;
+    background-color: white;
+}

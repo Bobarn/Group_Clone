@@ -51,7 +51,7 @@ const heartStates = useSelector((state) => state.favorites);
   useEffect(() => {
     dispatch(thunkGetOneReview(productId))
     dispatch(thunkGetAllFavorites())
-  }, []);
+  }, [dispatch, userId]);
 
   function addDays(days) {
     var result = new Date();
@@ -93,10 +93,6 @@ const heartStates = useSelector((state) => state.favorites);
             dispatch(thunkCreateFavorite(productId));
         }
 
-        // setHeartStates((prevHeartStates) => ({
-        //   ...prevHeartStates,
-        //   [productId]: !prevHeartStates[productId],
-        // }));
       };
 
     const imageCreator = () => {
@@ -160,13 +156,13 @@ const heartStates = useSelector((state) => state.favorites);
                             {product?.images.map((image) => {
                                 return (<div className="Carousel-image" key={image?.id}>
                                                         <div className="heart-button-big" onClick={() => addToFav(product?.id)}>
-                {heartStates[product.id] ? (
+                {heartStates[product?.id] ? (
                     <i className="fa-solid fa-xl fa-heart filled-heart big-heart"></i>
                     ) : (
                         <i className="fa-regular fa-xl fa-heart empty-heart big-heart"></i>
                         )}
                         </div>
-                                    <img src={image?.url} onError={"https://www.analyticdesign.com/wp-content/uploads/2018/07/unnamed-574x675.gif"} alt="product image"/>
+                                    <img src={image?.url} onError={(e) => e.target.src = "https://www.analyticdesign.com/wp-content/uploads/2018/07/unnamed-574x675.gif"} alt="product image"/>
                                 </div>)
                             })}
                         </Carousel>

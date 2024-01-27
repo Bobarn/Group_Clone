@@ -21,7 +21,7 @@ const FavoritesPage = () => {
     <div className="favoritescont">
       {favorites.map((favorite) => (
         <div key={favorite}>
-          <NavLink to={`/products/${favorite.productId}`} className="onefav">
+          <NavLink to={`/products/${favorite.id}`} className="onefav">
             <img src={favorite.preview_image} className="previmg"></img>
             <h2 className="itemname">{favorite.name}</h2>
             <h3 className="proddesc">{favorite.description}</h3>

@@ -10,20 +10,23 @@
 .store-img {
     width: 80%;
     border-radius: 5px;
-    transition: box-shadow 0.2s ease;
+    padding: 5%;
 }
 
 .store-img-tile:hover {
-    box-shadow:
-    0 0 2px 1px #e68cfc, /* middle pink */
-    0 0 2px 1px #b00bf4;;
+    cursor: pointer;
 }
 
 .store-img-tile {
     width: 50%;
     height: 100%;
     border-radius: 5px;
+    background-color: white;
+    border: solid 0.5px lightgrey;
+    box-shadow: #e68cfc 1px 2px 1px;
 }
+
+
 
 .store-product-container {
     display: flex;
