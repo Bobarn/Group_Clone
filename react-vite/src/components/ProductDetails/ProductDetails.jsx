@@ -51,7 +51,7 @@ const heartStates = useSelector((state) => state.favorites);
   useEffect(() => {
     dispatch(thunkGetOneReview(productId))
     dispatch(thunkGetAllFavorites())
-  }, [dispatch, userId]);
+  }, [dispatch]);
 
   function addDays(days) {
     var result = new Date();

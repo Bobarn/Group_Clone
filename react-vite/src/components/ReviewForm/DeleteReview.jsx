@@ -18,7 +18,8 @@ function DeleteReview({ reviewId }) {
     // console.log(reviewId, "LOOOK HERE!!!")
     e.preventDefault();
     // console.log()
-    dispatch(thunkDeleteReview(reviewId));
+    let result = dispatch(thunkDeleteReview(reviewId));
+    console.log(result);
 
     dispatch(thunkGetAllProducts(product));
     // console.log()
