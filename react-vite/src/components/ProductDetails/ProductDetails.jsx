@@ -3,7 +3,7 @@ import { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { thunkGetAllProducts, thunkGetAllProductsByCategory } from "../../redux/product";
 import DeleteProductConfirmationModal from "./ProductDeleteModal";
-import {thunkCreateFavorite, thunkDeleteFavorite} from "../../redux/favorited_items";
+import {thunkCreateFavorite, thunkGetAllFavorites, thunkDeleteFavorite} from "../../redux/favorited_items";
 import { thunkCreateOrder } from '../../redux/orders';
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -35,14 +35,12 @@ export default function ProductDetailsPage() {
 
   const categoryProducts = useSelector((state) => state.products[product?.category]);
 
-  const [heartStates, setHeartStates] = useState({});
+const heartStates = useSelector((state) => state.favorites);
 
   const reviews = useSelector((state) => state.reviews);
   // converting the reviews object of objects to an array
   const reviewsArray = Object.values(reviews);
-  // console.log(reviewsArray, "reviews array");
 
-//   console.log(reviews, "reviews");
   useEffect(() => {
     dispatch(thunkGetAllProducts());
 }, [dispatch, product?.reviews]);
@@ -52,6 +50,7 @@ export default function ProductDetailsPage() {
 
   useEffect(() => {
     dispatch(thunkGetOneReview(productId))
+    dispatch(thunkGetAllFavorites())
   }, []);
 
   function addDays(days) {
@@ -94,10 +93,10 @@ export default function ProductDetailsPage() {
             dispatch(thunkCreateFavorite(productId));
         }
 
-        setHeartStates((prevHeartStates) => ({
-          ...prevHeartStates,
-          [productId]: !prevHeartStates[productId],
-        }));
+        // setHeartStates((prevHeartStates) => ({
+        //   ...prevHeartStates,
+        //   [productId]: !prevHeartStates[productId],
+        // }));
       };
 
     const imageCreator = () => {
