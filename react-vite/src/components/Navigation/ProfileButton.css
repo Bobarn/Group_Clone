@@ -1,3 +1,12 @@
+.profile-dropdown{
+    height:100px;
+    z-index:10;
+    background-color: white;
+    font-weight:200;
+    list-style: none;
+
+}
+
 .profile-bttn-main-cont {
     cursor: pointer;
     color: #535053;
@@ -18,3 +27,12 @@
     display: flex;
 
 }
+
+/*  ICON */
+.profile-bttn-main-cont  i{
+    padding:8px;
+    border-radius: 100%;
+    border:2px solid black;
+}
+
+/*******/

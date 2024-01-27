@@ -52,11 +52,11 @@ function ProfileButton() {
 
   return (
     <div className="profile-bttn-main-cont">
-      <button onClick={toggleMenu}>
-        <i className="fas fa-user-circle" />
-      </button>
+      <div onClick={toggleMenu}>
+        <i className="fas fa-user-circle pb-icon" />
+      </div >
       {showMenu && (
-        <ul className={"profile-dropdown"} ref={ulRef}>
+        <div className="profile-dropdown" ref={ulRef}>
           {user ? (
             <>
             <div className='pb-quad-one blocks'>
@@ -65,7 +65,6 @@ function ProfileButton() {
             </div>
             <div className='pb-quad-two blocks'>
               <span onClick={() =>{ navigate('/orders'); closeMenu()}}>Your Orders</span>
-              {/* <span>Reviews</span> */}
               <span onClick={() => {navigate('/favorites'); closeMenu();}}>Favorite Items</span>
               <span onClick={(() =>{navigate('/store')})}>Your Store</span>
 
@@ -91,7 +90,7 @@ function ProfileButton() {
               />
             </>
           )}
-        </ul>
+        </div>
       )}
     </div>
   );

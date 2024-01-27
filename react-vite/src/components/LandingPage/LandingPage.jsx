@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { thunkGetAllProductsWImages } from "../../redux/product";
 import { thunkCreateFavorite,thunkDeleteFavorite  } from "../../redux/favorited_items";
+import { thunkGetAllFavorites } from "../../redux/favorited_items";
 import { useNavigate } from "react-router-dom";
 import CategoryImages from "./CategoryImages";
 import TrendingImages from "./TrendingImages";
@@ -12,7 +13,8 @@ function LandingImage() {
   const navigate = useNavigate();
   const allProducts = useSelector((state) => state.products);
   const currUser = useSelector((state) => state.session.user);
-
+  const allFavorites = useSelector(state => state.favorites)
+  console.log(allFavorites)
   const filteredProducts = Object.values(allProducts).slice(0, 10);
 
   const filteredByCat = Object.values(allProducts).filter(
@@ -24,25 +26,25 @@ function LandingImage() {
     dispatch(thunkGetAllProductsWImages());
   }, [dispatch]);
 
+  useEffect(() =>{
+    dispatch(thunkGetAllFavorites())
+  },[])
   //
 
   // ADD TO FAVORITES ONCLICK FUNCTION
-  const [heartStates, setHeartStates] = useState({});
+
 
   const addToFav = (productId) => {
     // e.preventDefault();
-    if(currUser.id && heartStates[productId]) {
+    if(currUser.id && allFavorites[productId]) {
       dispatch(thunkDeleteFavorite(productId))
     }
     else if(currUser.id) {
       dispatch(thunkCreateFavorite(productId));
     }
 
-    setHeartStates((prevHeartStates) => ({
-      ...prevHeartStates,
-      [productId]: !prevHeartStates[productId],
-    }));
   };
+
 
   const imageCreator = () => {
     return (
@@ -57,11 +59,9 @@ function LandingImage() {
                   : window.alert("Must sign-in to add to favorites!")
               }
             >
-              {heartStates[product.id] ? (
-                <i className="fa-solid fa-heart filled-heart"></i>
-              ) : (
-                <i className="fa-regular fa-heart empty-heart"></i>
-              )}
+
+                <i className={ allFavorites[product.id]?"fa-solid fa-heart filled-heart" : "fa-regular fa-heart empty-heart" }></i>
+
             </div>
             <div
               className="sqr-img-cont"
