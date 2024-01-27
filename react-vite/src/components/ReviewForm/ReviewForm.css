@@ -30,10 +30,24 @@ cursor: pointer;
     cursor: pointer;
 }
 
-
-
+/*
 .submit-no {
 
 } */
 
+.w-100 {
+    width: 550px;
+    height: 75px;
+}
 
+.review-author {
+    font-weight: 700;
+}
+
+.disclaimer {
+    font-size: small;
+}
+.review_form {
+  padding-left: 18px;
+  padding-right: 18px;
+}

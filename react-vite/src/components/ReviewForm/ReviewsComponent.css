@@ -1,0 +1,43 @@
+.star-rating-section {
+    margin-bottom: 10px;
+    width: 100px;
+  }
+  
+  .star-rating-section label {
+    margin-right: 10px;
+  }
+  
+  .star-rating-section button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  
+  .star-on {
+    color: gold;
+  }
+  
+  .star-off {
+    color: #ccc;
+  }
+  
+  .prod-review-box {
+    display: flex;
+    flex-direction:row;
+    width: 500px;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 16px;
+  }
+
+  .star-rating-container {
+    width: 250px;
+  }
+
+  .edit-delete-btns {
+    margin-top: 20px;
+    margin-left: 15px;
+    margin-right: 15px;
+  }

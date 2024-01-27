@@ -16,7 +16,7 @@ from .config import Config
 from .models.product_images import ProductImage
 from .forms.product_image_form import ImageForm
 from .api.review_routes import review_routes
-from .api.favorited_routes import favorited_routes
+
 
 
 app = Flask(__name__, static_folder='../react-vite/dist', static_url_path='/')
@@ -42,7 +42,7 @@ app.register_blueprint(favorited_routes, url_prefix='/api/favorites')
 #ADD PRODUCTS ROUTE AND REGISTURE IT INTO SERVER LIGHT
 app.register_blueprint(product_routes, url_prefix='/api/products')
 app.register_blueprint(order_routes, url_prefix='/api/orders')
-app.register_blueprint(favorited_routes, url_prefix='/api/favorites')
+
 db.init_app(app)
 Migrate(app, db)
 

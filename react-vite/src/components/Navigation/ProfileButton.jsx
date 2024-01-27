@@ -7,6 +7,7 @@ import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 import { useContext } from "react";
 import { CartContext } from "../../context/CartContext";
+import "./ProfileButton.css"
 
 function ProfileButton() {
   const {clearCart} = useContext(CartContext)
@@ -58,11 +59,12 @@ function ProfileButton() {
           {user ? (
             <>
             <div className='pb-quad-one blocks'>
-              <span>{user.username}</span>
+              <span>Hello, {user.username}!</span>
               <span></span>
             </div>
             <div className='pb-quad-two blocks'>
-              <span onClick={() =>{ navigate('need to ask zee route'); closeMenu()}}>Your Orders</span>
+              <span onClick={() =>{ navigate('/store'); closeMenu()}}>Your Orders</span>
+              <br />
               {/* <span>Reviews</span> */}
               <span onClick={() => {navigate('/favorites'); closeMenu();}}>Favorite Items</span>
 

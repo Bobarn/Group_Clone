@@ -25,8 +25,6 @@ const FavoritesPage = () => {
 
   return (
     <div className="favoritescont">
-      <h1>Your Favorites</h1>
-      <div className="top-half">
       {favorites.map((favorite) => (
         <div key={favorite.id}>
           <NavLink to={`/products/${favorite.id}`} className="onefav">
@@ -37,32 +35,27 @@ const FavoritesPage = () => {
           </NavLink>
         </div>
       ))}
-      </div>
 
-<h2 className="related-tag">Related Products</h2>
-<div className="bottom-half">
       {favorites.map((favorite) => {
         // Get related products based on the category of the favorite
         const relatedProducts = getRelatedProducts(favorite.category);
-        
-        return (
-          <div className="related-container" >
-            <div key={`related_${favorite.id}`}>
-              {relatedProducts.map((product) => (
-                <NavLink key={product.id} to={`/products/${product.id}`} className="onefav">
-                  <img src={product.preview_image} className="previmg" alt={product.name} />
-                  <h2 className="itemname">{product.name}</h2>
-                  <h3 className="proddesc">{product.description}</h3>
-                  <p className="price">{product.price}</p>
-                </NavLink>
-              ))}
-            </div>
-            </div>
-          );
-        })}
-        </div>
-        </div>
-    );
-  };
-  
-  export default FavoritesPage;
+
+              return (
+          <div key={`related_${favorite.id}`}>
+            <h2 className="related-tag">Related Products</h2>
+            {relatedProducts.map((product) => (
+              <NavLink key={product.id} to={`/products/${product.id}`} className="onefav">
+                <img src={product.preview_image} className="previmg" alt={product.name} />
+                <h2 className="itemname">{product.name}</h2>
+                <h3 className="proddesc">{product.description}</h3>
+                <p className="price">{product.price}</p>
+              </NavLink>
+            ))}
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
+export default FavoritesPage;
