@@ -6,14 +6,10 @@ import SignupFormModal from '../components/SignupFormModal';
 import LandingPage from '../components/LandingPage/LandingPage';
 import CategoryProducts from '../components/CategoryProducts/CategoryProduts';
 import Layout from './Layout';
-import ReviewsComponent from '../components/ReviewForm/ReviewsComponent';
-import ReviewComponent from '../components/ReviewForm/ReviewComponent';
 import FavoritesPage from '../components/FavoritedPage/FavoritedPage';
-import ReviewModal from '../components/ReviewForm/ReviewModal';
 import CreateProduct from '../components/ProductFormPage/CreateProduct/CreateProduct';
 import UpdateProduct from '../components/ProductFormPage/UpdateProduct/UpdateProduct';
 import ProductDetailsPage from '../components/ProductDetails/ProductDetails';
-import EditReviewComponent from '../components/ReviewForm/EditReviewComponent';
 import Orders from '../components/Orders/Orders';
 import UserStore from '../components/UserStore/UserStore';
 
@@ -24,34 +20,6 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <LandingPage />,
-      },
-      {
-        path: "/reviews",
-        element: <ReviewsComponent />,
-      },
-      {
-        path: "/review/:productId",
-        element: <ReviewComponent />,
-      },
-      {
-        path: "/tester/:productId",
-        element: <ReviewModal />,
-      },
-      {
-        path: "/reviews",
-        element: <ReviewsComponent />,
-      },
-      {
-        path: "/review/:productId",
-        element: <ReviewComponent />,
-      },
-      {
-        path: "/edit_review/:productId",
-        element: <EditReviewComponent />,
-      },
-      {
-        path: "/tester/:productId",
-        element: <ReviewModal />,
       },
       {
         path: "login",
@@ -88,6 +56,10 @@ export const router = createBrowserRouter([
       {
         path: '/store',
         element: <UserStore />
+      },
+      {
+        path: '*',
+        element: <img alt='Itsy 404 Page Not Found' src='https://cdn.discordapp.com/attachments/1187515837817557065/1200678476466884739/image.png?ex=65c70df8&is=65b498f8&hm=6d168c4b09ed83f79b47beff4e2e84798876bf37b556d06f8cf48d2e3e9f2383&'/>
       }
 
     ],

@@ -7,7 +7,8 @@ import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 import { useContext } from "react";
 import { CartContext } from "../../context/CartContext";
-import "./ProfileButton.css";
+import { clearState } from "../../redux/favorited_items";
+import './ProfileButton.css'
 
 function ProfileButton() {
   const { clearCart } = useContext(CartContext);
@@ -40,7 +41,8 @@ function ProfileButton() {
 
   const logout = (e) => {
     e.preventDefault();
-    clearCart();
+    clearCart()
+    dispatch(clearState())
     dispatch(thunkLogout());
     navigate("/");
     closeMenu();

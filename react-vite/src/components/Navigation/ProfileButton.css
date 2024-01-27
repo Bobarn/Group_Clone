@@ -84,3 +84,9 @@
     padding:20px;
     border-bottom: 1px solid black;
 }
+
+
+.profile-dropdown {
+    z-index: 2;
+    background-color: white;
+}

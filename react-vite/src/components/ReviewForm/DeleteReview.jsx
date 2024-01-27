@@ -15,14 +15,14 @@ function DeleteReview({ reviewId }) {
   const product = useSelector((state) => state.products[productId]);
 
   const deleteReview = async (e) => {
-    // console.log(reviewId, "LOOOK HERE!!!")
+
     e.preventDefault();
-    // console.log()
+
     dispatch(thunkDeleteReview(reviewId));
 
     dispatch(thunkGetAllProducts(product));
-    // console.log()
-    await dispatch(thunkGetOneReview(product.id))
+
+    dispatch(thunkGetOneReview(product?.id))
     closeModal();
 
   };

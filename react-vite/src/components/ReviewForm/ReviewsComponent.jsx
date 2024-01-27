@@ -76,8 +76,8 @@ const ReviewsComponent = ({ reviews }) => {
       </div>}
       {reviewData.map((review) => {
         return (
-          <>
-            <div key={review?.id}>
+          <div key={review?.id}>
+            <div>
               RATING:
               <label>
                 {review && [...Array(5)].map((star, index) => {
@@ -187,7 +187,7 @@ const ReviewsComponent = ({ reviews }) => {
               />}
             </div>
 
-          </>
+          </div>
         );
 
       }).reverse()}

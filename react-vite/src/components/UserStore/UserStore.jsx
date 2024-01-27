@@ -26,8 +26,8 @@ export default function UserStore() {
         <div id="store-container">
             {userProducts?.map((product) => (
                 <div className="store-product-container" key={product.id}>
-                    <div className="store-img-tile">
-                        <img onClick={() => navigate(`/products/${product?.id}`)} className="store-img" src={product.preview_image}></img>
+                    <div onClick={() => navigate(`/products/${product?.id}`)} className="store-img-tile">
+                        <img className="store-img" src={product.preview_image}></img>
                     <p>{product?.name}</p>
                     </div>
                 </div>

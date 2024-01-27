@@ -130,14 +130,14 @@ export const thunkDeleteReview = (reviewId) => async (dispatch) => {
   });
 
   if (response.ok) {
-    const message = await response.json();
+    // const message = await response.json();
     // console.log(message , '@@@@@@@@@@@@@@@@@@@@@@@')
     dispatch(deleteReview(reviewId));
 
-    return message;
+    // return message;
   } else {
     const error = await response.json();
-
+    console.log("=================", error);
     return error;
   }
 };
