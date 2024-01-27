@@ -11,8 +11,8 @@ function Navigation() {
   const [value,setValue] = useState()
   return (
     <div className="nav-main-cont" >
-      <div className="logo-main-cont" onClick={() => navigate("/")}>
-        <img src={logoImg} alt="Saved Image" className="logo-img" />
+      <div className="logo-main-cont">
+        <img src={logoImg} alt="Saved Image" className="logo-img" onClick={() => navigate("/")} />
       <div className='nav-cat-comp-cont'>
       <CategoriesMenu />
       </div>

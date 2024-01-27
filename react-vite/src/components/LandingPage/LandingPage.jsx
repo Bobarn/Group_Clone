@@ -14,7 +14,6 @@ function LandingImage() {
   const allProducts = useSelector((state) => state.products);
   const currUser = useSelector((state) => state.session.user);
   const allFavorites = useSelector(state => state.favorites)
-  console.log(allFavorites)
   const filteredProducts = Object.values(allProducts).slice(0, 10);
 
   const filteredByCat = Object.values(allProducts).filter(
@@ -28,7 +27,7 @@ function LandingImage() {
 
   useEffect(() =>{
     dispatch(thunkGetAllFavorites())
-  },[])
+  },[currUser])
   //
 
   // ADD TO FAVORITES ONCLICK FUNCTION

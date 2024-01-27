@@ -9,11 +9,11 @@
     font-weight:200;
     list-style: none;
     padding: 5px;
-    position: relative;
-    left: 80%;
+    left: -300%;
     cursor: pointer;
     border: 1px solid #222222;
     position: absolute;
+
 
 
 }
@@ -26,6 +26,7 @@
     font-size: small;
     font-size: 15px;
     margin-right: 60px;
+    position:relative;
     /* box-shadow: 0 3px 5px #e68cfc; */
 }
 
@@ -42,7 +43,7 @@
     border-radius: 100%;
     border:1px solid black;
     padding:10px;
-    color: #919191
+    /* color: #919191 */
 }
 
 /*******/
