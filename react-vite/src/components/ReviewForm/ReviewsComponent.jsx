@@ -2,18 +2,48 @@
 import DeleteReview from "./DeleteReview";
 import EditReview from "./EditReviewComponent"
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
-// import { useParams } from "react-router-dom";
-// import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { thunkGetOneReview } from "../../redux/reviews";
+import ReviewModal from "./ReviewModal";
 
 
 const ReviewsComponent = ({ reviews }) => {
 
-// const useReviewsSelector = () => useSelector((store) => store.reviews);
 
-  // const [reviewId, setReviewId] = useState();
-  // const { productId } = useParams();
-  // const getReview = useReviewsSelector();
+  // const [reviewedCheck, setReviewedCheck] = useState(false);
 
+  const user = useSelector((state) => state.session.user)
+
+  const { productId } = useParams();
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await dispatch(thunkGetOneReview(productId));
+    };
+
+    fetchData();
+  }, [dispatch, productId]);
+
+  // let reviewedCheck;
+
+  const reviewData = Object.values(reviews)
+  // Object.values(reviews).forEach((review) => {
+  //   if (user) {
+
+  //     if (review.user.id === user.id) {
+  //       reviewedCheck = true
+
+  //     } else {
+  //       reviewedCheck = false
+  //     }
+  //   }
+  // })
+  const reviewedCheck = reviewData.some(obj => obj?.user?.id === user?.id)
+  console.log(reviewData, "LOOK OVER HERE FOR REVIEWDATA!!")
 
   if (!reviews) return null;
 
@@ -32,16 +62,25 @@ const ReviewsComponent = ({ reviews }) => {
     11: "December",
   };
 
+  console.log("reveiewssssssssssssssssssssssssssssssss", reviews)
+
   return (
     <>
-      <h1> hello world</h1>
-      {reviews.map((review) => {
+      {(!reviewedCheck && user) && <div className='postReview'>
+        {<OpenModalButton
+          modalComponent={
+            <ReviewModal />
+          }
+          buttonText={"Post A Review"}
+        />}
+      </div>}
+      {reviewData.map((review) => {
         return (
           <>
-            <div>
+            <div key={review?.id}>
               RATING:
               <label>
-                {[...Array(5)].map((star, index) => {
+                {review && [...Array(5)].map((star, index) => {
                   index += 1;
                   return (
                     <button
@@ -124,7 +163,7 @@ const ReviewsComponent = ({ reviews }) => {
             <p> REVIEW: {review?.review_text}</p>
             <p>
               {" "}
-              USER: {review?.user.first_name} {review?.user.last_name}
+              USER: {review && review?.user.first_name} {review && review?.user.last_name}
             </p>
             <p>
               {" "}
@@ -132,26 +171,26 @@ const ReviewsComponent = ({ reviews }) => {
               {new Date(review?.created_at).getFullYear()}{" "}
             </p>
 
-            <div style={{display: "flex", flexDirection: "row", gap: "5px"}} >
-            <OpenModalButton
-                  onButtonClick={() => localStorage.setItem('selectedReviewId', review.id)}
-                  modalComponent={
-                   <EditReview />
-                  }
-                  buttonText={"EDIT"}
-                />
-                <OpenModalButton
-                  modalComponent={
-                    <DeleteReview reviewId={review.id}/>
-                  }
-                  buttonText={"DELETE"}
-                />
-              </div>
+            <div style={{ display: "flex", flexDirection: "row", gap: "5px" }} >
+              {user && user.id === review.user?.id && <OpenModalButton
+                onButtonClick={() => localStorage.setItem('selectedReviewId', review.id)}
+                modalComponent={
+                  <EditReview />
+                }
+                buttonText={"EDIT"}
+              />}
+              {user && user.id === review.user?.id && <OpenModalButton
+                modalComponent={
+                  <DeleteReview reviewId={review.id} />
+                }
+                buttonText={"DELETE"}
+              />}
+            </div>
 
           </>
         );
 
-      })}
+      }).reverse()}
 
     </>
   );

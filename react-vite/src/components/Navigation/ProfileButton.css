@@ -1,0 +1,20 @@
+.profile-bttn-main-cont {
+    cursor: pointer;
+    color: #535053;
+    font-weight: 100;
+    font-size: small;
+    /* box-shadow: 0 3px 5px #e68cfc; */
+}
+
+.profile-bttn-main-cont:hover {
+    box-shadow: 0 3px 5px #e68cfc
+}
+
+.pb-quad-three {
+    margin-top: 5px;
+}
+
+.pb-quad-two {
+    display: flex;
+
+}

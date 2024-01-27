@@ -25,7 +25,7 @@ const deleteFavorite = (favoriteId) => {
 
 export const thunkGetAllFavorites = () => async (dispatch) => {
   const response = await fetch("/api/favorites/");
-  console.log("im in thunk favorites", response)
+
   if (response.ok) {
     const favorites = await response.json();
 

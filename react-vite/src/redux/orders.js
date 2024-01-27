@@ -1,5 +1,6 @@
 const GET_ALL_ORDERS = "reviews/getAllOrders";
 const CREATE_ORDER = "reviews/makeOrder";
+const CLEAR_STATE = 'orders/clearOrders'
 
 const getAllOrders = (orders) => {
   return {
@@ -15,8 +16,14 @@ const makeOrder = (order) => {
   };
 };
 
+export const clearOrders = () =>{
+  return{
+    type: CLEAR_STATE
+  }
+}
+
 export const thunkGetAllOrders = () => async (dispatch) => {
-  const response = await fetch("/api/orders");
+  const response = await fetch("/api/orders/");
 
   if (response.ok) {
     const orders = await response.json();
@@ -72,6 +79,9 @@ function orderReducer(state = {}, action) {
       const newState = { ...state };
       newState[order.id] = order;
       return newState;
+    }
+    case CLEAR_STATE:{
+      return {}
     }
     default:
       return state;
