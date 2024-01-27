@@ -7,7 +7,7 @@ import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 import { useContext } from "react";
 import { CartContext } from "../../context/CartContext";
-import './ProfileButton.css'
+import "./ProfileButton.css"
 
 function ProfileButton() {
   const {clearCart} = useContext(CartContext)

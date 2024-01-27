@@ -29,8 +29,7 @@ function Navigation() {
 
 
       </div>
-
-      <div>
+      <div className="profile-btn" >
         <ProfileButton />
       </div>
     </div>

@@ -7,7 +7,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { thunkGetOneReview } from "../../redux/reviews";
 import ReviewModal from "./ReviewModal";
+<<<<<<< HEAD
 
+=======
+import './ReviewsComponent.css'
+>>>>>>> cd9050790115505faea29ebe251551d9fb6a00ec
 
 const ReviewsComponent = ({ reviews }) => {
 
@@ -62,7 +66,11 @@ const ReviewsComponent = ({ reviews }) => {
     11: "December",
   };
 
+<<<<<<< HEAD
   console.log("reveiewssssssssssssssssssssssssssssssss", reviews)
+=======
+
+>>>>>>> cd9050790115505faea29ebe251551d9fb6a00ec
 
   return (
     <>
@@ -76,10 +84,39 @@ const ReviewsComponent = ({ reviews }) => {
       </div>}
       {reviewData.map((review) => {
         return (
+<<<<<<< HEAD
           <>
             <div key={review?.id}>
               RATING:
               <label>
+=======
+          <div className="prod-review-box" key={review.id}>
+          <div className="review-text-container">
+            <p>REVIEW: {review?.review_text}</p>
+            <p>USER: {review && review?.user.first_name} {review && review?.user.last_name}</p>
+            <p>DATE: {months[new Date(review?.created_at).getMonth()]} {new Date(review?.created_at).getDay()}, {new Date(review?.created_at).getFullYear()}</p>
+          </div>
+          <div className="edit-delete-btns">
+           {user && user.id === review.user?.id && <OpenModalButton
+               onButtonClick={() => localStorage.setItem('selectedReviewId', review.id)}
+                modalComponent={
+                  <EditReview />
+                }
+                buttonText={"EDIT"}
+              />}
+              {user && user.id === review.user?.id && <OpenModalButton
+                modalComponent={
+                  <DeleteReview reviewId={review.id} />
+                }
+                buttonText={"DELETE"}
+              />}
+            </div>
+          <div className="star-ratings-container">
+            <div className="star-rating-section">
+              RATING:
+              <label>
+                <br />
+>>>>>>> cd9050790115505faea29ebe251551d9fb6a00ec
                 {review && [...Array(5)].map((star, index) => {
                   index += 1;
                   return (
@@ -96,9 +133,10 @@ const ReviewsComponent = ({ reviews }) => {
                 })}
               </label>
             </div>
-            <div>
+            <div className="star-rating-section">
               ITEM QUALITY:
               <label>
+                <br />
                 {[...Array(5)].map((star, index) => {
                   index += 1;
                   return (
@@ -116,10 +154,10 @@ const ReviewsComponent = ({ reviews }) => {
                 {review?.item_qual?.toFixed(1)}
               </label>
             </div>
-
-            <div>
+            <div className="star-rating-section">
               SHIPPING:
               <label>
+                <br />
                 {[...Array(5)].map((star, index) => {
                   index += 1;
                   return (
@@ -137,10 +175,10 @@ const ReviewsComponent = ({ reviews }) => {
                 {review?.shipping_qual?.toFixed(1)}
               </label>
             </div>
-
-            <div>
+            <div className="star-rating-section">
               CUSTOMER SERVICE:
               <label>
+                <br />
                 {[...Array(5)].map((star, index) => {
                   index += 1;
                   return (
@@ -158,7 +196,9 @@ const ReviewsComponent = ({ reviews }) => {
                 {review?.service_qual?.toFixed(1)}
               </label>
             </div>
+          </div>
 
+<<<<<<< HEAD
             {/* <p> RATING: {review?.star_rating.toFixed(1)}</p> */}
             <p> REVIEW: {review?.review_text}</p>
             <p>
@@ -192,6 +232,11 @@ const ReviewsComponent = ({ reviews }) => {
 
       }).reverse()}
 
+=======
+          </div>
+        );
+      }).reverse()}
+>>>>>>> cd9050790115505faea29ebe251551d9fb6a00ec
     </>
   );
 };

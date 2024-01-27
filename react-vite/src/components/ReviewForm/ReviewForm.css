@@ -30,27 +30,24 @@ cursor: pointer;
     cursor: pointer;
 }
 
-
-
+/*
 .submit-no {
 
 } */
 
-.review-form-post {
-    height:1300px;
-    width: 700px
+.w-100 {
+    width: 550px;
+    height: 75px;
 }
 
-.edith2 {
-    font-size: 15px;
+.review-author {
+    font-weight: 700;
 }
 
-.star-rating {
-    display:grid;
-    grid-template-columns: repeat(2, 50%);
+.disclaimer {
+    font-size: small;
 }
-
-.ratings {
-    display: flex;
-    flex-direction: column;
+.review_form {
+  padding-left: 18px;
+  padding-right: 18px;
 }

@@ -18,6 +18,7 @@ from .forms.product_image_form import ImageForm
 from .api.review_routes import review_routes
 
 
+
 app = Flask(__name__, static_folder='../react-vite/dist', static_url_path='/')
 
 # Setup login manager

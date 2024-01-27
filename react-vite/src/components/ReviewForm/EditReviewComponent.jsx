@@ -89,7 +89,10 @@ const EditReviewModal = () => {
       )
     );
     await dispatch(thunkGetOneReview(product.id));
+<<<<<<< HEAD
     await dispatch(thunkGetAllProducts())
+=======
+>>>>>>> cd9050790115505faea29ebe251551d9fb6a00ec
   };
 
   return (

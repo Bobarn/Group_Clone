@@ -7,9 +7,12 @@ import { thunkGetAllProducts } from "../../redux/product";
 const useProductsSelector = () => useSelector((store) => store.products);
 const useUserSelector = () => useSelector((store) => store.session);
 import './ReviewForm.css'
+<<<<<<< HEAD
 // const useReviewsSelector = () => useSelector((store) => store.reviews);
 
 
+=======
+>>>>>>> cd9050790115505faea29ebe251551d9fb6a00ec
 
 
 function ReviewModal() {
@@ -31,6 +34,11 @@ function ReviewModal() {
     closeModal();
   };
 
+<<<<<<< HEAD
+=======
+  // if (!products) return null
+  // if (!sessions) return null
+>>>>>>> cd9050790115505faea29ebe251551d9fb6a00ec
 
   useEffect(() => {
     setModalContent(<ReviewModal></ReviewModal>);
