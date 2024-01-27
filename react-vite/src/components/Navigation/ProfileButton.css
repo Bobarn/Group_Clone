@@ -79,3 +79,8 @@
 }
 
 /*******/
+
+.profile-dropdown li{
+    padding:20px;
+    border-bottom: 1px solid black;
+}
