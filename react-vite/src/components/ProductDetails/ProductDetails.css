@@ -134,8 +134,8 @@
     font-family: 'Source Serif 4', serif;
 }
 
-.product-detail-price, .product-detail-name, .product-detail-seller {
-}
+/* .product-detail-price, .product-detail-name, .product-detail-seller {
+} */
 
 #product-details-information {
     display: flex;
