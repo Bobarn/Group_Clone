@@ -13,13 +13,13 @@ function Navigation() {
     <div className="nav-main-cont" >
       <div className="logo-main-cont" onClick={() => navigate("/")}>
         <img src={logoImg} alt="Saved Image" className="logo-img" />
-      </div>
       <div className='nav-cat-comp-cont'>
       <CategoriesMenu />
       </div>
+      </div>
       <div className='nav-search-main-cont'>
       <input
-
+        onClick={() => window.alert('Feature coming soon...')}
         className='search-bar'
         type="text"
         value={value}
