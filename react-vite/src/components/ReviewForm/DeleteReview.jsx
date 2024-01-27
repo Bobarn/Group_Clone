@@ -22,7 +22,7 @@ function DeleteReview({ reviewId }) {
 
     dispatch(thunkGetAllProducts(product));
 
-    dispatch(thunkGetOneReview(product.id))
+    dispatch(thunkGetOneReview(product?.id))
     closeModal();
 
   };
