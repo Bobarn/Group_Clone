@@ -22,7 +22,7 @@ function CategoryProducts() {
     // Only way I can get it to only pull category otherwise it loads all products
     // return () => dispatch(clearState())
     dispatch(thunkGetAllFavorites())
-  }, [dispatch,category, currUser]);
+  }, [dispatch,category, currUser?.id]);
 
 
 
