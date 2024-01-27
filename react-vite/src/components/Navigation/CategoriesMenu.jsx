@@ -29,6 +29,7 @@ function CategoriesMenu() {
   const closeMenu = () => setShowMenu(false);
 
   const handleOnClick = (category) => {
+
     navigate(`/category/${category}`);
     closeMenu();
   };
@@ -36,7 +37,10 @@ function CategoriesMenu() {
   return (
     <div className="nav-cat-comp-main-cont">
       <div className="nav-cat-main-cont" onClick={toggleMenu}>
+        <div className='cat-icon-cont'>
         <i className="fa-solid fa-bars"></i>
+
+        </div>
         <span>Categories</span>
       </div>
       {showMenu && (
