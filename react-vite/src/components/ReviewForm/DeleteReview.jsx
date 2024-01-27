@@ -18,7 +18,7 @@ function DeleteReview({ reviewId }) {
 
     e.preventDefault();
 
-    let result = dispatch(thunkDeleteReview(reviewId));
+    dispatch(thunkDeleteReview(reviewId));
 
     dispatch(thunkGetAllProducts(product));
 
