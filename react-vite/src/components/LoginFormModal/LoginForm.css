@@ -1,0 +1,44 @@
+#log-in-modal {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    height: fit-content
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#log-in-form {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+}
+
+#log-in-form > * {
+    margin: 5px 0px;
+    width: 100%;
+}
+
+#log-in-submit {
+    line-height: 2rem;
+    border-radius: 5px;
+    border: none;
+}
+
+#log-in-submit:hover {
+    box-shadow:
+    0 0 3px 1px #e68cfc;
+}
+
+.label {
+    display: flex;
+    justify-content: space-between;
+}
+
+#demo {
+    align-self: center;
+}
+
+#demo:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
