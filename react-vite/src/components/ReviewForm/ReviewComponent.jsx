@@ -3,6 +3,7 @@ import { thunkGetAllReviews } from "../../redux/reviews";
 // import { thunkGetOneReview } from "../../redux/reviews";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+// import './ReviewComponent.css'
 
 // import { thunkGetAllProducts } from "../../redux/product";
 

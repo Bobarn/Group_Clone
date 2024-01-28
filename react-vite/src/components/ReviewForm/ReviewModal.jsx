@@ -131,11 +131,12 @@ function ReviewModal() {
 
   return (
     <div className="review-form-post">
-      <img src={product?.preview_image} height="350px" alt="" />
-      <caption>{product?.name}</caption>
-      <p>Reviews: {product?.reviews}</p>
-      <p>Seller: {product?.seller?.username}</p>
-      <h2 className='edith2'> My review </h2>
+      <img className="image" src={product?.preview_image} height="350px" alt="" />
+      <br />
+      <caption className="image-title" >{product?.name}</caption>
+      <div>Reviews: {product?.reviews}</div>
+      <div>Seller: {product?.seller?.username}</div>
+      <h2 className='edith2'>My review </h2>
       <div className="star-rating">
       {renderStars(rating, setRating, "Overall Rating")}
       {renderStars(itemQuality, setItemQuality, "Item Quality")}
@@ -155,9 +156,10 @@ function ReviewModal() {
             required
           />
         </div>
-        <p> Reviewed by {user?.first_name} {user?.last_name}</p>
-        <p>Your review and profile information will be publicly displayed</p>
+        <div className="author" > Reviewed by {user?.first_name} {user?.last_name}</div>
+        <p className="disclaimer" >Your review and profile information will be publicly displayed</p>
         <button
+        className="post-btn"
           type="submit"
           disabled={!enableSubmit || rating === 0}
         >

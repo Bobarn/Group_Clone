@@ -93,15 +93,16 @@ const EditReviewModal = () => {
   };
 
   return (
-    <div className="review_form">
-      <img src={product?.preview_image} height="350px" alt="" />
-      <caption>{product?.name}</caption>
-      <p>Reviews: {product?.reviews}</p>
-      <p>Seller: {product?.seller?.username}</p>
+    <div className="review-modal-container" >
+    <div className="review-form-post">
+      <img className="image"  src={product?.preview_image} height="350px" alt="" />
+      <caption className="image-title-edit" >{product?.name}</caption>
+      <div>Reviews: {product?.reviews}</div>
+      <div>Seller: {product?.seller?.username}</div>
 
 
 
-      <h2 className="edith2">Help others by sharing your feedback</h2>
+      <h3 className="edith2">Help others by sharing your feedback</h3>
       <h3 className="edith2">
         What do you think about this? Did it ship on time? Describe your
         experience with this shop.
@@ -193,16 +194,7 @@ const EditReviewModal = () => {
             })}
           </label>
         </div>
-
-
-
-
-
-
-
       </div>
-
-
         <div className="review-text">
           <textarea
             className="w-100"
@@ -214,11 +206,11 @@ const EditReviewModal = () => {
             required
           />
         </div>
-        <p>
+        <div className="review-author" >
           {" "}
           Reviewed by {user?.first_name} {user?.last_name}
-        </p>
-        <p>Your review and profile information will be publicly displayed</p>
+        </div>
+        <div className="disclaimer" >Your review and profile information will be publicly displayed</div>
         <button type="submit" disabled={!enableSubmit || rating === 0}>
           Post Your Review
         </button>
@@ -227,6 +219,7 @@ const EditReviewModal = () => {
       <button className="cancel-button" onClick={cancel}>
         CANCEL
       </button>
+      </div>
     </div>
   );
 };
