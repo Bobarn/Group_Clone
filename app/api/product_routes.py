@@ -3,6 +3,8 @@ from flask_login import current_user, login_required
 from app.models import db, Product, ProductImage
 from app.forms import ProductForm, ImageForm
 from sqlalchemy import desc
+from app.s3_helpers import (
+    upload_file_to_s3, get_unique_filename)
 
 product_routes = Blueprint("products",__name__)
 
@@ -188,22 +190,67 @@ def product_images(id):
 @product_routes.route("/<int:id>/images/new", methods=['POST'] )
 @login_required
 def post_product_images(id):
-    form = ImageForm()
-    form["csrf_token"].data = request.cookies["csrf_token"]
 
-    if form.validate_on_submit():
+    # form["csrf_token"].data = request.cookies["csrf_token"]
+    image = request.files["image"]
 
-        url = form.data["url"]
-        print(url)
+    url2 = None
+    url3 = None
 
-        new_image = ProductImage(url=url, productId=int(id))
+    if "secondImage" in request.files:
+        secondImage = request.files["secondImage"]
+        if secondImage:
+            secondImage.filename = get_unique_filename(secondImage.filename)
+            upload2 = upload_file_to_s3(secondImage)
+            if "url" in upload2:
+                url2 = upload2["url"]
 
-        db.session.add(new_image)
-        db.session.commit()
-        updated_product = Product.query.get(id)
+    if "thirdImage" in request.files:
+        thirdImage = request.files["thirdImage"]
+        if thirdImage:
+            thirdImage.filename = get_unique_filename(thirdImage.filename)
+            upload3 = upload_file_to_s3(thirdImage)
+            if "url" in upload3:
+                url3 = upload3["url"]
 
-        return {"product": updated_product.to_dict()}
-    return { "post_product_images": form.errors }
+
+    image.filename = get_unique_filename(image.filename)
+    upload = upload_file_to_s3(image)
+
+
+    if "url" not in upload:
+    # if the dictionary doesn't have a url key
+    # it means that there was an error when we tried to upload
+    # so we send back that error message (and we printed it above)
+        # return render_template("post_form.html", form=form, errors=[upload])
+        return { "errors": "image did not upload successfully" }, 401
+
+    url = upload["url"]
+   
+
+    preview_image = ProductImage(url=url, productId=id)
+    db.session.add(preview_image)
+
+    if url2 is not None:
+        image2 = ProductImage(url=url2, productId=id)
+        db.session.add(image2)
+
+    if url3 is not None:
+        image3 = ProductImage(url=url3, productId=id)
+        db.session.add(image3)
+
+    db.session.commit()
+    product = Product.query.get(id)
+    return {"product": product.to_dict()}
+    # return redirect("/posts/all")
+
+    # if form.errors:
+    #     print(form.errors)
+    #     return { "post_product_images": form.errors }
+
+
+
+
 
 @product_routes.route("/images/<int:id>", methods=['DELETE'])
 @login_required

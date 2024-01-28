@@ -20,16 +20,40 @@ const ProductForm = ({ product, formType, productId }) => {
     const [disabled, setDisabled] = useState(false);
     const [errors, setErrors] = useState({})
     const [submitted, setSubmitted] = useState(false)
+    const [imageLoading, setImageLoading] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        setDisabled(true)
-
-        setSubmitted(true)
         price = parseFloat(price)
 
         shipping_time = parseInt(shipping_time)
+
+        const formData = new FormData();
+        formData.append("image", image);
+        // formData.append("name", name);
+        // formData.append("description", description);
+        // formData.append("price", price);
+        // formData.append("category", category);
+        // formData.append("shipping_time", shipping_time);
+        // formData.append("return_policy", return_policy);
+        // formData.append("free_shipping", free_shipping);
+
+        // aws uploads can be a bit slow—displaying
+        // some sort of loading message is a good idea
+
+        // await dispatch(createPost(formData));
+        // history.push("/images");
+        // navigate("/images");
+
+        for (let kvp of formData.entries()) {
+            console.log(kvp[0], kvp[1]);
+          }
+        // console.log(image, " THIS IS SIMAGE")
+        setDisabled(true)
+
+        setSubmitted(true)
+
 
         product = { name, description, price, category, shipping_time, return_policy, free_shipping};
 
@@ -40,25 +64,31 @@ const ProductForm = ({ product, formType, productId }) => {
 
         if(formType === 'Create Product' && !product.errors) {
             // console.log(product)
-            let imageInput = image
+            // let imageInput = image
             if(secondImage) {
-                imageInput = [image, secondImage]
-                if(thirdImage) {
-                    imageInput = [image, secondImage, thirdImage]
-                }
+                formData.append("secondImage", secondImage)
+
+                // imageInput = [image, secondImage]
+                // if(thirdImage) {
+                //     imageInput = [image, secondImage, thirdImage]
+                // }
             }
 
-            if(thirdImage && !secondImage) {
-                imageInput = [image, thirdImage]
+            if(thirdImage) {
+                // imageInput = [image, thirdImage]
+                formData.append("thirdImage", thirdImage)
             }
-            product = await dispatch(thunkCreateProduct(product, imageInput));
+            console.log(formData, " THIS IS FORMDATA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+            setImageLoading(true);
+
+            product = await dispatch(thunkCreateProduct(formData, product));
             // console.log(product)
 
         } else if (formType === "Update Product" && !product.errors) {
-            console.log(product)
-            console.log(productId)
+            // console.log(product)
+            // console.log(productId)
             product = await dispatch(thunkUpdateProduct(productId, product))
-            console.log("after thunk", product)
+            // console.log("after thunk", product)
         } else{
 
             setDisabled(false)
@@ -76,6 +106,7 @@ const ProductForm = ({ product, formType, productId }) => {
             navigate(`/products/${product.product.id}`)
         }
     };
+
 
     useEffect(() => {
         const newErrors = {};
@@ -102,11 +133,17 @@ const ProductForm = ({ product, formType, productId }) => {
             newErrors.shipping_time = "Estimated shipping time is required"
         }
 
+
         setErrors(newErrors)
     }, [submitted, name, description, category, return_policy, price, shipping_time])
 
+    if(imageLoading){
+        return(<h1> loading ... please wait </h1>)
+    }
+
     return (
-        <form id='product-form' onSubmit={handleSubmit}>
+        // <form id='product-form' onSubmit={handleSubmit}>
+        <form id='product-form' onSubmit={handleSubmit} encType="multipart/form-data" >
             {formType === 'Create Product' ?
             <div id='product-form-heading'>
                 <h2 className='form-text'>Post Your Wares</h2>
@@ -147,10 +184,11 @@ const ProductForm = ({ product, formType, productId }) => {
                             Preview Image:
                             <input
                             id='image-input'
-                            type="text"
-                            value={image}
-                            placeholder="Spooky? Pretty? Cool? What's your aesthetic?"
-                            onChange={(e) => setImage(e.target.value)}
+                            type="file"
+                            accept="image/*"
+                            // value={image}
+                            // placeholder="Spooky? Pretty? Cool? What's your aesthetic?"
+                            onChange={(e) => setImage(e.target.files[0])}
                             />
                         {submitted && <div className='errors'>{errors.image}</div>}
                         </label>
@@ -160,10 +198,9 @@ const ProductForm = ({ product, formType, productId }) => {
                             Second Image (Optional):
                             <input
                             id='image-input'
-                            type="text"
-                            value={secondImage}
-                            placeholder="Spooky? Pretty? Cool? What's your aesthetic?"
-                            onChange={(e) => setSecondImage(e.target.value)}
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) => setSecondImage(e.target.files[0])}
                             />
                         {submitted && <div className='errors'>{errors.image}</div>}
                         </label>
@@ -173,10 +210,9 @@ const ProductForm = ({ product, formType, productId }) => {
                             Third Image (Optional):
                             <input
                             id='image-input'
-                            type="text"
-                            value={thirdImage}
-                            placeholder="Spooky? Pretty? Cool? What's your aesthetic?"
-                            onChange={(e) => setThirdImage(e.target.value)}
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) => setThirdImage(e.target.files[0])}
                             />
                         {submitted && <div className='errors'>{errors.image}</div>}
                         </label>
