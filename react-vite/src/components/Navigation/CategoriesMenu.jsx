@@ -37,10 +37,10 @@ function CategoriesMenu() {
   return (
     <div className="nav-cat-comp-main-cont">
       <div className="nav-cat-main-cont" onClick={toggleMenu}>
-        <div className='cat-icon-cont'>
+        {/* <div className='cat-icon-cont'> */}
         <i className="fa-solid fa-bars"></i>
 
-        </div>
+        {/* </div> */}
         <span>Categories</span>
       </div>
       {showMenu && (
