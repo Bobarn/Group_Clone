@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { thunkGetOneReview } from "../../redux/reviews";
 import ReviewModal from "./ReviewModal";
-
+import './ReviewComponent.css'
 
 const ReviewsComponent = ({ reviews }) => {
 
@@ -74,10 +74,40 @@ const ReviewsComponent = ({ reviews }) => {
       </div>}
       {reviewData.map((review) => {
         return (
-          <div key={review?.id}>
-            <div>
-              RATING:
+          <>
+          <div className="prod-review-box"  >
+            <div className="review-text-container" >
+          <p>  {review?.review_text}</p>
+            <p className="name-date-review" >
+              {" "}
+               {review && review?.user.first_name} {review && review?.user.last_name}
+
+              {" "}
+               {months[new Date(review?.created_at).getMonth()]} {new Date(review?.created_at).getDay()},{" "}
+              {new Date(review?.created_at).getFullYear()}{" "}
+            </p>
+            </div>
+            <div className="edit-delete-btns"  >
+              {user && user.id === review.user?.id && <OpenModalButton
+                onButtonClick={() => localStorage.setItem('selectedReviewId', review.id)}
+                modalComponent={
+                  <EditReview />
+                }
+                buttonText={"EDIT"}
+              />}
+              {user && user.id === review.user?.id && <OpenModalButton
+                modalComponent={
+                  <DeleteReview reviewId={review.id} />
+                }
+                buttonText={"DELETE"}
+              />}
+            </div>
+            <div key={review?.id}>
+            <div className="star-ratings-container">
+
+              Rating
               <label>
+                <br />
                 {review && [...Array(5)].map((star, index) => {
                   index += 1;
                   return (
@@ -94,8 +124,10 @@ const ReviewsComponent = ({ reviews }) => {
                 })}
               </label>
             </div>
+
             <div>
-              ITEM QUALITY:
+              Item Quality
+              <br />
               <label>
                 {[...Array(5)].map((star, index) => {
                   index += 1;
@@ -116,8 +148,9 @@ const ReviewsComponent = ({ reviews }) => {
             </div>
 
             <div>
-              SHIPPING:
+              Shipping
               <label>
+                <br />
                 {[...Array(5)].map((star, index) => {
                   index += 1;
                   return (
@@ -139,6 +172,7 @@ const ReviewsComponent = ({ reviews }) => {
             <div>
               CUSTOMER SERVICE:
               <label>
+                <br />
                 {[...Array(5)].map((star, index) => {
                   index += 1;
                   return (
@@ -156,36 +190,12 @@ const ReviewsComponent = ({ reviews }) => {
                 {review?.service_qual?.toFixed(1)}
               </label>
             </div>
-
-            {/* <p> RATING: {review?.star_rating.toFixed(1)}</p> */}
-            <p> REVIEW: {review?.review_text}</p>
-            <p>
-              {" "}
-              USER: {review && review?.user.first_name} {review && review?.user.last_name}
-            </p>
-            <p>
-              {" "}
-              DATE: {months[new Date(review?.created_at).getMonth()]} {new Date(review?.created_at).getDay()},{" "}
-              {new Date(review?.created_at).getFullYear()}{" "}
-            </p>
-
-            <div style={{ display: "flex", flexDirection: "row", gap: "5px" }} >
-              {user && user.id === review.user?.id && <OpenModalButton
-                onButtonClick={() => localStorage.setItem('selectedReviewId', review.id)}
-                modalComponent={
-                  <EditReview />
-                }
-                buttonText={"EDIT"}
-              />}
-              {user && user.id === review.user?.id && <OpenModalButton
-                modalComponent={
-                  <DeleteReview reviewId={review.id} />
-                }
-                buttonText={"DELETE"}
-              />}
+            </div>
             </div>
 
-          </div>
+            {/* <p> RATING: {review?.star_rating.toFixed(1)}</p> */}
+
+          </>
         );
 
       }).reverse()}

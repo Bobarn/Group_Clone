@@ -32,6 +32,7 @@ function DeleteReview({ reviewId }) {
 
   return (
     <>
+      <div className="delete-rev-modal" >
       <h1>CONFIRM DELETE</h1>
       <p> Are you sure you want to delete this review? </p>
       <button className="yes-button" onClick={deleteReview}>
@@ -40,6 +41,7 @@ function DeleteReview({ reviewId }) {
       <button className="cancel-button" onClick={cancel}>
         CANCEL
       </button>
+      </div>
     </>
   );
 }
