@@ -74,7 +74,7 @@ const EditReviewModal = () => {
     }
   };
 
-  const editReview = async (reviewId) => {
+  const editReview = (reviewId) => {
     closeModal();
     dispatch(
       thunkUpdateReview(
@@ -88,8 +88,7 @@ const EditReviewModal = () => {
         reviewId
       )
     );
-    await dispatch(thunkGetOneReview(product.id));
-    await dispatch(thunkGetAllProducts())
+    dispatch(thunkGetAllProducts())
   };
 
   return (

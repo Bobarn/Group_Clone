@@ -130,14 +130,13 @@ export const thunkDeleteReview = (reviewId) => async (dispatch) => {
   });
 
   if (response.ok) {
-    const message = await response.json();
+    // const message = await response.json();
     // console.log(message , '@@@@@@@@@@@@@@@@@@@@@@@')
     dispatch(deleteReview(reviewId));
 
-    return message;
+    // return message;
   } else {
     const error = await response.json();
-
     return error;
   }
 };
@@ -145,24 +144,22 @@ export const thunkDeleteReview = (reviewId) => async (dispatch) => {
 // export const thunkUpdateReview = (reviewId, review) => async (dispatch) => {
   export const thunkUpdateReview = (review, reviewId) => async (dispatch) => {
 
-    console.log(review);
 
 const response = await fetch(`/api/reviews/${reviewId}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(review),
   });
-  console.log(response);
 
   if (response.ok) {
     const updatedReview = await response.json();
-    console.log(updatedReview, "LOOK HERE!")
+
     dispatch(updateReview(updatedReview))
 
     return updatedReview;
   } else {
     const errors = await response.json();
-    console.log(errors)
+
     return errors;
   }
 };

@@ -12,7 +12,7 @@
 
 /* Cart Button to slide out the cart */
 #cart-button {
-    position: absolute;
+    position: fixed;
     width: 5%;
     align-self: flex-end;
     z-index: 1;

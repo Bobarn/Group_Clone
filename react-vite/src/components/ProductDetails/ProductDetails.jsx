@@ -3,7 +3,7 @@ import { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { thunkGetAllProducts, thunkGetAllProductsByCategory } from "../../redux/product";
 import DeleteProductConfirmationModal from "./ProductDeleteModal";
-import {thunkCreateFavorite, thunkDeleteFavorite} from "../../redux/favorited_items";
+import {thunkCreateFavorite, thunkGetAllFavorites, thunkDeleteFavorite } from "../../redux/favorited_items";
 import { thunkCreateOrder } from '../../redux/orders';
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -35,14 +35,12 @@ export default function ProductDetailsPage() {
 
   const categoryProducts = useSelector((state) => state.products[product?.category]);
 
-  const [heartStates, setHeartStates] = useState({});
+const heartStates = useSelector((state) => state.favorites);
 
   const reviews = useSelector((state) => state.reviews);
   // converting the reviews object of objects to an array
   const reviewsArray = Object.values(reviews);
-  // console.log(reviewsArray, "reviews array");
 
-//   console.log(reviews, "reviews");
   useEffect(() => {
     dispatch(thunkGetAllProducts());
 }, [dispatch, product?.reviews]);
@@ -52,7 +50,9 @@ export default function ProductDetailsPage() {
 
   useEffect(() => {
     dispatch(thunkGetOneReview(productId))
-  }, []);
+    dispatch(thunkGetAllFavorites())
+  }, [dispatch,]);
+
 
   function addDays(days) {
     var result = new Date();
@@ -93,11 +93,10 @@ export default function ProductDetailsPage() {
         else if(userId) {
             dispatch(thunkCreateFavorite(productId));
         }
+        else {
+            window.alert("Must sign-in to add to favorites!")
+        }
 
-        setHeartStates((prevHeartStates) => ({
-          ...prevHeartStates,
-          [productId]: !prevHeartStates[productId],
-        }));
       };
 
     const imageCreator = () => {
@@ -108,10 +107,7 @@ export default function ProductDetailsPage() {
             <div
                 className="heart-button suggested-hearts"
                 id='product-heart'
-                onClick={() =>
-                userId
-                    ? addToFav(item.id)
-                    : window.alert("Must sign-in to add to favorites!")
+                onClick={() =>addToFav(item.id)
                 }
             >
                 {heartStates[item.id] ? (
@@ -161,13 +157,13 @@ export default function ProductDetailsPage() {
                             {product?.images.map((image) => {
                                 return (<div className="Carousel-image" key={image?.id}>
                                                         <div className="heart-button-big" onClick={() => addToFav(product?.id)}>
-                {heartStates[product.id] ? (
+                {heartStates[product?.id] ? (
                     <i className="fa-solid fa-xl fa-heart filled-heart big-heart"></i>
                     ) : (
                         <i className="fa-regular fa-xl fa-heart empty-heart big-heart"></i>
                         )}
                         </div>
-                                    <img src={image?.url} onError={"https://www.analyticdesign.com/wp-content/uploads/2018/07/unnamed-574x675.gif"} alt="product image"/>
+                                    <img src={image?.url} onError={(e) => e.target.src = "https://www.analyticdesign.com/wp-content/uploads/2018/07/unnamed-574x675.gif"} alt="product image"/>
                                 </div>)
                             })}
                         </Carousel>

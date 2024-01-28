@@ -1,6 +1,7 @@
 const GET_ALL_FAVORITES = "favorites/getAllFavorites";
 const CREATE_FAVORITE = "favorites/makeFavorite";
 const DELETE_FAVORITE = "faavorites/deleteFavorite";
+const CLEAR_STATE = "favorites/clearState"
 
 const getAllFavorites = (favorites) => {
   return {
@@ -23,6 +24,13 @@ const deleteFavorite = (favoriteId) => {
   };
 };
 
+export const clearState = () => {
+  return {
+    type: CLEAR_STATE,
+    favorites: {}
+  }
+}
+
 export const thunkGetAllFavorites = () => async (dispatch) => {
   const response = await fetch("/api/favorites/");
 
@@ -43,7 +51,7 @@ export const thunkCreateFavorite = (productId) => async (dispatch) => {
       productId,
     }),
   });
-  console.log(response)
+  // console.log(response)
 
   if (response.ok) {
     const newFavorite = await response.json();
@@ -99,6 +107,9 @@ function favoritesReducer(state = {}, action) {
       delete newState[action.favoriteId];
 
       return newState;
+    }
+    case CLEAR_STATE: {
+      return action.favorites;
     }
     default:
       return state;

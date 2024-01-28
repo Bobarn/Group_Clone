@@ -1,8 +1,8 @@
-import { useEffect,useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { thunkGetAllProductsByCategory } from "../../redux/product";
-import { thunkCreateFavorite,thunkDeleteFavorite  } from "../../redux/favorited_items";
+import { thunkCreateFavorite,thunkDeleteFavorite, thunkGetAllFavorites  } from "../../redux/favorited_items";
 import StarRatings from 'react-star-ratings'
 import "./CategoryProducts.css"
 
@@ -14,7 +14,6 @@ function CategoryProducts() {
   let { category } = useParams();
   const allCatProds = useSelector((state) => state.products[category]);
   const currUser = useSelector((state) => state.session.user);
-  // const allCatProds = Object.values(products)
 
 
 
@@ -22,27 +21,25 @@ function CategoryProducts() {
     dispatch(thunkGetAllProductsByCategory(category));
     // Only way I can get it to only pull category otherwise it loads all products
     // return () => dispatch(clearState())
+    dispatch(thunkGetAllFavorites())
   }, [dispatch,category]);
 
 
 
-  const [heartStates, setHeartStates] = useState({});
+  const heartStates = useSelector((state) => state.favorites);
 
   const addToFav = (productId) => {
     // e.preventDefault();
     dispatch(thunkCreateFavorite(productId));
 
     if(currUser.id && heartStates[productId]) {
+      console.log(productId)
         dispatch(thunkDeleteFavorite(productId))
       }
       else if(currUser.id) {
         dispatch(thunkCreateFavorite(productId));
       }
 
-    setHeartStates((prevHeartStates) => ({
-      ...prevHeartStates,
-      [productId]: !prevHeartStates[productId],
-    }));
   };
 
 

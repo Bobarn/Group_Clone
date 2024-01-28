@@ -43,7 +43,6 @@ const ReviewsComponent = ({ reviews }) => {
   //   }
   // })
   const reviewedCheck = reviewData.some(obj => obj?.user?.id === user?.id)
-  console.log(reviewData, "LOOK OVER HERE FOR REVIEWDATA!!")
 
   if (!reviews) return null;
 
@@ -62,7 +61,6 @@ const ReviewsComponent = ({ reviews }) => {
     11: "December",
   };
 
-  console.log("reveiewssssssssssssssssssssssssssssssss", reviews)
 
   return (
     <>
@@ -83,7 +81,7 @@ const ReviewsComponent = ({ reviews }) => {
             <p className="name-date-review" >
               {" "}
                {review && review?.user.first_name} {review && review?.user.last_name}
-            
+
               {" "}
                {months[new Date(review?.created_at).getMonth()]} {new Date(review?.created_at).getDay()},{" "}
               {new Date(review?.created_at).getFullYear()}{" "}
@@ -106,7 +104,7 @@ const ReviewsComponent = ({ reviews }) => {
             </div>
             <div key={review?.id}>
             <div className="star-ratings-container">
-          
+
               Rating
               <label>
                 <br />
@@ -126,13 +124,13 @@ const ReviewsComponent = ({ reviews }) => {
                 })}
               </label>
             </div>
-            
+
             <div>
               Item Quality
               <br />
               <label>
                 {[...Array(5)].map((star, index) => {
-                  index += 1;          
+                  index += 1;
                   return (
                     <button
                       type="button"
@@ -196,7 +194,6 @@ const ReviewsComponent = ({ reviews }) => {
             </div>
 
             {/* <p> RATING: {review?.star_rating.toFixed(1)}</p> */}
-
 
           </>
         );

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { thunkGetAllFavorites } from "../../redux/favorited_items";
 import { NavLink } from "react-router-dom";
@@ -19,8 +19,8 @@ const FavoritesPage = () => {
   const allProducts = useSelector((state) => Object.values(state.products));
 
   // Function to filter products based on the category of favorites
-  const getRelatedProducts = (category) => {
-     
+  const getRelatedProducts = () => {
+
     let related = allProducts.filter((product) => product.category === favorites[0].category);
     return (related.map((favorite) => {
       // Get related products based on the category of the favorite
@@ -34,7 +34,7 @@ const FavoritesPage = () => {
           <p className="price">{favorite.price}</p>
         </NavLink>
 
-      )     
+      )
       }))
   };
 
@@ -61,5 +61,5 @@ const FavoritesPage = () => {
         </div>
     );
   };
-  
+
   export default FavoritesPage;

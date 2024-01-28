@@ -10,9 +10,9 @@ import { CartContext } from "../../context/CartContext";
 import './ProfileButton.css'
 
 function ProfileButton() {
-  const {clearCart} = useContext(CartContext)
+  const { clearCart } = useContext(CartContext);
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
   const user = useSelector((store) => store.session.user);
   const ulRef = useRef();
@@ -40,10 +40,10 @@ function ProfileButton() {
 
   const logout = (e) => {
     e.preventDefault();
-    clearCart()
-    dispatch(thunkLogout());
-    navigate("/")
-    closeMenu();
+    dispatch(thunkLogout())
+    .then(() => clearCart())
+    .then(() => navigate("/"))
+    .then(() => closeMenu());
   };
 
   // const handleOnClock = (param) =>{
@@ -52,30 +52,53 @@ function ProfileButton() {
 
   return (
     <div className="profile-bttn-main-cont">
-      <button onClick={toggleMenu}>
-        <i className="fas fa-user-circle" />
-      </button>
+      <div onClick={toggleMenu}>
+        <i className="fas fa-user-circle pb-icon" />
+      </div>
       {showMenu && (
-        <ul className={"profile-dropdown"} ref={ulRef}>
+        <div className="profile-dropdown" ref={ulRef}>
           {user ? (
             <>
-            <div className='pb-quad-one blocks'>
-              <span>{`Hello, ${user.username}!`}</span>
-              <span></span>
-            </div>
-            <div className='pb-quad-two blocks'>
-              <span onClick={() =>{ navigate('/orders'); closeMenu()}}>Your Orders</span>
-              {/* <span>Reviews</span> */}
-              <span onClick={() => {navigate('/favorites'); closeMenu();}}>Favorite Items</span>
-              <span onClick={(() =>{navigate('/store')})}>Your Store</span>
-
-            </div>
-            <div>
-              <div className='pb-quad-three blocks'>
-                <button onClick={logout}>Log Out</button>
+              <div className="pb-quad-one blocks pb-block">
+                <span>{`Hello, ${user.username}!`}</span>
+                <span></span>
               </div>
+              <div className="pb-quad-two blocks pb-block">
+                <div className='pb-orders-text-cont'>
+                  <span onClick={() => {navigate("/orders");
+                      closeMenu();
+                    }}
+                  >
+                    Your Orders
+                  </span>
+                </div>
+                <div className='pb-fav-text-cont'>
+                <span
+                  onClick={() => {
+                    navigate("/favorites");
+                    closeMenu();
+                  }}
+                >
+                  Favorite Items
+                </span>
 
-            </div>
+                </div>
+                <div className='pb-store-text-cont'>
+
+                <span
+                  onClick={() => {
+                    navigate("/store");
+                  }}
+                >
+                  Your Store
+                </span>
+                </div>
+              </div>
+              <div>
+                <div className="pb-quad-three pb-block">
+                  <button onClick={logout}>Log Out</button>
+                </div>
+              </div>
             </>
           ) : (
             <>
@@ -91,7 +114,7 @@ function ProfileButton() {
               />
             </>
           )}
-        </ul>
+        </div>
       )}
     </div>
   );

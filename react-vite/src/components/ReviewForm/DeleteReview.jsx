@@ -1,6 +1,6 @@
 import "./DeleteReview.css";
 import { useDispatch, useSelector } from "react-redux";
-import { thunkDeleteReview, thunkGetOneReview } from "../../redux/reviews";
+import { thunkDeleteReview } from "../../redux/reviews";
 import { useModal } from "../../context/Modal";
 import { thunkGetAllProducts } from "../../redux/product";
 import { useParams } from "react-router-dom";
@@ -14,15 +14,14 @@ function DeleteReview({ reviewId }) {
   const { productId } = useParams();
   const product = useSelector((state) => state.products[productId]);
 
-  const deleteReview = async (e) => {
-    // console.log(reviewId, "LOOOK HERE!!!")
+  const deleteReview = (e) => {
+
     e.preventDefault();
-    // console.log()
+
     dispatch(thunkDeleteReview(reviewId));
 
     dispatch(thunkGetAllProducts(product));
-    // console.log()
-    await dispatch(thunkGetOneReview(product.id))
+
     closeModal();
 
   };
