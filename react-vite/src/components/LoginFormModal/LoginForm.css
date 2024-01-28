@@ -18,6 +18,10 @@
     width: 100%;
 }
 
+#log-in-form > p {
+    color: red;
+}
+
 #log-in-submit {
     line-height: 2rem;
     border-radius: 5px;
