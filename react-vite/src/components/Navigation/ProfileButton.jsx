@@ -43,8 +43,8 @@ function ProfileButton() {
     e.preventDefault();
     clearCart()
     dispatch(clearState())
-    dispatch(thunkLogout());
-    navigate("/");
+    dispatch(thunkLogout())
+    .then(() => navigate("/"));
     closeMenu();
   };
 
