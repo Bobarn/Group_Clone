@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { thunkGetAllProductsWImages } from "../../redux/product";
 import { thunkCreateFavorite,thunkDeleteFavorite  } from "../../redux/favorited_items";
