@@ -96,7 +96,7 @@ function ProfileButton() {
               </div>
               <div>
                 <div className="pb-quad-three pb-block">
-                  <button onClick={logout}>Log Out</button>
+                  <button id="log-out" onClick={logout}>Log Out</button>
                 </div>
               </div>
             </>

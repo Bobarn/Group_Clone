@@ -1,4 +1,12 @@
 /* Image Carousel */
+body {
+    max-width: 1024px;
+}
+
+html {
+    display: flex;
+    justify-content: center;
+}
 
 .Carousel {
     width: 600px;
@@ -13,6 +21,8 @@
 /* Cart Button to slide out the cart */
 #cart-button {
     position: fixed;
+    top: 20%;
+    right: 5%;
     width: 5%;
     align-self: flex-end;
     z-index: 1;
@@ -286,11 +296,10 @@ p {
     display: flex;
     position: relative;
     z-index: auto;
-
 }
 
 .suggested-products-row > * {
-    margin-left: 8%;
+    /* margin-left: 8%; */
     margin-top: 0px;
     z-index: auto;
 
@@ -336,7 +345,7 @@ p {
     font-family: 'Arimo', sans-serif;
     font-family: 'Source Serif 4', serif;
     color:#e68cfc;
-    margin-left: 12%;
+    margin-left: 5%;
     margin-bottom: 0%;
 }
 

@@ -94,10 +94,14 @@ const EditReviewModal = () => {
   return (
     <div className="review-modal-container" >
     <div className="review-form-post">
-      <img className="image"  src={product?.preview_image} height="350px" alt="" />
-      <caption className="image-title-edit" >{product?.name}</caption>
-      <div>Reviews: {product?.reviews}</div>
-      <div>Seller: {product?.seller?.username}</div>
+      <div id="review-product-info">
+        <img className="image"  src={product?.preview_image} height="250px" alt="" />
+        <div id="review-product-details">
+          <caption className="image-title-edit" >{product?.name}</caption>
+          <div>Seller: {product?.seller?.username}</div>
+        </div>
+
+      </div>
 
 
 

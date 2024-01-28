@@ -131,11 +131,13 @@ function ReviewModal() {
 
   return (
     <div className="review-form-post">
-      <img className="image" src={product?.preview_image} height="350px" alt="" />
-      <br />
-      <caption className="image-title" >{product?.name}</caption>
-      <div>Reviews: {product?.reviews}</div>
-      <div>Seller: {product?.seller?.username}</div>
+      <div id='review-product-info'>
+        <img className="review-image" src={product?.preview_image} height="350px" alt="" />
+        <div id="review-product-details">
+          <caption className="image-title" >{product?.name}</caption>
+          <div>Seller: {product?.seller?.username}</div>
+        </div>
+      </div>
       <h2 className='edith2'>My review </h2>
       <div className="star-rating">
       {renderStars(rating, setRating, "Overall Rating")}
