@@ -93,6 +93,9 @@ const heartStates = useSelector((state) => state.favorites);
         else if(userId) {
             dispatch(thunkCreateFavorite(productId));
         }
+        else {
+            window.alert("Must sign-in to add to favorites!")
+        }
 
       };
 
@@ -104,10 +107,7 @@ const heartStates = useSelector((state) => state.favorites);
             <div
                 className="heart-button suggested-hearts"
                 id='product-heart'
-                onClick={() =>
-                userId
-                    ? addToFav(item.id)
-                    : window.alert("Must sign-in to add to favorites!")
+                onClick={() =>addToFav(item.id)
                 }
             >
                 {heartStates[item.id] ? (
