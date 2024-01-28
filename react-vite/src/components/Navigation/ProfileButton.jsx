@@ -7,7 +7,6 @@ import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 import { useContext } from "react";
 import { CartContext } from "../../context/CartContext";
-import { clearState } from "../../redux/favorited_items";
 import './ProfileButton.css'
 
 function ProfileButton() {
@@ -41,11 +40,10 @@ function ProfileButton() {
 
   const logout = (e) => {
     e.preventDefault();
-    clearCart()
-    dispatch(clearState())
     dispatch(thunkLogout())
-    .then(() => navigate("/"));
-    closeMenu();
+    .then(() => clearCart())
+    .then(() => navigate("/"))
+    .then(() => closeMenu());
   };
 
   // const handleOnClock = (param) =>{

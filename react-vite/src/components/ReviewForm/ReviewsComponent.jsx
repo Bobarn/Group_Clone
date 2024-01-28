@@ -43,7 +43,6 @@ const ReviewsComponent = ({ reviews }) => {
   //   }
   // })
   const reviewedCheck = reviewData.some(obj => obj?.user?.id === user?.id)
-  console.log(reviewData, "LOOK OVER HERE FOR REVIEWDATA!!")
 
   if (!reviews) return null;
 
@@ -62,7 +61,6 @@ const ReviewsComponent = ({ reviews }) => {
     11: "December",
   };
 
-  console.log("reveiewssssssssssssssssssssssssssssssss", reviews)
 
   return (
     <>

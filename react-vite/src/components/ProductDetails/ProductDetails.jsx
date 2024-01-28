@@ -3,7 +3,7 @@ import { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { thunkGetAllProducts, thunkGetAllProductsByCategory } from "../../redux/product";
 import DeleteProductConfirmationModal from "./ProductDeleteModal";
-import {thunkCreateFavorite, thunkGetAllFavorites, thunkDeleteFavorite} from "../../redux/favorited_items";
+import {thunkCreateFavorite, thunkGetAllFavorites, thunkDeleteFavorite } from "../../redux/favorited_items";
 import { thunkCreateOrder } from '../../redux/orders';
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -51,7 +51,8 @@ const heartStates = useSelector((state) => state.favorites);
   useEffect(() => {
     dispatch(thunkGetOneReview(productId))
     dispatch(thunkGetAllFavorites())
-  }, [dispatch]);
+  }, [dispatch,]);
+
 
   function addDays(days) {
     var result = new Date();
