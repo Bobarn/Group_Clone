@@ -26,7 +26,8 @@ const deleteFavorite = (favoriteId) => {
 
 export const clearState = () => {
   return {
-    type: CLEAR_STATE
+    type: CLEAR_STATE,
+    favorites: {}
   }
 }
 
@@ -108,7 +109,7 @@ function favoritesReducer(state = {}, action) {
       return newState;
     }
     case CLEAR_STATE: {
-      return {}
+      return action.favorites;
     }
     default:
       return state;

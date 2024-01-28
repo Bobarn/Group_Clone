@@ -41,11 +41,10 @@ function ProfileButton() {
 
   const logout = (e) => {
     e.preventDefault();
-    clearCart()
-    dispatch(clearState())
     dispatch(thunkLogout())
-    .then(() => navigate("/"));
-    closeMenu();
+    .then(() => clearCart())
+    .then(() => navigate("/"))
+    .then(() => closeMenu());
   };
 
   // const handleOnClock = (param) =>{

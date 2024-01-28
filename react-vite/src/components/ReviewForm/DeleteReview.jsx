@@ -14,7 +14,7 @@ function DeleteReview({ reviewId }) {
   const { productId } = useParams();
   const product = useSelector((state) => state.products[productId]);
 
-  const deleteReview = async (e) => {
+  const deleteReview = (e) => {
 
     e.preventDefault();
 
@@ -22,7 +22,6 @@ function DeleteReview({ reviewId }) {
 
     dispatch(thunkGetAllProducts(product));
 
-    dispatch(thunkGetOneReview(product?.id))
     closeModal();
 
   };

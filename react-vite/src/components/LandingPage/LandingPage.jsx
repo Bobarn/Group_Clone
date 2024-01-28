@@ -26,8 +26,11 @@ function LandingImage() {
   }, [dispatch]);
 
   useEffect(() =>{
-    dispatch(thunkGetAllFavorites())
-  },[currUser])
+    if(currUser?.id) {
+      dispatch(thunkGetAllFavorites())
+
+    }
+  },[currUser?.id])
   //
 
   // ADD TO FAVORITES ONCLICK FUNCTION
