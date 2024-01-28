@@ -61,8 +61,8 @@ const heartStates = useSelector((state) => state.favorites);
   }
 
   function buyNow() {
+      dispatch(thunkCreateOrder([{id: productId, quantity: 1}]))
     alert("Thank you for your purchase, an order has been made for this item!")
-    dispatch(thunkCreateOrder([{id: productId, quantity: 1}]))
   }
 
 

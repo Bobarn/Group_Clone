@@ -152,7 +152,7 @@ export const thunkCreateProduct =
 
       for (let image of images) {
 
-      console.log(newProduct.product.id);
+      // console.log(newProduct.product.id);
       imageResponse = await fetch(
         `/api/products/${newProduct.product.id}/images/new`,
         {
@@ -224,7 +224,7 @@ export const thunkGetUserStore = () => async (dispatch) => {
 
   if(response.ok) {
     const userStore = await response.json()
-    console.log(userStore)
+    // console.log(userStore)
 
     dispatch(getUserStore(userStore));
 

@@ -33,7 +33,7 @@ function CategoryProducts() {
     dispatch(thunkCreateFavorite(productId));
 
     if(currUser.id && heartStates[productId]) {
-      console.log(productId)
+      // console.log(productId)
         dispatch(thunkDeleteFavorite(productId))
       }
       else if(currUser.id) {
