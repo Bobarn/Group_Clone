@@ -51,7 +51,7 @@ export const thunkCreateFavorite = (productId) => async (dispatch) => {
       productId,
     }),
   });
-  console.log(response)
+  // console.log(response)
 
   if (response.ok) {
     const newFavorite = await response.json();

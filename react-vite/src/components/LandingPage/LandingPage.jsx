@@ -26,10 +26,7 @@ function LandingImage() {
   }, [dispatch]);
 
   useEffect(() =>{
-    if(currUser?.id) {
-      dispatch(thunkGetAllFavorites())
-
-    }
+    dispatch(thunkGetAllFavorites())
   },[currUser?.id])
   //
 

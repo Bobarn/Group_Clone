@@ -7,7 +7,6 @@ import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 import { useContext } from "react";
 import { CartContext } from "../../context/CartContext";
-import { clearState } from "../../redux/favorited_items";
 import './ProfileButton.css'
 
 function ProfileButton() {
