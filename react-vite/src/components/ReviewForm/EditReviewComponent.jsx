@@ -81,9 +81,9 @@ const EditReviewModal = () => {
         {
           reviewText: review,
           starRating: rating,
-          itemQual: itemQuality,
-          shippingQual: shipping,
-          serviceQual: customerService,
+          itemQual: itemQuality === null ? 0 : itemQuality,
+          shippingQual: shipping === null ? 0 : shipping,
+          serviceQual: customerService === null ? 0 : customerService,
         },
         reviewId
       )

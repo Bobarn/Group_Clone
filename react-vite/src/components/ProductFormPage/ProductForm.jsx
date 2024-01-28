@@ -40,7 +40,7 @@ const ProductForm = ({ product, formType, productId }) => {
 
         if(formType === 'Create Product' && !product.errors) {
             // console.log(product)
-            let imageInput = image
+            let imageInput = [image]
             if(secondImage) {
                 imageInput = [image, secondImage]
                 if(thirdImage) {
@@ -55,10 +55,10 @@ const ProductForm = ({ product, formType, productId }) => {
             // console.log(product)
 
         } else if (formType === "Update Product" && !product.errors) {
-            console.log(product)
-            console.log(productId)
+            // console.log(product)
+            // console.log(productId)
             product = await dispatch(thunkUpdateProduct(productId, product))
-            console.log("after thunk", product)
+            // console.log("after thunk", product)
         } else{
 
             setDisabled(false)
