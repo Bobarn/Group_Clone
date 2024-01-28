@@ -24,7 +24,7 @@ def add_saved_product(product_id):
         db.session.commit()
         return jsonify(new_favorite.product.to_dict())
 
-    return jsonify(message='Product already favorited')
+    return jsonify(message='Product already favorited'), 400
 
 @favorited_routes.route('/<int:product_id>', methods=['DELETE'])
 @login_required
@@ -36,4 +36,4 @@ def remove_saved_product(product_id):
         db.session.commit()
         return jsonify({'message': 'Product unfavorited successfully'})
 
-    return jsonify({'message': 'Product not found in favorites'})
+    return jsonify({'message': 'Product not found in favorites'}), 404

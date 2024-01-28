@@ -4,15 +4,14 @@
   flex-direction: row;
   width: 100%;
   justify-content: space-evenly;
+  align-items: center;
 }
-
-/* ******* */
-
 /*  LOGO  */
 .logo-img {
   border-radius: 100%;
   height: 100px;
   width: 200px;
+  cursor: pointer;
   /* background-color:
   #d9d6ee; */
 }
@@ -21,31 +20,51 @@
 .nav-cat-main-cont {
   font-weight: 100;
   cursor: pointer;
+  border: none;
+
+}
+.nav-cat-main-cont:hover {
+  box-shadow: 0 3px 5px #e68cfc;
+  border: none;
 }
 .cat-dropdown {
   position: absolute;
   cursor: pointer;
+  background-color: #ffffff;
+  /* border-radius: 20%; */
+  padding: 5px;
+  color: #222222;
+  border: 1px solid #222222;
+
+
 }
 /*  CATEGORIES NAV CONT */
-
-/* ******* */
-
-/* PROFILE BUTTON      */
-/* .profile-bttn-main-cont{
-  justify-self: end;
-} */
-
 .profile-dropdown {
   position: absolute;
+  cursor: pointer;
+  width: 150px;
+  text-decoration: underline 1px;
+  color: #222222;
+  margin-left: 0px;
+  padding-bottom: 8px;
+  cursor: pointer;
+  border: 1px solid #222222;
+  padding-right: 15px;
+  /* margin-right: 10px; */
 }
-/* ******* */
-
 /* SEARCH BAR  */
 .search-bar{
   width:320px;
   padding: 15px;
   border-radius: 100px;
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/5/55/Magnifying_glass_icon.svg");
+  background-size: 13px;
+  background-repeat: no-repeat;
+  background-position: 10px center;
+  /* float: right; */
+  text-align: center;
 }
+
 .nav-search-main-cont{
   display: flex;
   flex-direction: row;
@@ -55,4 +74,44 @@
   border-radius: 100px; */
   /* border-radius: 100px; */
 }
-/* ******* */
+
+.blocks {
+  /* padding-left: 7px; */
+  margin-left: 3px;
+  padding-right: 15px;
+}
+
+.cat-dropdown {
+  text-decoration: underline 1px;
+  font-weight: 100;
+  font-family: Arial, Helvetica, sans-serif;
+  z-index: 4;
+}
+
+/* PROFILE BUTTON      */
+.profile-bttn-main-cont{
+  cursor: pointer
+}
+
+.profile-btn {
+  cursor: pointer;
+  width: 20px;
+}
+
+.blocks {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.pb-quad-three {
+  text-decoration: none;
+}
+
+#log-out {
+  border-radius: 5px;
+  border: none;
+}
+
+#log-out:hover {
+  cursor: pointer;
+}

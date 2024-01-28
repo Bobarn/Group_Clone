@@ -1,3 +1,5 @@
+import { clearState } from "./favorited_items";
+
 const SET_USER = 'session/setUser';
 const REMOVE_USER = 'session/removeUser';
 
@@ -59,6 +61,7 @@ export const thunkSignup = (user) => async (dispatch) => {
 };
 
 export const thunkLogout = () => async (dispatch) => {
+  dispatch(clearState())
   await fetch("/api/auth/logout");
   dispatch(removeUser());
 };

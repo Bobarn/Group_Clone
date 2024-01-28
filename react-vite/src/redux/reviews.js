@@ -47,14 +47,15 @@ export const postReview = (review) => {
 };
 
 
+
 export const thunkGetAllReviews = () => async (dispatch) => {
   try {
     const response = await fetch("/api/reviews/all");
     // console.log("thunkgetallreviews", await response.json())
-    console.log(response, "!!!!!!!!!!!!!!!!!!RESPONSE HERE!!!!!!!!!!!!!!!!!!!!!!")
+    // console.log(response, "!!!!!!!!!!!!!!!!!!RESPONSE HERE!!!!!!!!!!!!!!!!!!!!!!")
     if (response.ok) {
       const reviews = await response.json();
-      console.log("all reviews", reviews)
+      // console.log("all reviews", reviews)
       dispatch(getAllReviews(reviews));
     }
   if (response.ok) {
@@ -77,7 +78,7 @@ export const thunkGetOneReview = (productId) => async (dispatch) => {
     // console.log(productId, "THIS IS PRODUCTID!~!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     if (response.ok) {
       const review = await response.json();
-      console.log(review, "FOR BRANDON!!!!!!!")
+      // console.log(review, "FOR BRANDON!!!!!!!")
       dispatch(getOneReview(review));
 
       return review;
@@ -127,22 +128,22 @@ export const thunkDeleteReview = (reviewId) => async (dispatch) => {
     method: "DELETE",
     headers: { "Content-Type": "application/json" },
   });
-  console.log(response , '!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+
   if (response.ok) {
-    const message = await response.json();
-    console.log(message , '@@@@@@@@@@@@@@@@@@@@@@@')
+    // const message = await response.json();
+    // console.log(message , '@@@@@@@@@@@@@@@@@@@@@@@')
     dispatch(deleteReview(reviewId));
 
-    return message;
+    // return message;
   } else {
     const error = await response.json();
-
     return error;
   }
 };
 
 // export const thunkUpdateReview = (reviewId, review) => async (dispatch) => {
   export const thunkUpdateReview = (review, reviewId) => async (dispatch) => {
+
 
 const response = await fetch(`/api/reviews/${reviewId}`, {
     method: "PUT",
@@ -158,6 +159,7 @@ const response = await fetch(`/api/reviews/${reviewId}`, {
     return updatedReview;
   } else {
     const errors = await response.json();
+
     return errors;
   }
 };
@@ -180,14 +182,15 @@ function reviewReducer(state = {}, action) {
       reviews.map((review) => {
           newReviews[review.id] = review;
       })
-      return { ...state, ...newReviews };
+      return {...newReviews };
     }
 
     case CREATE_REVIEW: {
-      const review = action.review.Review;
-      const newState = { ...state };
-      newState[review.id] = review;
-      return newState;
+      // const review = action.review.Review;
+      // const newState = { ...state };
+      // newState[review.id] = review;
+      // return newState;
+      return {...state, [action.review.id]:action.review}
     }
     case DELETE_REVIEW: {
       const newState = { ...state };
@@ -196,10 +199,11 @@ function reviewReducer(state = {}, action) {
       return newState;
     }
     case UPDATE_REVIEW: {
-      const review = action.review.updated_review;
-      const newState = { ...state };
-      newState[review.id] = review;
-      return newState;
+      // const review = action.review;
+      // const newState = { ...state };
+      // newState[review.id] = review;
+      // return newState;
+      return {...state, [action.review.id]:action.review}
     }
     case POST_REVIEW: {
       const review = action.review;

@@ -6,6 +6,7 @@ const CREATE_PRODUCT = "products/makeProduct";
 const DELETE_PRODUCT = "products/deleteProduct";
 const UPDATE_PRODUCT = "products/updateProduct";
 const CLEAR_STATE = "products/clearState"
+const GET_USER_STORE = "products/getUserStore";
 
 const getAllProducts = (products) => {
   return {
@@ -63,6 +64,13 @@ export const clearState = () => {
   }
 }
 
+const getUserStore = (products) => {
+  return {
+    type: GET_USER_STORE,
+    products
+  }
+}
+
 
 export const thunkGetAllProducts = () => async (dispatch) => {
   const response = await fetch("/api/products/all");
@@ -115,7 +123,7 @@ export const thunkGetAllProductsByCategory = (category) => async (dispatch) => {
 }
 
 export const thunkGetAllByCat = (category) => async (dispatch) => {
-  console.log("IN THUNK", category)
+
   const response = await fetch(`/api/products/category/${category}`);
 
   if (response.ok) {
@@ -130,20 +138,22 @@ export const thunkGetAllByCat = (category) => async (dispatch) => {
 };
 
 export const thunkCreateProduct =
-  (productFormData, image) => async (dispatch) => {
+  (productFormData, images) => async (dispatch) => {
     const response = await fetch("/api/products/new", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(productFormData),
     });
-    // console.log(images)
 
     if (response.ok) {
       const newProduct = await response.json();
 
-      // for (let image in images) {
-      // console.log(image)
-      const imageResponse = await fetch(
+      let imageResponse
+
+      for (let image of images) {
+
+      // console.log(newProduct.product.id);
+      imageResponse = await fetch(
         `/api/products/${newProduct.product.id}/images/new`,
         {
           method: "POST",
@@ -153,12 +163,11 @@ export const thunkCreateProduct =
           }),
         }
       );
-      const url = await imageResponse.json();
+      }
+      const completeImage = await imageResponse.json();
 
-      newProduct.product.preview_image = url.product_image;
-      // }
       // ! Consider attaching images or revisit to see if we need/should return images
-      dispatch(createProduct(newProduct));
+      dispatch(createProduct(completeImage));
 
       return newProduct;
     } else {
@@ -208,6 +217,24 @@ export const thunkUpdateProduct = (productId, product) => async (dispatch) => {
     return errors;
   }
 };
+
+export const thunkGetUserStore = () => async (dispatch) => {
+
+  const response = await fetch('/api/products/current');
+
+  if(response.ok) {
+    const userStore = await response.json()
+    // console.log(userStore)
+
+    dispatch(getUserStore(userStore));
+
+    return userStore
+  } else {
+    const errors = await response.json();
+
+    return errors;
+  }
+}
 
 function productReducer(state = {}, action) {
   switch (action.type) {
@@ -273,6 +300,13 @@ function productReducer(state = {}, action) {
     }
     case CLEAR_STATE:{
       return {}
+    }
+    case GET_USER_STORE: {
+      const products = action.products.products;
+
+      const newState = {...state, User: [...products]}
+
+      return newState;
     }
     default:
       return state;

@@ -1,37 +1,74 @@
+
 .onefav {
     display: flex;
     flex-direction: column;
-    border: 2px solid black;
+    border: none;
     align-items: center;
     width: 300px;
     border-radius: 10px;
     text-decoration: none;
+
+
 }
 
 .favoritescont {
-    display: flex;
+    text-align: center;
+     display: grid;
+    flex-wrap: wrap;
+    align-items: center;
     justify-content: center;
+    padding-top: 30px;
+   /* width: fit-content; */
+    margin: 0px 5px 5px 5px;
+    border-radius: 10px;
+    gap: 12px;
+
 }
 
 .previmg {
-    width: 300px;
+    width: 275px;
     height: 200px;
     border-radius: 10px;
+    margin: 5px;
+    margin-left: 5px;
+
 }
 
 .itemname {
-    color: black
+    color: black;
+    font-weight: 600;
+
 }
 
 .price {
-    color: black
+    color: black;
+    padding-left: 20px;
+    font-weight: 500;
 }
 
 .proddesc {
-    color: black
+    color: black;
+    font-weight: 400;
+    margin: auto;
+    padding-left: 7px;
+    padding-right: 5px;
 }
 
 .onefav:hover {
     cursor: pointer;
-    box-shadow: 0 3px 5px rgba(108, 108, 108, 0.5);
+    box-shadow: 4px 4px 4px 4px rgba(153, 54, 245, 0.5);
+}
+
+.top-half {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.bottom-half {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
 }

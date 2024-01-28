@@ -1,6 +1,10 @@
 import ProductForm from '../ProductForm.jsx';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
 export default function CreateProduct() {
+  const navigate = useNavigate()
   const product = {
     name: '',
     description: '',
@@ -11,6 +15,15 @@ export default function CreateProduct() {
     free_shipping: false,
     preview_image: ''
   };
+
+  const user = useSelector((state) => state.session.user);
+
+  useEffect(() => {
+    if(!user) {
+      navigate('/')
+    }
+
+  }, [user])
 
   return (
     <ProductForm

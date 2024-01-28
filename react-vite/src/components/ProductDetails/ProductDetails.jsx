@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState, useContext } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { thunkGetAllProducts, thunkGetAllProductsByCategory } from "../../redux/product";
 import DeleteProductConfirmationModal from "./ProductDeleteModal";
-import {thunkCreateFavorite, thunkDeleteFavorite} from "../../redux/favorited_items";
+import {thunkCreateFavorite, thunkGetAllFavorites, thunkDeleteFavorite } from "../../redux/favorited_items";
 import { thunkCreateOrder } from '../../redux/orders';
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -35,24 +35,24 @@ export default function ProductDetailsPage() {
 
   const categoryProducts = useSelector((state) => state.products[product?.category]);
 
-  const [heartStates, setHeartStates] = useState({});
+const heartStates = useSelector((state) => state.favorites);
 
   const reviews = useSelector((state) => state.reviews);
   // converting the reviews object of objects to an array
   const reviewsArray = Object.values(reviews);
-  // console.log(reviewsArray, "reviews array");
 
-//   console.log(reviews, "reviews");
   useEffect(() => {
     dispatch(thunkGetAllProducts());
-}, [dispatch]);
+}, [dispatch, product?.reviews]);
   useEffect(() => {
       dispatch(thunkGetAllProductsByCategory(product?.category))
   }, [product?.category])
 
   useEffect(() => {
     dispatch(thunkGetOneReview(productId))
-  }, []);
+    dispatch(thunkGetAllFavorites())
+  }, [dispatch,]);
+
 
   function addDays(days) {
     var result = new Date();
@@ -61,8 +61,8 @@ export default function ProductDetailsPage() {
   }
 
   function buyNow() {
+      dispatch(thunkCreateOrder([{id: productId, quantity: 1}]))
     alert("Thank you for your purchase, an order has been made for this item!")
-    dispatch(thunkCreateOrder([{id: productId, quantity: 1}]))
   }
 
 
@@ -93,11 +93,10 @@ export default function ProductDetailsPage() {
         else if(userId) {
             dispatch(thunkCreateFavorite(productId));
         }
+        else {
+            window.alert("Must sign-in to add to favorites!")
+        }
 
-        setHeartStates((prevHeartStates) => ({
-          ...prevHeartStates,
-          [productId]: !prevHeartStates[productId],
-        }));
       };
 
     const imageCreator = () => {
@@ -108,10 +107,7 @@ export default function ProductDetailsPage() {
             <div
                 className="heart-button suggested-hearts"
                 id='product-heart'
-                onClick={() =>
-                userId
-                    ? addToFav(item.id)
-                    : window.alert("Must sign-in to add to favorites!")
+                onClick={() =>addToFav(item.id)
                 }
             >
                 {heartStates[item.id] ? (
@@ -153,22 +149,21 @@ export default function ProductDetailsPage() {
     return (
         <>
             <div className='product-details-main'>
-                        <Link to='/' className='back-button'> <i className="fa-solid fa-angle-left"></i>Home</Link>
                         {!showModal && userId && <button id='cart-button'  onClick={toggle}><i className="fa-solid fa-cart-shopping fa-xl"></i> ({cartItems.length})</button>}
                         <Cart showModal={showModal} toggle={toggle} />
                 <div id='product-details-body'>
                     <div className='review-area'>
                         <Carousel className='Carousel Images'>
                             {product?.images.map((image) => {
-                                return (<div key={image?.id}>
+                                return (<div className="Carousel-image" key={image?.id}>
                                                         <div className="heart-button-big" onClick={() => addToFav(product?.id)}>
-                {heartStates[product.id] ? (
+                {heartStates[product?.id] ? (
                     <i className="fa-solid fa-xl fa-heart filled-heart big-heart"></i>
                     ) : (
                         <i className="fa-regular fa-xl fa-heart empty-heart big-heart"></i>
                         )}
                         </div>
-                                    <img src={image?.url} alt="product image"/>
+                                    <img src={image?.url} onError={(e) => e.target.src = "https://www.analyticdesign.com/wp-content/uploads/2018/07/unnamed-574x675.gif"} alt="product image"/>
                                 </div>)
                             })}
                         </Carousel>
