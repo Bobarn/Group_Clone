@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useModal } from '../../context/Modal.jsx';
-import { thunkDeleteProduct } from '../../redux/product.js';
+import { thunkDeleteProduct, thunkGetUserStore } from '../../redux/product.js';
 import './ProductDeleteModal.css'
 
 export default function DeleteProductConfirmationModal( { productId } ) {
@@ -13,6 +13,7 @@ export default function DeleteProductConfirmationModal( { productId } ) {
       closeModal()
 
       await dispatch(thunkDeleteProduct(productId))
+      .then(() => dispatch(thunkGetUserStore()))
       .then(() => navigate('/'))
     };
 
