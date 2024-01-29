@@ -14,7 +14,10 @@
     margin-top: 5px;
 }
 
-.pb-quad-two {
+.pb-quad-one .blocks {
     display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
 
 }

@@ -54,12 +54,16 @@ const FavoritesPage = () => {
       ))}
       </div>
 
-<h2 className="related-tag">Related Products</h2>
-<div className="bottom-half">
-  {getRelatedProducts()}
-        </div>
-        </div>
-    );
+  {favorites.length > 0 &&
+  <>
+  <h2 className="related-tag">Related Products</h2>
+  <div className="bottom-half">
+    {getRelatedProducts()}
+          </div>
+  </>
+  }
+          </div>
+      );
   };
 
   export default FavoritesPage;
