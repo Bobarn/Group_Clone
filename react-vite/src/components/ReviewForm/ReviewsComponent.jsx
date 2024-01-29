@@ -83,7 +83,7 @@ const ReviewsComponent = ({ reviews }) => {
                {review && review?.user.first_name} {review && review?.user.last_name}
 
               {" "}
-               {months[new Date(review?.created_at).getMonth()]} {new Date(review?.created_at).getDay()},{" "}
+               {months[new Date(review?.created_at).getMonth()]} {new Date(review?.created_at).getDate()},{" "}
               {new Date(review?.created_at).getFullYear()}{" "}
             </p>
             </div>
