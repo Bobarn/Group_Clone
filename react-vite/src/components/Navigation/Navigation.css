@@ -21,7 +21,6 @@
   font-weight: 100;
   cursor: pointer;
   border: none;
-
 }
 .nav-cat-main-cont:hover {
   box-shadow: 0 3px 5px #e68cfc;
@@ -35,11 +34,9 @@
   padding: 5px;
   color: #222222;
   border: 1px solid #222222;
-
-
 }
-/*  CATEGORIES NAV CONT */
-.profile-dropdown {
+CATEGORIES NAV CONT */
+/* .profile-dropdown {
   position: absolute;
   cursor: pointer;
   width: 150px;
@@ -50,11 +47,11 @@
   cursor: pointer;
   border: 1px solid #222222;
   padding-right: 15px;
-  /* margin-right: 10px; */
-}
+
+} */
 /* SEARCH BAR  */
-.search-bar{
-  width:320px;
+.search-bar {
+  width: 320px;
   padding: 15px;
   border-radius: 100px;
   background-image: url("https://upload.wikimedia.org/wikipedia/commons/5/55/Magnifying_glass_icon.svg");
@@ -65,10 +62,10 @@
   text-align: center;
 }
 
-.nav-search-main-cont{
+.nav-search-main-cont {
   display: flex;
   flex-direction: row;
-  border-color:1px solid  black;
+  border-color: 1px solid black;
   /* width:320px;
   padding: 5px;
   border-radius: 100px; */
@@ -89,8 +86,8 @@
 }
 
 /* PROFILE BUTTON      */
-.profile-bttn-main-cont{
-  cursor: pointer
+/* .profile-bttn-main-cont {
+  cursor: pointer;
 }
 
 .profile-btn {
@@ -114,4 +111,4 @@
 
 #log-out:hover {
   cursor: pointer;
-}
+} */

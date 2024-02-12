@@ -71,7 +71,7 @@ function LandingImage() {
                 src={product.preview_image}
                 onError={(e) => {
                   e.target.src =
-                    "https://i.graphicmama.com/uploads/2023/3/64182e9d20d37-spider-animated-gifs.gif";
+                    "https://media.istockphoto.com/id/1055079680/vector/black-linear-photo-camera-like-no-image-available.jpg?s=612x612&w=0&k=20&c=P1DebpeMIAtXj_ZbVsKVvg-duuL0v9DlrOZUvPG6UJk=";
                 }}
               />
             </div>
