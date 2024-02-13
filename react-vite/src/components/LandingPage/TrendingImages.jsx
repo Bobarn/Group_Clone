@@ -16,6 +16,7 @@ function TrendingImages({ products }) {
         <div
           key={product.id}
           className="single-img-tile"
+          id="rec-single-tile"
           onClick={() => navigate(`/products/${product.id}`)}
         >
           <img

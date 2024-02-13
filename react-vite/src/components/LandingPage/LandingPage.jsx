@@ -1,7 +1,10 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { thunkGetAllProductsWImages } from "../../redux/product";
-import { thunkCreateFavorite,thunkDeleteFavorite  } from "../../redux/favorited_items";
+import {
+  thunkCreateFavorite,
+  thunkDeleteFavorite,
+} from "../../redux/favorited_items";
 import { thunkGetAllFavorites } from "../../redux/favorited_items";
 import { useNavigate } from "react-router-dom";
 import CategoryImages from "./CategoryImages";
@@ -13,7 +16,7 @@ function LandingImage() {
   const navigate = useNavigate();
   const allProducts = useSelector((state) => state.products);
   const currUser = useSelector((state) => state.session.user);
-  const allFavorites = useSelector(state => state.favorites)
+  const allFavorites = useSelector((state) => state.favorites);
   const filteredProducts = Object.values(allProducts).slice(0, 10);
 
   const filteredByCat = Object.values(allProducts).filter(
@@ -25,25 +28,21 @@ function LandingImage() {
     dispatch(thunkGetAllProductsWImages());
   }, [dispatch]);
 
-  useEffect(() =>{
-    dispatch(thunkGetAllFavorites())
-  },[currUser?.id])
+  useEffect(() => {
+    dispatch(thunkGetAllFavorites());
+  }, [currUser?.id]);
   //
 
   // ADD TO FAVORITES ONCLICK FUNCTION
 
-
   const addToFav = (productId) => {
     // e.preventDefault();
-    if(currUser.id && allFavorites[productId]) {
-      dispatch(thunkDeleteFavorite(productId))
-    }
-    else if(currUser.id) {
+    if (currUser.id && allFavorites[productId]) {
+      dispatch(thunkDeleteFavorite(productId));
+    } else if (currUser.id) {
       dispatch(thunkCreateFavorite(productId));
     }
-
   };
-
 
   const imageCreator = () => {
     return (
@@ -58,9 +57,13 @@ function LandingImage() {
                   : window.alert("Must sign-in to add to favorites!")
               }
             >
-
-                <i className={ allFavorites[product.id]?"fa-solid fa-heart filled-heart" : "fa-regular fa-heart empty-heart" }></i>
-
+              <i
+                className={
+                  allFavorites[product.id]
+                    ? "fa-solid fa-heart filled-heart"
+                    : "fa-regular fa-heart empty-heart"
+                }
+              ></i>
             </div>
             <div
               className="sqr-img-cont"
@@ -95,9 +98,18 @@ function LandingImage() {
       </div>
       <CategoryImages />
 
-      <div className="landing-sqrImg-main-cont">{imageCreator()}</div>
-
-      <TrendingImages products={filteredByCat} />
+      <div className="landing-sqrImg-main-cont">
+        <div className="sqr-img-heading">
+          <span>Products we think you will like</span>
+        </div>
+        {imageCreator()}
+      </div>
+      <div>
+        <div className="rec-img-heading">
+          <span>Browse popular Art products</span>
+        </div>
+        <TrendingImages products={filteredByCat} />
+      </div>
     </div>
   );
 }
