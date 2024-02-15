@@ -12,7 +12,7 @@ import { CartContext } from "../../context/CartContext";
 import Cart from "../Cart/Cart";
 import StarRatings from "react-star-ratings";
 import "./ProductDetails.css";
-import { thunkGetOneReview } from "../../redux/reviews";
+import { thunkGetOneReview, thunkGetAllReviews } from "../../redux/reviews";
 import ReviewsComponent from "../ReviewForm/ReviewsComponent";
 
 export default function ProductDetailsPage() {
@@ -39,7 +39,7 @@ const heartStates = useSelector((state) => state.favorites);
 
   const reviews = useSelector((state) => state.reviews);
   // converting the reviews object of objects to an array
-  const reviewsArray = Object.values(reviews);
+  const reviewsArray = Object.values(reviews).filter((review) => review.product_id == productId);
 
   useEffect(() => {
     dispatch(thunkGetAllProducts());
@@ -49,7 +49,8 @@ const heartStates = useSelector((state) => state.favorites);
   }, [product?.category])
 
   useEffect(() => {
-    dispatch(thunkGetOneReview(productId))
+    // dispatch(thunkGetOneReview(productId))
+    dispatch(thunkGetAllReviews())
     dispatch(thunkGetAllFavorites())
   }, [dispatch,]);
 

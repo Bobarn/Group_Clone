@@ -20,13 +20,13 @@ const ReviewsComponent = ({ reviews }) => {
 
   const dispatch = useDispatch()
 
-  useEffect(() => {
-    const fetchData = async () => {
-      await dispatch(thunkGetOneReview(productId));
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     await dispatch(thunkGetOneReview(productId));
+  //   };
 
-    fetchData();
-  }, [dispatch, productId]);
+  //   fetchData();
+  // }, [dispatch, productId]);
 
   // let reviewedCheck;
 

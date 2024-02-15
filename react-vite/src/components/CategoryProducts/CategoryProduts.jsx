@@ -90,7 +90,7 @@ function CategoryProducts() {
             </div>
             <div className='review-cont'>
             <StarRatings
-                rating={product.reviews}
+                rating={product.star_rating ? product.star_rating : 0}
                 starRatedColor="black"
                 starEmptyColor="#d3d3d1"
                 numberOfStars={5}
