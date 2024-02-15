@@ -132,6 +132,7 @@
         flex-direction: column;
         align-items: center;
         width: 100%;
+        height: 100px;
     }
 
     #product-name-input {
@@ -141,6 +142,7 @@
 
     #description-input {
         height: 100%;
+        width: 70%;
     }
 
     #cost-input {
