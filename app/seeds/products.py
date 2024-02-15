@@ -6,6 +6,7 @@ from random import randint
 import random
 
 clothing_items = [
+    '',
     "Cotton T-shirt",
     "Denim Jeans",
     "Leather Jacket",
@@ -20,6 +21,7 @@ clothing_items = [
 
 ]
 jewelry_items = [
+    '',
     "Diamond Necklace",
     "Pearl Earrings",
     "Sapphire Bracelet",
@@ -39,6 +41,7 @@ returnPolicy = [
 ]
 
 art_items= [
+    '',
     "Oil Painting",
     "Abstract Sculpture",
     "Watercolor Landscape",
@@ -53,6 +56,7 @@ art_items= [
 ]
 
 art_supplies = [
+    '',
     "Acrylic Paint Set",
     "Sketchbook with Drawing Pencils",
     "Watercolor Palette",
@@ -66,6 +70,7 @@ art_supplies = [
 ]
 
 electronics_items = [
+    '',
     "Smartphone",
     "Laptop",
     "Wireless Headphones",
@@ -79,6 +84,7 @@ electronics_items = [
 ]
 
 pet_supplies = [
+    '',
     "Dog Food",
     "Cat Litter",
     "Pet Bed",
@@ -123,7 +129,7 @@ def seed_products():
     allProducts = []
     for i in range(1, 11):
         jewelry = Product(
-            name=random.choice(jewelry_items),
+            name=jewelry_items[i],
             sellerId=i,
             price = f.random_number(digits=2),
             description=random.choice(generic_descriptions),
@@ -133,7 +139,7 @@ def seed_products():
             shipping_time=random.choice([14, 7, 2]),
             return_policy=random.choice(['90 day return', 'Must be unopened and unused', 'No returns']))
         clothes = Product(
-            name=random.choice(clothing_items),
+            name=clothing_items[i],
             sellerId=i,
             price = f.random_number(digits=2),
             description=random.choice(generic_descriptions),
@@ -145,7 +151,7 @@ def seed_products():
         )
 
         art = Product(
-            name=random.choice(art_items),
+            name=art_items[i],
             sellerId=i,
             price = f.random_number(digits=2),
             description=random.choice(generic_descriptions),
@@ -157,7 +163,7 @@ def seed_products():
         )
 
         crafts_supplies = Product(
-            name=random.choice(art_supplies),
+            name=art_supplies[i],
             sellerId=i,
             price = f.random_number(digits=2),
             description=random.choice(generic_descriptions),
@@ -169,7 +175,7 @@ def seed_products():
         )
 
         electronics = Product(
-            name=random.choice(electronics_items),
+            name=electronics_items[i],
             sellerId=i,
             price = f.random_number(digits=2),
             description=random.choice(generic_descriptions),
@@ -181,7 +187,7 @@ def seed_products():
         )
 
         pets = Product(
-            name=random.choice(pet_supplies),
+            name=pet_supplies[i],
             sellerId=i,
             price = f.random_number(digits=2),
             description=random.choice(generic_descriptions),
