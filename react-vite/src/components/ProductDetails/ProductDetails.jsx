@@ -12,7 +12,7 @@ import { CartContext } from "../../context/CartContext";
 import Cart from "../Cart/Cart";
 import StarRatings from "react-star-ratings";
 import "./ProductDetails.css";
-import { thunkGetOneReview, thunkGetAllReviews } from "../../redux/reviews";
+import { thunkGetAllReviews } from "../../redux/reviews";
 import ReviewsComponent from "../ReviewForm/ReviewsComponent";
 
 export default function ProductDetailsPage() {
@@ -49,10 +49,13 @@ const heartStates = useSelector((state) => state.favorites);
   }, [product?.category])
 
   useEffect(() => {
-    // dispatch(thunkGetOneReview(productId))
     dispatch(thunkGetAllReviews())
     dispatch(thunkGetAllFavorites())
-  }, [dispatch,]);
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(thunkGetAllReviews())
+  }, [dispatch, productId]);
 
 
   function addDays(days) {
