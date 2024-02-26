@@ -14,28 +14,10 @@
   margin-top: 5px;
 }
 
-.pb-quad-two {
-  display: flex;
-}
+.pb-quad-one .blocks {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
 
-.profile-dropdown {
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  cursor: pointer;
-  width: 150px;
-  text-decoration: underline 1px;
-  color: #222222;
-  margin-left: 0px;
-  padding-bottom: 8px;
-  cursor: pointer;
-  border: 1px solid #222222;
-  padding-right: 15px;
-
-  /* margin-right: 10px; */
-}
-
-.pb-block {
-  display: flex;
-  flex-direction: column;
 }

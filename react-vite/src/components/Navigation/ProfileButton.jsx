@@ -8,6 +8,7 @@ import SignupFormModal from "../SignupFormModal";
 import { useContext } from "react";
 import { CartContext } from "../../context/CartContext";
 import './ProfileButton.css'
+import { clearState } from "../../redux/favorited_items";
 
 function ProfileButton() {
   const { clearCart } = useContext(CartContext);
@@ -41,6 +42,7 @@ function ProfileButton() {
   const logout = (e) => {
     e.preventDefault();
     dispatch(thunkLogout())
+    .then(() => dispatch(clearState()))
     .then(() => clearCart())
     .then(() => navigate("/"))
     .then(() => closeMenu());
@@ -49,56 +51,33 @@ function ProfileButton() {
   // const handleOnClock = (param) =>{
   //   navigate
   // }
-
   return (
     <div className="profile-bttn-main-cont">
-      <div onClick={toggleMenu}>
-        <i className="fas fa-user-circle pb-icon" />
-      </div>
+      <button onClick={toggleMenu}>
+        <i className="fas fa-user-circle" />
+      </button>
       {showMenu && (
-        <div className="profile-dropdown" ref={ulRef}>
+        <ul className={"profile-dropdown"} ref={ulRef}>
           {user ? (
             <>
-              <div className="pb-quad-one blocks pb-block">
-                <span>{`Hello, ${user.username}!`}</span>
-                <span></span>
-              </div>
-              <div className="pb-quad-two blocks pb-block">
-                <div className='pb-orders-text-cont'>
-                  <span onClick={() => {navigate("/orders");
-                      closeMenu();
-                    }}
-                  >
-                    Your Orders
-                  </span>
-                </div>
-                <div className='pb-fav-text-cont'>
-                <span
-                  onClick={() => {
-                    navigate("/favorites");
-                    closeMenu();
-                  }}
-                >
-                  Favorite Items
-                </span>
+            <div className='pb-quad-one blocks'>
+              <span>{`Hello, ${user.username}!`}</span>
+              <span></span>
+              <br />
+              <span onClick={() =>{ navigate('/orders'); closeMenu()}}>Your Orders</span>
+              {/* <span>Reviews</span> */}
+              <br />
+              <span onClick={() => {navigate('/favorites'); closeMenu();}}>Favorite Items</span>
+              <br />
+              <span onClick={(() =>{navigate('/store')})}>Your Store</span>
 
-                </div>
-                <div className='pb-store-text-cont'>
+            </div>
+            <div>
+              <div className='pb-quad-three blocks'>
+                <button onClick={logout}>Log Out</button>
+              </div>
 
-                <span
-                  onClick={() => {
-                    navigate("/store");
-                  }}
-                >
-                  Your Store
-                </span>
-                </div>
-              </div>
-              <div>
-                <div className="pb-quad-three pb-block">
-                  <button id="log-out" onClick={logout}>Log Out</button>
-                </div>
-              </div>
+            </div>
             </>
           ) : (
             <>
@@ -114,7 +93,7 @@ function ProfileButton() {
               />
             </>
           )}
-        </div>
+        </ul>
       )}
     </div>
   );

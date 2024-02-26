@@ -6,14 +6,17 @@
   justify-content: space-evenly;
   align-items: center;
 }
+
+/* ******* */
+
 /*  LOGO  */
 .logo-img {
   border-radius: 100%;
   height: 100px;
   width: 200px;
-  cursor: pointer;
   /* background-color:
   #d9d6ee; */
+  cursor: pointer;
 }
 
 /* ******* */
@@ -21,6 +24,18 @@
   font-weight: 100;
   cursor: pointer;
   border: none;
+}
+.cat-dropdown {
+  position: absolute;
+  cursor: pointer;
+  z-index: 4;
+}
+
+.nav-cat-main-cont {
+  font-weight: 100;
+  cursor: pointer;
+  border: none;
+
 }
 .nav-cat-main-cont:hover {
   box-shadow: 0 3px 5px #e68cfc;
@@ -35,20 +50,23 @@
   color: #222222;
   border: 1px solid #222222;
 }
-CATEGORIES NAV CONT */
-/* .profile-dropdown {
+.profile-dropdown {
   position: absolute;
-  cursor: pointer;
-  width: 150px;
+  /* width: 100px;
+  height: 90px; */
   text-decoration: underline 1px;
   color: #222222;
-  margin-left: 0px;
+  display: flex;
+  flex-direction: column;
+  /* flex-wrap: wrap; */
+
   padding-bottom: 8px;
   cursor: pointer;
   border: 1px solid #222222;
-  padding-right: 15px;
+  padding-right: 19px;
+}
+/* ******* */
 
-} */
 /* SEARCH BAR  */
 .search-bar {
   width: 320px;
@@ -58,20 +76,14 @@ CATEGORIES NAV CONT */
   background-size: 13px;
   background-repeat: no-repeat;
   background-position: 10px center;
-  /* float: right; */
   text-align: center;
 }
-
-.nav-search-main-cont {
+.nav-search-main-cont{
   display: flex;
   flex-direction: row;
-  border-color: 1px solid black;
-  /* width:320px;
-  padding: 5px;
-  border-radius: 100px; */
-  /* border-radius: 100px; */
+  border-color:1px solid  black;
 }
-
+/* ******* */
 .blocks {
   /* padding-left: 7px; */
   margin-left: 3px;
@@ -82,7 +94,6 @@ CATEGORIES NAV CONT */
   text-decoration: underline 1px;
   font-weight: 100;
   font-family: Arial, Helvetica, sans-serif;
-  z-index: 4;
 }
 
 /* PROFILE BUTTON      */
@@ -95,20 +106,7 @@ CATEGORIES NAV CONT */
   width: 20px;
 }
 
-.blocks {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+
 .pb-quad-three {
   text-decoration: none;
 }
-
-#log-out {
-  border-radius: 5px;
-  border: none;
-}
-
-#log-out:hover {
-  cursor: pointer;
-} */

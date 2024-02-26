@@ -24,61 +24,58 @@ const ProductForm = ({ product, formType, productId }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    setDisabled(true);
+        setDisabled(true)
 
-    setSubmitted(true);
-    price = parseFloat(price);
+        setSubmitted(true)
+        price = parseFloat(price)
 
-    shipping_time = parseInt(shipping_time);
+        shipping_time = parseInt(shipping_time)
 
-    product = {
-      name,
-      description,
-      price,
-      category,
-      shipping_time,
-      return_policy,
-      free_shipping,
-    };
+        product = { name, description, price, category, shipping_time, return_policy, free_shipping};
 
-    if (Object.values(errors).length) {
-      product.errors = errors;
-    }
-
-    if (formType === "Create Product" && !product.errors) {
-      // console.log(product)
-      let imageInput = image;
-      if (secondImage) {
-        imageInput = [image, secondImage];
-        if (thirdImage) {
-          imageInput = [image, secondImage, thirdImage];
+        if(Object.values(errors).length) {
+            product.errors = errors;
         }
-      }
 
-      if (thirdImage && !secondImage) {
-        imageInput = [image, thirdImage];
-      }
-      product = await dispatch(thunkCreateProduct(product, imageInput));
-      // console.log(product)
-    } else if (formType === "Update Product" && !product.errors) {
-      console.log(product);
-      console.log(productId);
-      product = await dispatch(thunkUpdateProduct(productId, product));
-      console.log("after thunk", product);
-    } else {
-      setDisabled(false);
 
-      return null;
-    }
+        if(formType === 'Create Product' && !product.errors) {
+            // console.log(product)
+            let imageInput = [image]
+            if(secondImage) {
+                imageInput = [image, secondImage]
+                if(thirdImage) {
+                    imageInput = [image, secondImage, thirdImage]
+                }
+            }
 
-    if (product.errors) {
-      setErrors(product.errors);
+            if(thirdImage && !secondImage) {
+                imageInput = [image, thirdImage]
+            }
+            product = await dispatch(thunkCreateProduct(product, imageInput));
+            // console.log(product)
 
-      setDisabled(false);
-    } else {
-      navigate(`/products/${product.product.id}`);
-    }
-  };
+        } else if (formType === "Update Product" && !product.errors) {
+            console.log(product)
+            console.log(productId)
+            product = await dispatch(thunkUpdateProduct(productId, product))
+            console.log("after thunk", product)
+        } else{
+
+            setDisabled(false)
+
+            return null;
+        }
+
+        if(product.errors) {
+
+            setErrors(product.errors);
+
+            setDisabled(false)
+        } else {
+
+            navigate(`/products/${product.product.id}`)
+        }
+    };
 
   useEffect(() => {
     const newErrors = {};
