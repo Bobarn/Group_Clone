@@ -1,0 +1,20 @@
+@media only screen and (min-width: 464px) {
+    .nav-main-cont{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    
+      .nav-cat-comp-cont,
+      .logo-main-cont {
+        margin-bottom: 0;
+      }
+    
+      .search-bar {
+        width: 300px; /* Adjust width as needed */
+      }
+      .logo-img {
+        height: 75px;
+        width: 85px;
+      }
+}

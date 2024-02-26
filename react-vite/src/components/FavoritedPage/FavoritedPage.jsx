@@ -27,27 +27,31 @@ const FavoritesPage = () => {
       // const relatedProducts = getRelatedProducts(favorite.category);
       return (
 
+        <div className="favorites-section" >
         <NavLink key={favorite.id} to={`/products/${favorite.id}`} className="onefav">
-          <img src={favorite.preview_image} className="previmg" alt={favorite.name} />
+          <img src={favorite.preview_image} className="previmg responsive1" alt={favorite.name} />
           <h2 className="itemname">{favorite.name}</h2>
           <h3 className="proddesc">{favorite.description}</h3>
           <p className="price">{favorite.price}</p>
         </NavLink>
-
+        </div>
       )
       }))
   };
 
   return (
-    <div className="favoritescont">
-      <h1>Your Favorites</h1>
+    <div className="row main-cont">
+    <div className="favoritescont column">
+      <h2>Favorite Items</h2>
       <div className="top-half">
       {favorites.map((favorite) => (
+        
         <div key={favorite.id}>
+        
           <NavLink to={`/products/${favorite.id}`} className="onefav">
-            <img src={favorite.preview_image} className="previmg" alt={favorite.name} />
-            <h2 className="itemname">{favorite.name}</h2>
-            <h3 className="proddesc">{favorite.description}</h3>
+            <img src={favorite.preview_image} className="previmg responsive" alt={favorite.name} />
+            <h3 className="itemname">{favorite.name}</h3>
+            <p className="proddesc">{favorite.description}</p>
             <p className="price">{favorite.price}</p>
           </NavLink>
         </div>
@@ -56,12 +60,13 @@ const FavoritesPage = () => {
 
   {favorites.length > 0 &&
   <>
-  <h2 className="related-tag">Related Products</h2>
+  <h3 className="related-tag">Related Products</h3>
   <div className="bottom-half">
     {getRelatedProducts()}
           </div>
   </>
   }
+          </div>
           </div>
       );
   };
