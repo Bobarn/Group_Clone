@@ -49,8 +49,6 @@
   padding: 5px;
   color: #222222;
   border: 1px solid #222222;
-
-
 }
 .profile-dropdown {
   position: absolute;
@@ -70,8 +68,8 @@
 /* ******* */
 
 /* SEARCH BAR  */
-.search-bar{
-  width:320px;
+.search-bar {
+  width: 320px;
   padding: 15px;
   border-radius: 100px;
   background-image: url("https://upload.wikimedia.org/wikipedia/commons/5/55/Magnifying_glass_icon.svg");
@@ -99,8 +97,8 @@
 }
 
 /* PROFILE BUTTON      */
-.profile-bttn-main-cont{
-  cursor: pointer
+/* .profile-bttn-main-cont {
+  cursor: pointer;
 }
 
 .profile-btn {
