@@ -2,46 +2,17 @@
 import DeleteReview from "./DeleteReview";
 import EditReview from "./EditReviewComponent"
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
-import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { thunkGetOneReview } from "../../redux/reviews";
+import { useSelector } from "react-redux";
+
 import ReviewModal from "./ReviewModal";
 import './ReviewComponent.css'
 
 const ReviewsComponent = ({ reviews }) => {
 
-
-  // const [reviewedCheck, setReviewedCheck] = useState(false);
-
   const user = useSelector((state) => state.session.user)
 
-  const { productId } = useParams();
-
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    const fetchData = async () => {
-      await dispatch(thunkGetOneReview(productId));
-    };
-
-    fetchData();
-  }, [dispatch, productId]);
-
-  // let reviewedCheck;
-
   const reviewData = Object.values(reviews)
-  // Object.values(reviews).forEach((review) => {
-  //   if (user) {
 
-  //     if (review.user.id === user.id) {
-  //       reviewedCheck = true
-
-  //     } else {
-  //       reviewedCheck = false
-  //     }
-  //   }
-  // })
   const reviewedCheck = reviewData.some(obj => obj?.user?.id === user?.id)
 
   if (!reviews) return null;

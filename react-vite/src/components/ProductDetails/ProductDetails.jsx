@@ -19,7 +19,7 @@ import { CartContext } from "../../context/CartContext";
 import Cart from "../Cart/Cart";
 import StarRatings from "react-star-ratings";
 import "./ProductDetails.css";
-import { thunkGetOneReview } from "../../redux/reviews";
+import { thunkGetAllReviews } from "../../redux/reviews";
 import ReviewsComponent from "../ReviewForm/ReviewsComponent";
 
 export default function ProductDetailsPage() {
@@ -48,7 +48,7 @@ export default function ProductDetailsPage() {
 
   const reviews = useSelector((state) => state.reviews);
   // converting the reviews object of objects to an array
-  const reviewsArray = Object.values(reviews);
+  const reviewsArray = Object.values(reviews).filter((review) => review.product_id == productId);
 
   useEffect(() => {
     dispatch(thunkGetAllProducts());
@@ -58,9 +58,14 @@ export default function ProductDetailsPage() {
   }, [product?.category]);
 
   useEffect(() => {
-    dispatch(thunkGetOneReview(productId));
-    dispatch(thunkGetAllFavorites());
+    dispatch(thunkGetAllReviews())
+    dispatch(thunkGetAllFavorites())
   }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(thunkGetAllReviews())
+  }, [dispatch, productId]);
+
 
   function addDays(days) {
     var result = new Date();
