@@ -18,7 +18,7 @@ function Navigation() {
   const fetchProducts = async () => {
     try {
       const response = await fetch("/api/products/all");
-      if (!response.ok) {JJJ
+      if (!response.ok) {
         throw new Error("Failed to fetch products");
       }
       const data = await response.json();
