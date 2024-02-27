@@ -11,7 +11,7 @@ import {
   thunkGetAllFavorites,
 } from "../../redux/favorited_items";
 import StarRatings from "react-star-ratings";
-import "./CategoryProducts.css";
+import "./CategoryProducts2.css";
 
 function CategoryProducts() {
   const dispatch = useDispatch();

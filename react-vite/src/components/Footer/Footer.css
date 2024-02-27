@@ -1,5 +1,7 @@
 .footer-main-cont {
-  /* height: 100px; */
+  position: fixed; /* Fixed positioning to keep it at the bottom */
+  bottom: 0; /* Align the footer to the bottom of the viewport */
+  left: 0;
   width: 100%;
   display: flex;
   justify-content: center;
