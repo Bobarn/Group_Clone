@@ -35,3 +35,7 @@ main {
       opacity: 1;
   }
 }
+
+.errors {
+  color: red;
+}

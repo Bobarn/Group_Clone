@@ -208,7 +208,7 @@ def post_product_images(id):
         if "url" not in upload:
             return upload, 401
 
-        new_image = ProductImage(url=upload["url"], image_name=imageName, productId=int(id))
+        new_image = ProductImage(url=upload["url"], preview=form.data["preview"], image_name=imageName, productId=int(id))
 
         db.session.add(new_image)
         db.session.commit()
@@ -247,9 +247,32 @@ def update_product_images(id):
     else:
         return {'message': "Image does not exist"}, 404
 
+
+@product_routes.route("/<int:id>/preview", methods=['PUT'])
+@login_required
+def update_preview_image(id):
+    form = ImageForm()
+    form["csrf_token"].data = request.cookies["csrf_token"]
+    if form.validate_on_submit():
+        productImage = ProductImage.query.filter_by(productId=id, preview=True).first()
+        if productImage:
+            remove_file_from_s3(productImage.url)
+            url = form.data["url"]
+            imageName = form.data["url"].filename
+            url.filename = get_unique_filename(url.filename)
+            upload = upload_file_to_s3(url)
+            if "url" not in upload:
+                return upload, 401
+            productImage.url = upload["url"]
+            productImage.image_name = imageName
+            db.session.commit()
+            return {"product_image": productImage.product.to_dict()}
+        else:
+            return {'message': "Image does not exist"}, 404
+    return { "update_preview_image": form.errors }
+
 @product_routes.route("/images/<int:id>", methods=['DELETE'])
 @login_required
-
 def delete_product_images(id):
     productImage = ProductImage.query.get(id)
     if productImage:

@@ -14,7 +14,7 @@ const ProductForm = ({ product, formType, productId }) => {
   const [free_shipping, setFree_shipping] = useState(product?.free_shipping);
   const [return_policy, setReturn_policy] = useState(product?.return_policy);
   let [shipping_time, setShipping_time] = useState(product?.shipping_time);
-  const [image, setImage] = useState(product?.preview_image);
+  const [image, setImage] = useState(product?.image);
   const [secondImage, setSecondImage] = useState(product?.images[1] ? product?.images[1] : "");
   const [thirdImage, setThirdImage] = useState(product?.images[2] ? product?.images[2] : "");
   const [disabled, setDisabled] = useState(false);
@@ -22,10 +22,11 @@ const ProductForm = ({ product, formType, productId }) => {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
+  // console.log(image)
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // console.log("IN HERE")
 
 
 
@@ -58,14 +59,17 @@ const ProductForm = ({ product, formType, productId }) => {
             // console.log(product)
             let image1 = new FormData();
             image1.append("url", image);
+            image1.append("preview", true)
             let imageInput = [image1]
             if(secondImage) {
               let image2 = new FormData();
               image2.append("url", secondImage);
+              image2.append("preview", false)
                 imageInput = [image1, image2]
                 if(thirdImage) {
                     let image3 = new FormData();
                     image3.append("url", thirdImage);
+                    image3.append("preview", false)
                     imageInput = [image1, image2, image3]
                 }
             }
@@ -73,17 +77,21 @@ const ProductForm = ({ product, formType, productId }) => {
             if(thirdImage && !secondImage) {
                 let image3 = new FormData();
                 image3.append("url", thirdImage);
+                image3.append("preview", false)
                 imageInput = [image, image3]
             }
             product = await dispatch(thunkCreateProduct(form, imageInput));
-            // console.log(product)
 
         } else if (formType === "Update Product" && !product.errors) {
           setLoading(true)
-            // console.log(product)
-            // console.log(productId)
-            product = await dispatch(thunkUpdateProduct(productId, form))
-            // console.log("after thunk", product)
+          // if(image) {
+            let previewImageData = new FormData();
+            previewImageData.append("url", image);
+            previewImageData.append("preview", true)
+          // }
+
+            product = await dispatch(thunkUpdateProduct(productId, form, previewImageData))
+
           } else{
 
             setDisabled(false)
@@ -175,6 +183,26 @@ const ProductForm = ({ product, formType, productId }) => {
             </label>
           </div>
         </div>
+        {formType == "Update Product" && (
+          <div className={"product-form-input"}>
+            <div className={"product-form-restraint"}>
+              <div className="input-name">
+                <h2 className="form-text">What does it look like?</h2>
+                <h3 className="form-text">Share a picture with us!</h3>
+              </div>
+              <label className="product-input">
+                Preview Image:
+                <input
+                  id="image-input"
+                  type="file"
+                  onChange={(e) => setImage(e.target.files[0])}
+                />
+                <p>Not happy with the current preview photo? Choose another!</p>
+                {submitted && <div className="errors">{errors.image}</div>}
+              </label>
+            </div>
+          </div>
+        )}
         {formType == "Create Product" && (
           <div className={"product-form-input"}>
             <div className={"product-form-restraint"}>

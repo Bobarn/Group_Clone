@@ -89,10 +89,13 @@ export default function ProductDetailsPage() {
 
   function dropFunction() {
     document.getElementById("myDropdown").classList.toggle("show");
+    document.getElementById("myDropdown-large").classList.toggle("show");
+
   }
 
   function shippingDropFunction() {
     document.getElementById("shippingDropdown").classList.toggle("show");
+    document.getElementById("shippingDropdown-large").classList.toggle("show");
   }
 
   function numberWithCommas(x) {
@@ -226,10 +229,7 @@ export default function ProductDetailsPage() {
                 name="rating"
               />
             </span>
-            <ReviewsComponent reviews={reviewsArray} />
-            {!reviewsArray.length && <div className="review-placeholder"></div>}
-          </div>
-          <div id="product-details-information">
+            <div id="product-details-information">
             <div className="product-information">
               <h2 className="product-detail-price">${product?.price}</h2>
               <h2 className="product-detail-name">{product?.name}</h2>
@@ -278,6 +278,74 @@ export default function ProductDetailsPage() {
                   Shipping and return policies
                 </button>
                 <div id="shippingDropdown" className="shipping-dropdown">
+                  <p>
+                    <i className="fa-regular fa-calendar"></i> Estimated
+                    Shipping Time: {product?.shipping_time} days
+                  </p>
+                  <p>
+                    <i className="fa-solid fa-truck-fast"></i> Order today and
+                    get by {addDays(product?.shipping_time)}
+                  </p>
+                  <p>
+                    <i className="fa-solid fa-boxes-packing"></i> Return Policy:{" "}
+                    {product?.return_policy}
+                  </p>
+                </div>
+              </div>
+            </span>
+          </div>
+            <ReviewsComponent reviews={reviewsArray} />
+            {!reviewsArray.length && <div className="review-placeholder"></div>}
+          </div>
+          <div id="product-details-information-large">
+            <div className="product-information">
+              <h2 className="product-detail-price">${product?.price}</h2>
+              <h2 className="product-detail-name">{product?.name}</h2>
+              <h5 className="product-detail-seller">
+                Sold by {`${product?.seller.first_name}`}
+              </h5>
+            </div>
+            <span>
+              {userId === product?.sellerId && (
+                <div className="seller-actions">
+                  <button onClick={onClickUpdate}>Update</button>
+                  <OpenModalButton
+                    modalComponent={
+                      <DeleteProductConfirmationModal productId={productId} />
+                    }
+                    buttonText={"Remove Item Listing"}
+                  />
+                </div>
+              )}
+              {userId && userId !== product?.sellerId && (
+                <div className="purchase-button">
+                  <button className="purchase action-button" onClick={buyNow}>
+                    Buy it now
+                  </button>
+                  <button
+                    className="purchase add-to-cart action-button"
+                    onClick={() => addToCart(product)}
+                  >
+                    Add to Cart
+                  </button>
+                </div>
+              )}
+            </span>
+
+            <span className="product-block">
+              <div className="product-details dropdown">
+                <button onClick={dropFunction} className="dropbtn">
+                  Item details
+                </button>
+                <h5 id="myDropdown-large" className="dropdown-content">
+                  <p>{product?.description}</p>
+                </h5>
+              </div>
+              <div className="product-details product-shipping dropdown">
+                <button onClick={shippingDropFunction} className="shipbtn">
+                  Shipping and return policies
+                </button>
+                <div id="shippingDropdown-large" className="shipping-dropdown">
                   <p>
                     <i className="fa-regular fa-calendar"></i> Estimated
                     Shipping Time: {product?.shipping_time} days

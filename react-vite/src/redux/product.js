@@ -198,21 +198,35 @@ export const thunkDeleteProduct = (productId) => async (dispatch) => {
   }
 };
 
-export const thunkUpdateProduct = (productId, product) => async (dispatch) => {
+export const thunkUpdateProduct = (productId, product, previewImage) => async (dispatch) => {
   // console.log(product)
+  const responseImage = await fetch(`/api/products/${productId}/preview`, {
+    method: "PUT",
+    body: previewImage
+  });
+
+  const newProduct = await responseImage.json();
+
+  console.log(newProduct, "Here is the new product")
+  // console.log("MADE IT HERE")
   const response = await fetch(`/api/products/${productId}`, {
     method: "PUT",
     // headers: { "Content-Type": "application/json" },
     body: product
   });
+  // console.log("MADE IT HERE AS WELL")
 
-  if (response.ok) {
+  if (response.ok && responseImage.ok) {
+    // console.log("NOW IT HERE")
+
     const updatedProduct = await response.json();
 
     dispatch(updateProduct(updatedProduct));
 
     return updatedProduct;
   } else {
+    console.log("STOPPED IT HERE")
+
     const errors = await response.json();
     // console.log(errors)
     return errors;
