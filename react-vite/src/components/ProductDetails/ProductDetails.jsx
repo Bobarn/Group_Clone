@@ -3,7 +3,6 @@ import { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import {
   thunkGetAllProducts,
-  thunkGetAllProductsByCategory,
 } from "../../redux/product";
 import DeleteProductConfirmationModal from "./ProductDeleteModal";
 import {
@@ -40,9 +39,15 @@ export default function ProductDetailsPage() {
   const product = useSelector((state) => state.products[productId]);
   const userId = useSelector((state) => state.session.user?.id);
 
-  const categoryProducts = useSelector(
-    (state) => state.products[product?.category]
-  );
+  // const categoryProducts = useSelector(
+  //   (state) => state.products[product?.category]
+  // );
+
+  const products = useSelector((state) => state.products);
+
+  // console.log(products, "PRODUCTS")
+
+  const categoryProducts = Object.values(products).filter((item) => item.category === product?.category);
 
   const heartStates = useSelector((state) => state.favorites);
 
@@ -53,9 +58,9 @@ export default function ProductDetailsPage() {
   useEffect(() => {
     dispatch(thunkGetAllProducts());
   }, [dispatch, product?.reviews]);
-  useEffect(() => {
-    dispatch(thunkGetAllProductsByCategory(product?.category));
-  }, [product?.category]);
+  // useEffect(() => {
+  //   dispatch(thunkGetAllProductsByCategory(product?.category));
+  // }, [product?.category]);
 
   useEffect(() => {
     dispatch(thunkGetAllReviews())
@@ -222,6 +227,7 @@ export default function ProductDetailsPage() {
               />
             </span>
             <ReviewsComponent reviews={reviewsArray} />
+            {!reviewsArray.length && <div className="review-placeholder"></div>}
           </div>
           <div id="product-details-information">
             <div className="product-information">

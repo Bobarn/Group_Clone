@@ -10,11 +10,13 @@ html {
 
 .Carousel {
     width: 80%;
+    /* max-width: 400px; */
 }
 
 .Carousel-image {
     width: 100%;
     height: 100%;
+    /* max-width: 400px; */
     position: relative;
 }
 
@@ -263,6 +265,8 @@ p {
     align-items: center;
 }
 
+
+
 /* Review Count and Stats */
 
 .reviews-stats {
@@ -274,6 +278,11 @@ p {
     padding: 0px 10px;
     color: #e68cfc;
 }
+
+/* .review-placeholder {
+    width: 60%;
+    min-width: 400px;
+} */
 
 
 /* Suggested Products (same category) */
@@ -320,7 +329,7 @@ p {
     position: relative;
     z-index: auto;
     width: 100%;
-    height: 150;
+    height: 150px;
 }
 
 #suggested-img-tile:hover {
@@ -431,7 +440,6 @@ p {
         text-align: center;
         align-self: center;
     }
-
 
 
 }
