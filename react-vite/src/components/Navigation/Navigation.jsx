@@ -8,7 +8,7 @@ import "./Navigation.css";
 
 function Navigation() {
   const navigate = useNavigate();
-  const logoImg ="https://cdn.discordapp.com/attachments/1196941900939280534/1199775281888637070/logo-no-background.png?ex=65c3c4cd&is=65b14fcd&hm=f65bd9aa5eadabc00111d0f96b564b8d2d7d34addfcd9625464f9a85ac476dd2&";
+  const logoImg ="https://cdn.discordapp.com/attachments/1187515837817557065/1210377534907228240/portfolio1.png?ex=65ea56ec&is=65d7e1ec&hm=08f7d6e2580a81c22c1a81ae51ffb4e44b27555d41565e1f136d6f41799ddbde&";
   // const [value,setValue] = useState()
 
   const [searchQuery, setSearchQuery] = useState("");

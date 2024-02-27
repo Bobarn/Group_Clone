@@ -50,8 +50,6 @@
   padding: 5px;
   color: #222222;
   border: 1px solid #222222;
-
-
 }
 .profile-dropdown {
   position: absolute;
@@ -148,9 +146,9 @@
 }
 
 /* PROFILE BUTTON      */
-.profile-bttn-main-cont{
-  cursor: pointer
-}
+/* .profile-bttn-main-cont {
+  cursor: pointer;
+}*/
 
 .profile-btn {
   cursor: pointer;

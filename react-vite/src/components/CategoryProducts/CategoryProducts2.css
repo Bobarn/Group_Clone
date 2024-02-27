@@ -21,12 +21,26 @@
     margin-bottom: 40px;
   }
 
+  @media screen and (max-width: 768px) {
+    .tile-main-cont {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 0px;
+      margin-bottom: 40px;
+    }
+  }
   .cat-sqr-img {
     height: 150px;
     width: 200px;
     border-radius: 5px;
     object-fit: cover;
     cursor: pointer;
+  }
+  .cat-sqr-img:hover {
+    cursor: pointer;
+    box-shadow: 5px 5px 5px rgb(234, 151, 253,.8);
+    overflow: auto;
   }
   /*  *******
 
