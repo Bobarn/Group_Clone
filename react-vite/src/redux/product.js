@@ -141,8 +141,8 @@ export const thunkCreateProduct =
   (productFormData, images) => async (dispatch) => {
     const response = await fetch("/api/products/new", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(productFormData),
+      // headers: { "Content-Type": "application/json" },
+      body: productFormData,
     });
 
     if (response.ok) {
@@ -150,17 +150,18 @@ export const thunkCreateProduct =
 
       let imageResponse
 
-      for (let image of images) {
+      // console.log(images);
+
+      for (let imageData of images) {
+        // console.log(imageData, "Here is the image data")
 
       // console.log(newProduct.product.id);
       imageResponse = await fetch(
         `/api/products/${newProduct.product.id}/images/new`,
         {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            url: image,
-          }),
+          // headers: { "Content-Type": "application/json" },
+          body: imageData
         }
       );
       }
@@ -201,8 +202,8 @@ export const thunkUpdateProduct = (productId, product) => async (dispatch) => {
   // console.log(product)
   const response = await fetch(`/api/products/${productId}`, {
     method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(product),
+    // headers: { "Content-Type": "application/json" },
+    body: product
   });
 
   if (response.ok) {

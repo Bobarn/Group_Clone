@@ -14,7 +14,7 @@ from .api.favorited_routes import favorited_routes
 from .seeds import seed_commands
 from .config import Config
 from .models.product_images import ProductImage
-from .forms.product_image_form import ImageForm
+# from .forms.product_image_form import ImageForm
 from .api.review_routes import review_routes
 
 

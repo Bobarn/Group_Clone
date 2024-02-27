@@ -8,6 +8,7 @@ class ProductImage(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     url = db.Column(db.String(255), nullable=False)
+    image_name = db.Column(db.String(255))
     productId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("products.id")), nullable=False)
     preview = db.Column(db.Boolean)
 
@@ -18,6 +19,7 @@ class ProductImage(db.Model):
         return {
                 "id": self.id,
                 "url": self.url,
+                "imageName": self.image_name,
                 "productId": self.productId,
                 "preview": self.preview
         }

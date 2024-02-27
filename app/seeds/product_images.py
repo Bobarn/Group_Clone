@@ -79,6 +79,7 @@ def seed_product_images():
         newImage = ProductImage(
             url=all_imgs[i],
             productId=i,
+            image_name=f'product_image_{i}',
             preview=True
         )
 
