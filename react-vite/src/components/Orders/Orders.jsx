@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { thunkGetAllOrders, } from "../../redux/orders";
-import "./orders.css";
+import "./Orders2.css";
 
 function Orders() {
   const dispatch = useDispatch();
