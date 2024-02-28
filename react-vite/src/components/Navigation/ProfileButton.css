@@ -7,14 +7,6 @@
 
 }
 
-.profile-bttn-main-cont > button {
-  border: none;
-  background-color: white;
-  font-size: large;
-  border-radius: 50%;
-  cursor: pointer;
-}
-
 .profile-bttn-main-cont:hover {
   box-shadow: 0 3px 5px #e68cfc;
 }
@@ -30,6 +22,17 @@
     width: fit-content;
 
 }
+
+.profile-bttn-main-cont > button {
+  border: none;
+  background-color: white;
+  font-size: large;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+
+/* Changes to the User and Logout buttons to remove default styling */
 
 #user-hello {
   cursor: default;
