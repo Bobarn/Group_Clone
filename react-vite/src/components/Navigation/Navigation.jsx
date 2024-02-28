@@ -49,16 +49,16 @@ function Navigation() {
     }
   };
 
-  
+
   const clearSearch = () => {
     setSearchQuery('');
   };
-  
+
   useEffect(() => {
     handleSearch();
   }, [searchQuery]);
-  
-  
+
+
   return (
     <div className="nav-main-cont" >
       <div className="logo-main-cont">
