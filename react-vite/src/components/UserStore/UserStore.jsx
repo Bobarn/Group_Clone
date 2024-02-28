@@ -11,7 +11,7 @@ export default function UserStore() {
   const userProducts = useSelector((state) => state.products.User);
   const user = useSelector((state) => state.session.user);
 
-  console.log("USER PRODUCTS", userProducts);
+  // console.log("USER PRODUCTS", userProducts);
   useEffect(() => {
     dispatch(thunkGetUserStore());
     if (!user) {
@@ -20,7 +20,7 @@ export default function UserStore() {
   }, [dispatch, user]);
 
   return (
-    <>
+    <div id="user-store">
       <h1 id="store-title">Your Store</h1>
       <div className="fader" id="store-container">
         {userProducts?.map((product) => (
@@ -45,6 +45,6 @@ export default function UserStore() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
