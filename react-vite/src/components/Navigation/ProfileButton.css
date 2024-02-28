@@ -7,9 +7,9 @@
 
 }
 
-.profile-bttn-main-cont:hover {
+/* .profile-bttn-main-cont:hover {
   box-shadow: 0 3px 5px #e68cfc;
-}
+} */
 
 .pb-quad-three {
   margin-top: 5px;
@@ -21,14 +21,6 @@
     align-items: center;
     width: fit-content;
 
-}
-
-#profile-bttn {
-  border: none;
-  background-color: white;
-  font-size: large;
-  border-radius: 50%;
-  cursor: pointer;
 }
 
 

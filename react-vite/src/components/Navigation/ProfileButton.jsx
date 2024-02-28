@@ -15,6 +15,7 @@ function ProfileButton() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
+  const [hovered, setHovered] = useState(false);
   const user = useSelector((store) => store.session.user);
   const ulRef = useRef();
 
@@ -51,9 +52,18 @@ function ProfileButton() {
   // const handleOnClock = (param) =>{
   //   navigate
   // }
+
+  const handleHover = () => {
+    setHovered(true);
+  }
+
+  const handleHover2 = () => {
+    setHovered(false);
+  }
+
   return (
     <div className="profile-bttn-main-cont">
-      <button id="profile-bttn" onClick={toggleMenu}>
+      <button onMouseEnter={handleHover} onMouseLeave={handleHover2} style={{border: "none", backgroundColor: "white", fontSize: "large", borderRadius: "50%", cursor: "pointer", boxShadow: hovered ? "0 3px 5px #e68cfc" : "none"}} onClick={toggleMenu}>
         <i className="fas fa-user-circle" />
       </button>
       {showMenu && (
