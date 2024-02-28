@@ -3,6 +3,7 @@ from flask_login import current_user, login_required
 from app.models import db, Product, ProductImage
 from app.forms import ProductForm, ImageForm
 from sqlalchemy import desc
+from .AWS import upload_file_to_s3, get_unique_filename, remove_file_from_s3
 
 product_routes = Blueprint("products",__name__)
 
@@ -29,7 +30,7 @@ def get_all_products():
 
 
 
-# POSSIBLE CHANGE TO QUERRY IMAGES WITH THE PRODUCTS TO MAKE TILES EASIER.
+# POSSIBLE CHANGE TO QUERY IMAGES WITH THE PRODUCTS TO MAKE TILES EASIER.
 
 @product_routes.route('/images')
 def get_all_products_with_images():
@@ -61,7 +62,7 @@ def get_products_by_category(cat):
     print(cat)
     if cat not in ['Jewelry', 'Clothes', 'Art', 'Art Supplies', 'Electronics', 'Pet Supplies']:
         return {"message": "Category doesn't exist"}, 404
-    page = request.args.get('page')
+    # page = request.args.get('page')
 
     products = Product.query.filter_by(category=cat).all()
     if not products:
@@ -147,7 +148,7 @@ def update_product(id):
         product.return_policy = form.return_policy.data
         product.free_shipping = form.free_shipping.data
 
-        print(product)
+        # print(product)
 
         db.session.commit()
 
@@ -170,6 +171,10 @@ def delete_specific_product(id):
 
     if current_user.id != product.sellerId:
         return {'message': "You do not have permission to delete this product"}, 403
+
+    for image in product.images:
+        remove_file_from_s3(image.url)
+        db.session.delete(image)
 
     db.session.delete(product)
     db.session.commit()
@@ -194,23 +199,84 @@ def post_product_images(id):
     if form.validate_on_submit():
 
         url = form.data["url"]
-        print(url)
+        imageName = form.data["url"].filename
 
-        new_image = ProductImage(url=url, productId=int(id))
+        url.filename = get_unique_filename(url.filename)
+
+        upload = upload_file_to_s3(url)
+
+        if "url" not in upload:
+            return upload, 401
+
+        new_image = ProductImage(url=upload["url"], preview=form.data["preview"], image_name=imageName, productId=int(id))
 
         db.session.add(new_image)
         db.session.commit()
         updated_product = Product.query.get(id)
 
-        return {"product": updated_product.to_dict()}
+        return {"product": updated_product.to_dict()}, 201
     return { "post_product_images": form.errors }
+
+@product_routes.route("/images/<int:id>", methods=['PUT'])
+@login_required
+def update_product_images(id):
+    productImage = ProductImage.query.get(id)
+    if productImage:
+        form = ImageForm()
+        form["csrf_token"].data = request.cookies["csrf_token"]
+        if form.validate_on_submit():
+            remove_file_from_s3(productImage.url)
+
+            url = form.data["url"]
+
+            imageName = form.data["url"].filename
+
+            url.filename = get_unique_filename(url.filename)
+
+            upload = upload_file_to_s3(url)
+
+            if "url" not in upload:
+                return upload, 401
+
+            productImage.url = upload["url"]
+            productImage.image_name = imageName
+
+            db.session.commit()
+            return {"product_image": productImage.product.to_dict()}
+        return { "update_product_images": form.errors }
+    else:
+        return {'message': "Image does not exist"}, 404
+
+
+@product_routes.route("/<int:id>/preview", methods=['PUT'])
+@login_required
+def update_preview_image(id):
+    form = ImageForm()
+    form["csrf_token"].data = request.cookies["csrf_token"]
+    if form.validate_on_submit():
+        productImage = ProductImage.query.filter_by(productId=id, preview=True).first()
+        if productImage:
+            remove_file_from_s3(productImage.url)
+            url = form.data["url"]
+            imageName = form.data["url"].filename
+            url.filename = get_unique_filename(url.filename)
+            upload = upload_file_to_s3(url)
+            if "url" not in upload:
+                return upload, 401
+            productImage.url = upload["url"]
+            productImage.image_name = imageName
+            db.session.commit()
+            return {"product_image": productImage.product.to_dict()}
+        else:
+            return {'message': "Image does not exist"}, 404
+    return { "update_preview_image": form.errors }
 
 @product_routes.route("/images/<int:id>", methods=['DELETE'])
 @login_required
-
 def delete_product_images(id):
     productImage = ProductImage.query.get(id)
     if productImage:
+        remove_file_from_s3(productImage.url)
         db.session.delete(productImage)
         db.session.commit()
         return {'id' : "Image deleted successfully!"}

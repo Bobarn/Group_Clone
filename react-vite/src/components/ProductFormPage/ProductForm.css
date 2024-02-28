@@ -1,8 +1,6 @@
 #product-form {
     display: flex;
     flex-direction: column;
-    align-self: flex-start;
-    margin-left: 10%;
     width: 80%;
     border-radius: 5px;
 }
@@ -107,4 +105,105 @@
     display: flex;
     justify-content: center;
     margin: 1%;
+}
+
+@media(min-width: 200px) and (max-width: 768px) {
+
+    #product-form {
+        align-items: center;
+    }
+
+    #product-form-input-area {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 75%;
+        text-align: center;
+    }
+
+    .product-form-restraint {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .product-input {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        height: 100px;
+    }
+
+    #product-name-input {
+        width: 50%;
+        text-align: center;
+    }
+
+    #description-input {
+        height: 100%;
+        width: 70%;
+    }
+
+    #cost-input {
+        width: 15%;
+    }
+
+    #category-input {
+        width: 20%;
+    }
+
+    #returns-policy-input {
+        width: 70%;
+        height: 60%;
+        display: flex;
+    }
+
+    .input-radio {
+        display: flex;
+    }
+
+    #root {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+}
+
+
+/* HTML: <div class="loader"></div> */
+#form-container {
+    position: relative;
+}
+
+.loader {
+    position: absolute;
+    bottom: 8%;
+    left: 50%;
+    width: 80px;
+    aspect-ratio: 1;
+    --c:#E68CFC 98%,#0000;
+    background:
+      radial-gradient(50% 70% at 50% 120%, var(--c)) top,
+      radial-gradient(70% 50% at -20% 50%, var(--c)) right,
+      radial-gradient(50% 70% at 50% -20%, var(--c)) bottom,
+      radial-gradient(70% 50% at 120% 50%, var(--c)) left;
+    background-size: 100% 50.1%,50.1% 100%;
+    background-repeat: no-repeat;
+    -webkit-mask: radial-gradient(circle 5px,#0000 90%,#000);
+    animation: l9 1.5s infinite linear;
+  }
+  @keyframes l9 {
+    100%{transform: rotate(1turn)}
+  }
+
+.loader-text {
+    position: absolute;
+    bottom: 5%;
+    left: 50%;
+    font-size: 1.5rem;
+    color: #b00bf4;
+    font-family: 'Arimo', sans-serif;
+    font-family: 'Source Serif 4', serif;
 }

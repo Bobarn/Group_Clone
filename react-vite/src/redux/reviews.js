@@ -53,11 +53,11 @@ export const thunkGetAllReviews = () => async (dispatch) => {
     const response = await fetch("/api/reviews/all");
     // console.log("thunkgetallreviews", await response.json())
     // console.log(response, "!!!!!!!!!!!!!!!!!!RESPONSE HERE!!!!!!!!!!!!!!!!!!!!!!")
-    if (response.ok) {
-      const reviews = await response.json();
-      // console.log("all reviews", reviews)
-      dispatch(getAllReviews(reviews));
-    }
+    // if (response.ok) {
+    //   const reviews = await response.json();
+    //   // console.log("all reviews", reviews)
+    //   dispatch(getAllReviews(reviews));
+    // }
   if (response.ok) {
     let reviews = await response.json();
 

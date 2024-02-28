@@ -35,6 +35,7 @@ class Product(db.Model):
         reviews_length = len(self.reviews)
         preview_image = None
         if self.images:
+            sorted(self.images, key= lambda image: image.id)
             preview_image = self.images[0].url
 
         product_dict =  {

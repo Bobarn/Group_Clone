@@ -13,7 +13,8 @@ export default function CreateProduct() {
     shipping_time: '',
     return_policy: '',
     free_shipping: false,
-    preview_image: ''
+    preview_image: '',
+    images: ['', '', ''],
   };
 
   const user = useSelector((state) => state.session.user);

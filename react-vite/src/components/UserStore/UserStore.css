@@ -42,3 +42,28 @@
     font-family: 'Arimo', sans-serif;
     font-family: 'Source Serif 4', serif;
 }
+
+@media(min-width: 500px) and (max-width: 768px) {
+    #store-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .store-img-tile {
+        width: 70%;
+    }
+}
+
+
+@media(min-width: 200px) and (max-width: 499px) {
+    #store-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .store-img-tile {
+        width: 70%;
+    }
+
+    .store-img-tile > h3 {
+        display: none;
+    }
+}

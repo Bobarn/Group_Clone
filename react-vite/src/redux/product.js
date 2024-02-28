@@ -141,8 +141,8 @@ export const thunkCreateProduct =
   (productFormData, images) => async (dispatch) => {
     const response = await fetch("/api/products/new", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(productFormData),
+      // headers: { "Content-Type": "application/json" },
+      body: productFormData,
     });
 
     if (response.ok) {
@@ -150,17 +150,18 @@ export const thunkCreateProduct =
 
       let imageResponse
 
-      for (let image of images) {
+      // console.log(images);
+
+      for (let imageData of images) {
+        // console.log(imageData, "Here is the image data")
 
       // console.log(newProduct.product.id);
       imageResponse = await fetch(
         `/api/products/${newProduct.product.id}/images/new`,
         {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            url: image,
-          }),
+          // headers: { "Content-Type": "application/json" },
+          body: imageData
         }
       );
       }
@@ -197,21 +198,35 @@ export const thunkDeleteProduct = (productId) => async (dispatch) => {
   }
 };
 
-export const thunkUpdateProduct = (productId, product) => async (dispatch) => {
+export const thunkUpdateProduct = (productId, product, previewImage) => async (dispatch) => {
   // console.log(product)
-  const response = await fetch(`/api/products/${productId}`, {
+  const responseImage = await fetch(`/api/products/${productId}/preview`, {
     method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(product),
+    body: previewImage
   });
 
-  if (response.ok) {
+  const newProduct = await responseImage.json();
+
+  console.log(newProduct, "Here is the new product")
+  // console.log("MADE IT HERE")
+  const response = await fetch(`/api/products/${productId}`, {
+    method: "PUT",
+    // headers: { "Content-Type": "application/json" },
+    body: product
+  });
+  // console.log("MADE IT HERE AS WELL")
+
+  if (response.ok && responseImage.ok) {
+    // console.log("NOW IT HERE")
+
     const updatedProduct = await response.json();
 
     dispatch(updateProduct(updatedProduct));
 
     return updatedProduct;
   } else {
+    console.log("STOPPED IT HERE")
+
     const errors = await response.json();
     // console.log(errors)
     return errors;

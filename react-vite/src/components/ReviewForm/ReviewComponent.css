@@ -25,7 +25,7 @@
 
 .prod-review-box {
   display: flex;
-  flex-direction:row;
+  flex-direction: row;
   width: 600px;
   justify-content: space-between;
   gap: 15px;
@@ -54,9 +54,42 @@
 }
 
 .edit-delete-btns {
-  gap: 10px;
+  display: flex;
+  height: fit-content;
+  gap: 7px;
 }
 
 .star-off {
   /* margin-right: 5px; */
+}
+.review-description {
+  word-break: break-all;
+}
+.edit-buts {
+color: green;
+border-radius: 7px;
+}
+.delete-buts {
+color: red;
+border-radius: 7px;
+}
+
+@media screen and (max-width: 768px) {
+  .prod-review-box {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .prod-review-rating {
+    order: 1;
+  }
+
+  .review-text-container {
+    order: 2;
+  }
+
+  .edit-delete-btns {
+    order: 3;
+  }
+
 }

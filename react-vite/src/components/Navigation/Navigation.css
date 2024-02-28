@@ -3,17 +3,19 @@
   display: flex;
   flex-direction: row;
   width: 100%;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
+  text-decoration: none;
+  /* gap: 45px; */
 }
 
 /* ******* */
 
 /*  LOGO  */
 .logo-img {
-  border-radius: 100%;
+  /* border-radius: 100%; */
   height: 100px;
-  width: 200px;
+  width: 175px;
   /* background-color:
   #d9d6ee; */
   cursor: pointer;
@@ -24,6 +26,7 @@
   font-weight: 100;
   cursor: pointer;
   border: none;
+  text-decoration: none;
 }
 .cat-dropdown {
   position: absolute;
@@ -49,8 +52,6 @@
   padding: 5px;
   color: #222222;
   border: 1px solid #222222;
-
-
 }
 .profile-dropdown {
   position: absolute;
@@ -60,31 +61,77 @@
   color: #222222;
   display: flex;
   flex-direction: column;
-  /* flex-wrap: wrap; */
-
   padding-bottom: 8px;
-  cursor: pointer;
   border: 1px solid #222222;
   padding-right: 19px;
+  cursor: default;
 }
 /* ******* */
 
 /* SEARCH BAR  */
 .search-bar{
-  width:320px;
+  width:280px;
   padding: 15px;
   border-radius: 100px;
   background-image: url("https://upload.wikimedia.org/wikipedia/commons/5/55/Magnifying_glass_icon.svg");
-  background-size: 13px;
+  background-size: 15px;
   background-repeat: no-repeat;
-  background-position: 10px center;
+  background-position: 12px center;
   text-align: center;
 }
-.nav-search-main-cont{
-  display: flex;
-  flex-direction: row;
-  border-color:1px solid  black;
+
+.search-results-container {
+  position: absolute;
+  width: 300px; /* Adjust width as needed */
+  max-height: 300px; /* Adjust max height as needed */
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 999;
 }
+
+.search-results-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.search-result {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  text-decoration: none;
+  color: #333;
+}
+
+.search-result:hover {
+  background-color: #f5f5f5;
+}
+
+.result-img {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+.result-details {
+  flex: 1;
+}
+
+.itemname {
+  margin: 0;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.proddesc {
+  margin: 5px 0;
+  font-size: 13px;
+}
+
 /* ******* */
 .blocks {
   /* padding-left: 7px; */
@@ -99,9 +146,9 @@
 }
 
 /* PROFILE BUTTON      */
-.profile-bttn-main-cont{
-  cursor: pointer
-}
+/* .profile-bttn-main-cont {
+  cursor: pointer;
+}*/
 
 .profile-btn {
   cursor: pointer;
@@ -112,3 +159,9 @@
 .pb-quad-three {
   text-decoration: none;
 }
+
+@media(max-width: 507px) {
+  .cat-menu-drop {
+    display: none;
+}
+ }

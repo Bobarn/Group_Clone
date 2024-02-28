@@ -1,30 +1,35 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { thunkGetAllProductsByCategory } from "../../redux/product";
-import { thunkCreateFavorite,thunkDeleteFavorite, thunkGetAllFavorites  } from "../../redux/favorited_items";
-import StarRatings from 'react-star-ratings'
-import "./CategoryProducts.css"
+import {
 
+  thunkGetAllProducts,
+} from "../../redux/product";
+import {
+  thunkCreateFavorite,
+  thunkDeleteFavorite,
+  thunkGetAllFavorites,
+} from "../../redux/favorited_items";
+import StarRatings from "react-star-ratings";
+import "./CategoryProducts2.css";
 
 function CategoryProducts() {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   let { category } = useParams();
-  const allCatProds = useSelector((state) => state.products[category]);
+  const allProds = useSelector((state) => state.products);
+  const allCatProdsArr = Object.values(allProds)
+  const allCatProds = allCatProdsArr.filter(prod => prod.category === category)
   const currUser = useSelector((state) => state.session.user);
 
-
-
   useEffect(() => {
-    dispatch(thunkGetAllProductsByCategory(category));
+
+    dispatch(thunkGetAllProducts())
     // Only way I can get it to only pull category otherwise it loads all products
     // return () => dispatch(clearState())
-    dispatch(thunkGetAllFavorites())
-  }, [dispatch,category]);
-
-
+    dispatch(thunkGetAllFavorites());
+  }, [dispatch]);
 
   const heartStates = useSelector((state) => state.favorites);
 
@@ -32,30 +37,26 @@ function CategoryProducts() {
     // e.preventDefault();
     dispatch(thunkCreateFavorite(productId));
 
-    if(currUser.id && heartStates[productId]) {
+    if (currUser.id && heartStates[productId]) {
       // console.log(productId)
-        dispatch(thunkDeleteFavorite(productId))
-      }
-      else if(currUser.id) {
-        dispatch(thunkCreateFavorite(productId));
-      }
-
+      dispatch(thunkDeleteFavorite(productId));
+    } else if (currUser.id) {
+      dispatch(thunkCreateFavorite(productId));
+    }
   };
 
-
-
-
-
-
-//   //Create product tiles
+  //   //Create product tiles
   const createCatTiles = () => {
     return (
       <div className="tile-main-cont">
-
         {allCatProds.map((product) => (
-          <div key={product.id} className="single-tile" onClick={() => navigate(`/products/${product.id}`)}>
+          <div
+            key={product.id}
+            className="single-tile"
+            onClick={() => navigate(`/products/${product.id}`)}
+          >
             <div
-            //   className="heart-button"
+              //   className="heart-button"
               className="cat-heart-button"
               onClick={() =>
                 currUser
@@ -70,8 +71,8 @@ function CategoryProducts() {
               )}
             </div>
             <div
-            //   className="sqr-img-cont"
-            className="cat-sqr-img-cont"
+              //   className="sqr-img-cont"
+              className="cat-sqr-img-cont"
               onClick={() => navigate(`/products/${product.id}`)}
             >
               <img
@@ -85,31 +86,29 @@ function CategoryProducts() {
               />
             </div>
             <div className="cat-title-cont">
-                <span>{product.name}</span>
-
+              <span>{product.name}</span>
             </div>
-            <div className='review-cont'>
-            <StarRatings
-                rating={product.reviews}
+            <div className="review-cont">
+              <StarRatings
+                rating={product.star_rating ? product.star_rating : 0}
                 starRatedColor="black"
                 starEmptyColor="#d3d3d1"
                 numberOfStars={5}
                 starDimension="20px"
                 starSpacing="3px"
-                name="rating"/>
-
+                name="rating"
+              />
             </div>
 
-            <div className='cat-seller-cont'>
-                <span>Seller: {product.seller.username}</span>
-
+            <div className="cat-seller-cont">
+              <span>Seller: {product.seller.username}</span>
             </div>
             {/* <div className="price-cont"> */}
             <div className="cat-price-cont">
               <span>${product.price}</span>
             </div>
-            <div className={ product.free_shipping?'cat-shipping-cont':null}>
-                <span>{product.free_shipping ? "Free shipping":null}</span>
+            <div className={product.free_shipping ? "cat-shipping-cont" : null}>
+              <span>{product.free_shipping ? "Free shipping" : null}</span>
             </div>
           </div>
         ))}
@@ -117,19 +116,15 @@ function CategoryProducts() {
     );
   };
 
-  if(!allCatProds) return null
-  return(
-  <div className="cat-page-main-cont">
-    <div className='cat-head-cont'>
-    <span>{`Explore our collection and shop all ${category}`}</span>
-
+  if (!allCatProds) return null;
+  return (
+    <div className="cat-page-main-cont">
+      <div className="cat-head-cont">
+        <span>{`Explore our collection and shop all ${category}`}</span>
+      </div>
+      <div className="cat-func-cont">{createCatTiles()}</div>
     </div>
-    <div className='cat-func-cont'>
-    {createCatTiles()}
-
-    </div>
-    </div>
-    )
+  );
 }
 
 export default CategoryProducts;
