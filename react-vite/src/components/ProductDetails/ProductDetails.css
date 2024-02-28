@@ -369,7 +369,9 @@ p {
         display: flex;
         flex-direction: column;
         width: 100%;
-        padding-left: 15%;
+        /* padding-left: 15%; */
+        padding-left: 5px;
+        padding-right: 5px;
     }
 
     #product-details-body {
@@ -377,7 +379,9 @@ p {
         flex-direction: column;
         grid-template-columns: 1fr;
         margin: 0px auto 0px;
-        padding-left: 15%;
+        /* padding-left: 15%; */
+        padding-left: 5px;
+        padding-right: 5px;
     }
 
     #product-details-information {

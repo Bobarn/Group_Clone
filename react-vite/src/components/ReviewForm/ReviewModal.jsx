@@ -138,7 +138,7 @@ function ReviewModal() {
           <div>Seller: {product?.seller?.username}</div>
         </div>
       </div>
-      <h2 className='edith2'>My review </h2>
+      <h2 className='edith2'>My Review </h2>
       <div className="star-rating">
       {renderStars(rating, setRating, "Overall Rating")}
       {renderStars(itemQuality, setItemQuality, "Item Quality")}

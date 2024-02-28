@@ -110,7 +110,7 @@ const EditReviewModal = () => {
         What do you think about this? Did it ship on time? Describe your
         experience with this shop.
       </h3>
-      <h2 className="edith2"> My review </h2>
+      <h2 className="edith2"> My Review </h2>
       <form onSubmit={handleSubmit}>
 
       <div className=" star-rating">
@@ -214,7 +214,7 @@ const EditReviewModal = () => {
           Reviewed by {user?.first_name} {user?.last_name}
         </div>
         <div className="disclaimer" >Your review and profile information will be publicly displayed</div>
-        <button type="submit" disabled={!enableSubmit || rating === 0}>
+        <button className="post-btn" type="submit" disabled={!enableSubmit || rating === 0}>
           Post Your Review
         </button>
       </form>
