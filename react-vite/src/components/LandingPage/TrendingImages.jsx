@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import './LandingPage2.css'
 
 function TrendingImages({ products }) {
   //   const allProducts = useSelector((state) => state.products);
@@ -16,6 +17,7 @@ function TrendingImages({ products }) {
         <div
           key={product.id}
           className="single-img-tile"
+          id="rec-single-tile"
           onClick={() => navigate(`/products/${product.id}`)}
         >
           <img
