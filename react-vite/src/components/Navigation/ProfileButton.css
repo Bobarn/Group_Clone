@@ -31,6 +31,9 @@
   cursor: pointer;
 }
 
+
+/* Changes to the User and Logout buttons to remove default styling */
+
 #user-hello {
   cursor: default;
 }
