@@ -205,9 +205,9 @@ export const thunkUpdateProduct = (productId, product, previewImage) => async (d
     body: previewImage
   });
 
-  const newProduct = await responseImage.json();
+  // const newProduct = await responseImage.json();
 
-  console.log(newProduct, "Here is the new product")
+  // console.log(newProduct, "Here is the new product")
   // console.log("MADE IT HERE")
   const response = await fetch(`/api/products/${productId}`, {
     method: "PUT",
@@ -225,7 +225,7 @@ export const thunkUpdateProduct = (productId, product, previewImage) => async (d
 
     return updatedProduct;
   } else {
-    console.log("STOPPED IT HERE")
+    // console.log("STOPPED IT HERE")
 
     const errors = await response.json();
     // console.log(errors)

@@ -7,6 +7,10 @@
     margin-bottom: 5%;
 }
 
+#user-store {
+    min-height: 90vh;
+}
+
 .store-img {
     width: 80%;
     border-radius: 5px;

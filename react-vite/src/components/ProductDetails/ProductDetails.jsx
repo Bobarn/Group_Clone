@@ -173,7 +173,7 @@ export default function ProductDetailsPage() {
   }
 
   return (
-    <>
+    <div id="product-details-page">
       <div className="fader product-details-main">
         {!showModal && userId && (
           <button id="cart-button" onClick={toggle}>
@@ -368,6 +368,6 @@ export default function ProductDetailsPage() {
       <div className="product-details-main suggested-products-row">
         {imageCreator()}
       </div>
-    </>
+    </div>
   );
 }

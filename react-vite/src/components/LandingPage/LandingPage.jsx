@@ -18,7 +18,7 @@ function LandingImage() {
 
   const filteredByCat = Object.values(allProducts).filter(
     (prod) => prod.category === "Art"
-  );
+  ).slice(0, 10);
 
   // LOADS PRODUCTS
   useEffect(() => {
