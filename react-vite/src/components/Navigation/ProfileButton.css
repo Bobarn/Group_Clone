@@ -7,14 +7,6 @@
 
 }
 
-.profile-bttn-main-cont > button {
-  border: none;
-  background-color: white;
-  font-size: large;
-  border-radius: 50%;
-  cursor: pointer;
-}
-
 .profile-bttn-main-cont:hover {
   box-shadow: 0 3px 5px #e68cfc;
 }
@@ -29,30 +21,4 @@
     align-items: center;
     width: fit-content;
 
-}
-
-#user-hello {
-  cursor: default;
-}
-
-
-#logout-button {
-  background-color: #F5F5F5;
-  border: none;
-  border-radius: 15px;
-  line-height: 1.5rem;
-}
-
-#logout-button:hover {
-  background-color: #f5f5f5;
-  box-shadow: 0 3px 5px #e68cfc;
-  cursor: pointer;
-}
-
-.dropdown-item {
-  cursor: pointer;
-}
-
-.modal-item {
-  cursor: pointer;
 }
