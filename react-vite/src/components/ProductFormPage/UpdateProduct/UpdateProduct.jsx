@@ -36,7 +36,8 @@ const UpdateProduct = () => {
             free_shipping: product?.free_shipping === 'true',
             category: product?.category,
             return_policy: product?.return_policy,
-            image: product?.preview_image
+            image: product?.preview_image,
+            images: product?.images,
           }}
           productId={productId}
           formType="Update Product"

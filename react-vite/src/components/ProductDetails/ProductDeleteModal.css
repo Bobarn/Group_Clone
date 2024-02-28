@@ -4,6 +4,11 @@
     justify-content: space-around;
     text-align: center;
     align-items: center;
+    position: relative;
+}
+
+#modal {
+    z-index: 4;
 }
 
 #delete-product-modal > h3 {
@@ -30,4 +35,35 @@
 
 .delete-button-title {
     margin: 0px;
+}
+
+.loader-delete {
+    position: absolute;
+    bottom: -40%;
+    left: 40%;
+    width: 80px;
+    aspect-ratio: 1;
+    --c:#E68CFC 98%,#0000;
+    background:
+      radial-gradient(50% 70% at 50% 120%, var(--c)) top,
+      radial-gradient(70% 50% at -20% 50%, var(--c)) right,
+      radial-gradient(50% 70% at 50% -20%, var(--c)) bottom,
+      radial-gradient(70% 50% at 120% 50%, var(--c)) left;
+    background-size: 100% 50.1%,50.1% 100%;
+    background-repeat: no-repeat;
+    -webkit-mask: radial-gradient(circle 5px,#0000 90%,#000);
+    animation: l9 1.5s infinite linear;
+  }
+  @keyframes l9 {
+    100%{transform: rotate(1turn)}
+  }
+
+.loader-text-delete {
+    position: absolute;
+    bottom: -50%;
+    left: 40%;
+    font-size: 1.5rem;
+    color: #b00bf4;
+    font-family: 'Arimo', sans-serif;
+    font-family: 'Source Serif 4', serif;
 }
