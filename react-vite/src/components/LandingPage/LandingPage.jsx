@@ -6,7 +6,7 @@ import { thunkGetAllFavorites } from "../../redux/favorited_items";
 import { useNavigate } from "react-router-dom";
 import CategoryImages from "./CategoryImages";
 import TrendingImages from "./TrendingImages";
-import "./LandingPage.css";
+import "./LandingPage2.css";
 
 function LandingImage() {
   const dispatch = useDispatch();
