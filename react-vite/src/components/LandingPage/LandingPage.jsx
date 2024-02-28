@@ -89,8 +89,8 @@ function LandingImage() {
     <div className="landing-main-cont">
       <div className="greeting-cont">
         <span>
-          Welcome,{" "}
-          {currUser ? "back" + " " + currUser.first_name + "!" : "To Itsy"}
+          Welcome{" "}
+          {currUser ? "back," + " " + currUser.first_name + "!" : "To Itsy"}
         </span>
       </div>
       <CategoryImages />

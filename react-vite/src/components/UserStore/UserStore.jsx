@@ -22,7 +22,7 @@ export default function UserStore() {
   return (
     <>
       <h1 id="store-title">Your Store</h1>
-      <div id="store-container">
+      <div className="fader" id="store-container">
         {userProducts?.map((product) => (
           <div className="store-product-container" key={product.id}>
             <div

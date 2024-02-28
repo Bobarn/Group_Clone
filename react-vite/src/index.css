@@ -20,3 +20,9 @@ main {
 .back-button {
   color: purple;
 }
+
+
+
+.errors {
+  color: red;
+}

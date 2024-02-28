@@ -31,6 +31,7 @@ faker = "==22.5.1"
 email-validator = "==2.1.0.post1"
 dnspython = "==2.5.0"
 idna = "==3.6"
+boto3 = "*"
 
 [dev-packages]
 

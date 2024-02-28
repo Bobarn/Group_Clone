@@ -61,20 +61,20 @@ function ProfileButton() {
           {user ? (
             <>
             <div className='pb-quad-one blocks'>
-              <span>{`Hello, ${user.username}!`}</span>
+              <span id="user-hello">{`Hello, ${user.username}!`}</span>
               <span></span>
               <br />
-              <span onClick={() =>{ navigate('/orders'); closeMenu()}}>Your Orders</span>
+              <span className="dropdown-item" onClick={() =>{ navigate('/orders'); closeMenu()}}>Your Orders</span>
               {/* <span>Reviews</span> */}
               <br />
-              <span onClick={() => {navigate('/favorites'); closeMenu();}}>Favorite Items</span>
+              <span className="dropdown-item" onClick={() => {navigate('/favorites'); closeMenu();}}>Favorite Items</span>
               <br />
-              <span onClick={(() =>{navigate('/store')})}>Your Store</span>
+              <span className="dropdown-item" onClick={(() =>{navigate('/store')})}>Your Store</span>
 
             </div>
             <div>
               <div className='pb-quad-three blocks'>
-                <button onClick={logout}>Log Out</button>
+                <button id="logout-button" onClick={logout}>Log Out</button>
               </div>
 
             </div>
