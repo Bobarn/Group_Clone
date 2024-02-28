@@ -23,7 +23,7 @@
 
 }
 
-.profile-bttn-main-cont > button {
+#profile-bttn {
   border: none;
   background-color: white;
   font-size: large;

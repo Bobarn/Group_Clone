@@ -53,7 +53,7 @@ function ProfileButton() {
   // }
   return (
     <div className="profile-bttn-main-cont">
-      <button onClick={toggleMenu}>
+      <button id="profile-bttn" onClick={toggleMenu}>
         <i className="fas fa-user-circle" />
       </button>
       {showMenu && (
