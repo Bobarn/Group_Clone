@@ -165,7 +165,9 @@ We were able to implement:
 - Reviews with Full CRUD
 
 # Challenges
+- Ensuring we were all on the same page about the functions of the backend
 
+- There were constant modifications that needed to be made to our thunks and routes in the beginning to ensure we got all the information we really wanted.
 
 # Future Expansions
 
