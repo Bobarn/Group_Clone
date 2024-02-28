@@ -174,7 +174,7 @@ export default function ProductDetailsPage() {
 
   return (
     <>
-      <div className="product-details-main">
+      <div className="fader product-details-main">
         {!showModal && userId && (
           <button id="cart-button" onClick={toggle}>
             <i className="fa-solid fa-cart-shopping fa-xl"></i> (

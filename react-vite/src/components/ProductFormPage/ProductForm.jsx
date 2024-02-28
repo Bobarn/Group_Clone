@@ -148,7 +148,7 @@ const ProductForm = ({ product, formType, productId }) => {
   ]);
 
   return (
-  <div id="form-container">
+  <div className="fader" id="form-container">
     <form id="product-form" onSubmit={handleSubmit} encType="multipart/form-data">
       {formType === "Create Product" ? (
         <div id="product-form-heading">
