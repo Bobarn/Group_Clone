@@ -5,7 +5,8 @@
   width: 100%;
   justify-content: space-between;
   align-items: center;
-  gap: 45px;
+  text-decoration: none;
+  /* gap: 45px; */
 }
 
 /* ******* */
@@ -25,6 +26,7 @@
   font-weight: 100;
   cursor: pointer;
   border: none;
+  text-decoration: none;
 }
 .cat-dropdown {
   position: absolute;
@@ -159,3 +161,9 @@
 .pb-quad-three {
   text-decoration: none;
 }
+
+@media(max-width: 507px) {
+  .cat-menu-drop {
+    display: none;
+}
+ }

@@ -41,7 +41,7 @@ function CategoriesMenu() {
         <i className="fa-solid fa-bars"></i>
 
         {/* </div> */}
-        <span>Categories</span>
+        <span className="cat-menu-drop" >Categories</span>
       </div>
       {showMenu && (
         <div className={"cat-dropdown"} ref={ulRef}>
