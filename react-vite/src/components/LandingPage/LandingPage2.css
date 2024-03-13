@@ -1,4 +1,5 @@
 /* ENTIRE LANDING PAGE CONTAINER */
+
 /* GREETING MESSAGE */
 .greeting-cont {
     display: flex;
@@ -249,9 +250,10 @@
   .landing-main-cont {
     height: 100%;
     margin-left: auto;
-    margin-right: 20px;
+    /* margin-right: 20px; */
     font-family: ui-sans-serif;
-    margin-left: 20px;
+    /* margin-left: 20px; */
     margin-top: 40px;
-    min-height: 90vh
+    min-height: 90vh;
+    border-top: 2px solid rgb(158,158,157,.3);
   }
