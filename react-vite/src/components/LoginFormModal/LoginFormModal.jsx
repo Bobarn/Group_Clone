@@ -13,6 +13,7 @@ function LoginFormModal() {
   const { closeModal } = useModal();
 
   const navigate = useNavigate();
+              /*this was added */
 
   const handleSubmit = async (e) => {
     e.preventDefault();
