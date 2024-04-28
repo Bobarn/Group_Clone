@@ -89,6 +89,7 @@ function CategoryProducts() {
               <span>{product.name}</span>
             </div>
             <div className="review-cont">
+              /*this was added */
               <StarRatings
                 rating={product.star_rating ? product.star_rating : 0}
                 starRatedColor="black"
