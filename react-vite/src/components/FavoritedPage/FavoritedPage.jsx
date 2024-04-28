@@ -45,6 +45,7 @@ const FavoritesPage = () => {
       <h2>Favorite Items</h2>
       <div className="top-half">
       {favorites.map((favorite) => (
+              /*this was added */
 
         <div key={favorite.id}>
 
