@@ -4,6 +4,7 @@ function CategoryImages() {
   const navigate = useNavigate();
 
   return (
+    /*new change added */
     <div className="category-main-cont">
       <div
         className="single-cat-main-cont"
