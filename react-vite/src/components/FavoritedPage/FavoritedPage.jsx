@@ -38,7 +38,7 @@ const FavoritesPage = () => {
       )
       }))
   };
-                /*this was added */
+               
 
   return (
     <div className="row main-cont">
